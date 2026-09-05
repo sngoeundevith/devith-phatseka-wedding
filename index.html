@@ -50,6 +50,7 @@
         /* Animation ធ្លាក់ផ្កា */
         /* Animation ធ្លាក់ផ្កា (កែសម្រួលរួចរាល់) */
     /* Animation ធ្លាក់ផ្កា - ទម្រង់ស្រទាប់ផ្កាសាគូរ៉ាពិតៗ */
+/* Animation ធ្លាក់ផ្កា - ទម្រង់ស្រទាប់ផ្កាសាគូរ៉ាពិតៗ */
 .petal {
     position: fixed;
     top: -20px;
@@ -68,6 +69,10 @@
     pointer-events: none;
     animation: fall linear infinite;
     z-index: 9999;
+    
+    /* បន្ថែមស្រមោលតូចមួយដើម្បីឱ្យផ្កាមើលទៅមានជម្រៅ 3D */
+    box-shadow: 0 2px 5px rgba(255, 183, 197, 0.4);
+}
     
     /* បន្ថែមស្រមោលតូចមួយដើម្បីឱ្យផ្កាមើលទៅមានជម្រៅ 3D */
     box-shadow: 0 2px 5px rgba(255, 183, 197, 0.4);
@@ -136,24 +141,30 @@
         .door-right .door-handle { left: 12px; }
 
         .open-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1001;
-            padding: 16px 32px;
-            background: linear-gradient(45deg, #d4af37, #f9e076, #aa7c11);
-            color: #1a0c05;
-            border: 2px solid #fff;
-            border-radius: 30px;
-            font-family: 'Moul', cursive;
-            font-size: 14px;
-            cursor: pointer;
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.9);
-            animation: pulse 2s infinite;
-            white-space: nowrap;
-        }
+    position: absolute;
+    bottom: 30px;               /* រំកិលប៊ូតុងចុះទៅខាងក្រោម */
+    left: 50%;
+    transform: translateX(-50%);/* រក្សាប៊ូតុងឱ្យនៅចំកណ្តាលជួរឈរ */
+    z-index: 10001;
+    padding: 12px 28px;
+    background: linear-gradient(45deg, #d4af37, #f9e076, #aa7c11);
+    color: #1a0c05;
+    border: 2px solid #fff;
+    border-radius: 30px;
+    font-family: 'Moul', cursive;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.9);
+    animation: pulse 2s infinite;
+    white-space: nowrap;
+}
 
+/* កែសម្រួល Animation pulse ឱ្យត្រូវតាម transform ថ្មី */
+@keyframes pulse {
+    0% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.05); }
+    100% { transform: translateX(-50%) scale(1); }
+}
         @keyframes pulse {
             0% { transform: translate(-50%, -50%) scale(1); }
             50% { transform: translate(-50%, -50%) scale(1.05); }
