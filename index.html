@@ -48,9 +48,9 @@
             overflow-y: auto;
         }
 
-        /* Animation ធ្លាក់ផ្កា - ទម្រង់ស្រទាប់ផ្កាសាគូរ៉ាពិតៗ */
+        /* Animation ធ្លាក់ផ្កា - កំណត់អក្សរឱ្យបង្ហាញតែក្នុង Page 1 */
         .petal {
-            position: fixed;
+            position: absolute;
             top: -20px;
             background: linear-gradient(135deg, #ffc0cb 0%, #ffb7c5 50%, #ff8da1 100%);
             width: 12px;
@@ -60,7 +60,7 @@
             opacity: 0.85;
             pointer-events: none;
             animation: fall linear infinite;
-            z-index: 99999;
+            z-index: 99;
             box-shadow: 0 2px 5px rgba(255, 183, 197, 0.4);
         }
 
@@ -132,11 +132,12 @@
         .door-right { transform-origin: right center; border-left: 2px solid #110703; }
         .door-right .door-handle { left: 12px; }
 
+        /* កែប្រែប៊ូតុង ចុចបើក ឱ្យឡើងលើស្អាត */
         .open-btn {
             position: absolute;
-            bottom: 20px;
+            top: 80%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             z-index: 10001;
             padding: 12px 28px;
             background: linear-gradient(45deg, #d4af37, #f9e076, #aa7c11);
@@ -152,9 +153,9 @@
         }
 
         @keyframes pulse {
-            0% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.05); }
-            100% { transform: translateX(-50%) scale(1); }
+            0% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.05); }
+            100% { transform: translate(-50%, -50%) scale(1); }
         }
 
         .door-wrapper.opened .door-left { transform: rotateY(-110deg); }
@@ -365,6 +366,8 @@
             flex-direction: column;
             min-height: calc(100vh - 60px);
             box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
         }
 
         #page1 .nav-btn-container {
@@ -643,12 +646,13 @@
             document.getElementById('cardContainer').scrollTop = 0;
         }
 
+        /* បង្កើតផ្កាឱ្យធ្លាក់តែនៅក្នុង Page 1 */
         function createPetals() {
-            const container = document.body;
+            const container = document.getElementById('page1');
             for (let i = 0; i < 30; i++) {
                 const petal = document.createElement('div');
                 petal.classList.add('petal');
-                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.left = Math.random() * 100 + '%';
                 petal.style.width = Math.random() * 10 + 10 + 'px';
                 petal.style.height = Math.random() * 10 + 15 + 'px';
                 petal.style.animationDuration = Math.random() * 3 + 3 + 's';
