@@ -49,16 +49,29 @@
 
         /* Animation ធ្លាក់ផ្កា */
         /* Animation ធ្លាក់ផ្កា (កែសម្រួលរួចរាល់) */
-    .petal {
-        position: fixed;            /* ប្តូរពី absolute ទៅ fixed ដើម្បីឱ្យធ្លាក់ពេញអេក្រង់រហូត */
-        top: -20px;
-        background-color: #ffb7c5;
-        border-radius: 15px 0 15px 0;
-        opacity: 0.7;
-        pointer-events: none;       /* ដើម្បីកុំឱ្យបាំងការចុចលើប៊ូតុង ឬ Link ផ្សេងៗ */
-        animation: fall linear infinite;
-        z-index: 9999;              /* ដំឡើងឱ្យខ្ពស់ជាងគេដើម្បីឱ្យឃើញលើគ្រប់ Page */
-    }
+    /* Animation ធ្លាក់ផ្កា - ទម្រង់ស្រទាប់ផ្កាសាគូរ៉ាពិតៗ */
+.petal {
+    position: fixed;
+    top: -20px;
+    /* ប្តូរពណ៌ឱ្យមានស្រទាប់ពន្លឺ GRADIENT ដូចផ្កាពិត */
+    background: linear-gradient(135deg, #ffc0cb 0%, #ffb7c5 50%, #ff8da1 100%);
+    
+    /* ទម្រង់បង្កើតរូបរាងស្រទាប់ផ្កា */
+    width: 12px;
+    height: 18px;
+    border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%;
+    
+    /* បន្ថែមស្នាមឆែកតូចមួយនៅខាងលើចុងស្រទាប់ផ្កា (Cherry Blossom Notch) */
+    clip-path: polygon(0% 0%, 35% 0%, 50% 15%, 65% 0%, 100% 0%, 100% 100%, 0% 100%);
+    
+    opacity: 0.85;
+    pointer-events: none;
+    animation: fall linear infinite;
+    z-index: 9999;
+    
+    /* បន្ថែមស្រមោលតូចមួយដើម្បីឱ្យផ្កាមើលទៅមានជម្រៅ 3D */
+    box-shadow: 0 2px 5px rgba(255, 183, 197, 0.4);
+}
 
         @keyframes fall {
             0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
