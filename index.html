@@ -48,16 +48,17 @@
         }
 
         /* Animation ធ្លាក់ផ្កា */
-        .petal {
-            position: absolute;
-            top: -10px;
-            background-color: #ffb7c5;
-            border-radius: 15px 0 15px 0;
-            opacity: 0.7;
-            pointer-events: none;
-            animation: fall linear infinite;
-            z-index: 50;
-        }
+        /* Animation ធ្លាក់ផ្កា (កែសម្រួលរួចរាល់) */
+    .petal {
+        position: fixed;            /* ប្តូរពី absolute ទៅ fixed ដើម្បីឱ្យធ្លាក់ពេញអេក្រង់រហូត */
+        top: -20px;
+        background-color: #ffb7c5;
+        border-radius: 15px 0 15px 0;
+        opacity: 0.7;
+        pointer-events: none;       /* ដើម្បីកុំឱ្យបាំងការចុចលើប៊ូតុង ឬ Link ផ្សេងៗ */
+        animation: fall linear infinite;
+        z-index: 9999;              /* ដំឡើងឱ្យខ្ពស់ជាងគេដើម្បីឱ្យឃើញលើគ្រប់ Page */
+    }
 
         @keyframes fall {
             0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
