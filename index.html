@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>លិខិតអញ្ជើញមង្គលការ - Full Gallery & Video</title>
     <link href="https://fonts.googleapis.com/css2?family=Moul&family=Kantumruy+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary-gold: #d4af37;
@@ -47,40 +48,31 @@
             overflow-y: auto;
         }
 
-        /* Animation ធ្លាក់ផ្កា */
-        /* Animation ធ្លាក់ផ្កា (កែសម្រួលរួចរាល់) */
-    /* Animation ធ្លាក់ផ្កា - ទម្រង់ស្រទាប់ផ្កាសាគូរ៉ាពិតៗ */
-/* Animation ធ្លាក់ផ្កា - ទម្រង់ស្រទាប់ផ្កាសាគូរ៉ាពិតៗ */
-.petal {
-    position: fixed;
-    top: -20px;
-    /* ប្តូរពណ៌ឱ្យមានស្រទាប់ពន្លឺ GRADIENT ដូចផ្កាពិត */
-    background: linear-gradient(135deg, #ffc0cb 0%, #ffb7c5 50%, #ff8da1 100%);
-    
-    /* ទម្រង់បង្កើតរូបរាងស្រទាប់ផ្កា */
-    width: 12px;
-    height: 18px;
-    border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%;
-    
-    /* បន្ថែមស្នាមឆែកតូចមួយនៅខាងលើចុងស្រទាប់ផ្កា (Cherry Blossom Notch) */
-    clip-path: polygon(0% 0%, 35% 0%, 50% 15%, 65% 0%, 100% 0%, 100% 100%, 0% 100%);
-    
-    opacity: 0.85;
-    pointer-events: none;
-    animation: fall linear infinite;
-    z-index: 9999;
-    
-    /* បន្ថែមស្រមោលតូចមួយដើម្បីឱ្យផ្កាមើលទៅមានជម្រៅ 3D */
-    box-shadow: 0 2px 5px rgba(255, 183, 197, 0.4);
-}
-    
-    /* បន្ថែមស្រមោលតូចមួយដើម្បីឱ្យផ្កាមើលទៅមានជម្រៅ 3D */
-    box-shadow: 0 2px 5px rgba(255, 183, 197, 0.4);
-}
+        /* Animation ធ្លាក់ផ្កា - ទម្រង់ស្រទាប់ផ្កាសាគូរ៉ាពិតៗ */
+        .petal {
+            position: fixed;
+            top: -20px;
+            background: linear-gradient(135deg, #ffc0cb 0%, #ffb7c5 50%, #ff8da1 100%);
+            width: 12px;
+            height: 18px;
+            border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%;
+            clip-path: polygon(0% 0%, 35% 0%, 50% 15%, 65% 0%, 100% 0%, 100% 100%, 0% 100%);
+            opacity: 0.85;
+            pointer-events: none;
+            animation: fall linear infinite;
+            z-index: 99999;
+            box-shadow: 0 2px 5px rgba(255, 183, 197, 0.4);
+        }
 
         @keyframes fall {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0.2; }
+            0% { 
+                transform: translateY(0) rotate(0deg); 
+                opacity: 0.8; 
+            }
+            100% { 
+                transform: translateY(105vh) rotate(360deg); 
+                opacity: 0.2; 
+            }
         }
 
         /* ទ្វារឈើប្រណីត 3D */
@@ -141,34 +133,28 @@
         .door-right .door-handle { left: 12px; }
 
         .open-btn {
-    position: absolute;
-    bottom: 30px;               /* រំកិលប៊ូតុងចុះទៅខាងក្រោម */
-    left: 50%;
-    transform: translateX(-50%);/* រក្សាប៊ូតុងឱ្យនៅចំកណ្តាលជួរឈរ */
-    z-index: 10001;
-    padding: 12px 28px;
-    background: linear-gradient(45deg, #d4af37, #f9e076, #aa7c11);
-    color: #1a0c05;
-    border: 2px solid #fff;
-    border-radius: 30px;
-    font-family: 'Moul', cursive;
-    font-size: 14px;
-    cursor: pointer;
-    box-shadow: 0 0 25px rgba(212, 175, 55, 0.9);
-    animation: pulse 2s infinite;
-    white-space: nowrap;
-}
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10001;
+            padding: 12px 28px;
+            background: linear-gradient(45deg, #d4af37, #f9e076, #aa7c11);
+            color: #1a0c05;
+            border: 2px solid #fff;
+            border-radius: 30px;
+            font-family: 'Moul', cursive;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.9);
+            animation: pulse 2s infinite;
+            white-space: nowrap;
+        }
 
-/* កែសម្រួល Animation pulse ឱ្យត្រូវតាម transform ថ្មី */
-@keyframes pulse {
-    0% { transform: translateX(-50%) scale(1); }
-    50% { transform: translateX(-50%) scale(1.05); }
-    100% { transform: translateX(-50%) scale(1); }
-}
         @keyframes pulse {
-            0% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.05); }
-            100% { transform: translate(-50%, -50%) scale(1); }
+            0% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.05); }
+            100% { transform: translateX(-50%) scale(1); }
         }
 
         .door-wrapper.opened .door-left { transform: rotateY(-110deg); }
@@ -185,7 +171,6 @@
             z-index: 10;
         }
 
-        /* ការកំណត់ Style សម្រាប់បំបែក Page */
         .page-content {
             display: none;
         }
@@ -404,7 +389,7 @@
                 <div class="door-panel"></div>
                 <div class="door-handle"></div>
             </div>
-            <button class="open-btn" onclick="openInvitation()">ចុចបើកលិខិតអញ្ជើញ</button>
+            <button class="open-btn" onclick="openInvitation()">ចុចបើក</button>
         </div>
 
         <!-- Audio Player -->
@@ -414,26 +399,26 @@
 
         <div class="content">            
             <!-- ===== ទំព័រទី ១ (PAGE 1) ===== -->
-        <div id="page1" class="page-content active">
-            <div>
-            <h1 class="header-title" style="font-size: 30px; margin-top: 20px;">សិរីសួស្តី អាពាហ៍ពិពាហ៍</h1>
-            <p style="font-size: 14px; color: var(--dark-gold); margin: 15px 0;">កូនប្រុស &nbsp;     និង     &nbsp; កូនស្រី</p>
-                <div class="couple-names" id="animatedNames"></div>
-            </div>
+            <div id="page1" class="page-content active">
+                <div>
+                    <h1 class="header-title" style="font-size: 30px; margin-top: 20px;">សិរីសួស្តី អាពាហ៍ពិពាហ៍</h1>
+                    <p style="font-size: 14px; color: var(--dark-gold); margin: 15px 0;">កូនប្រុស &nbsp; &nbsp; និង &nbsp; &nbsp; កូនស្រី</p>
+                    <div class="couple-names" id="animatedNames"></div>
+                </div>
 
-            <!--វីដេអូ Highlight-->
-            <div class="photo-frame">
-                <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;">
-                    <source src="video.mp4" type="video/mp4">
-                    កម្មវិធីរុករករបស់អ្នកមិនគាំទ្រការចាក់វីដេអូឡើយ។
-                </video>
-            </div>
+                <!--វីដេអូ Highlight-->
+                <div class="photo-frame">
+                    <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                        <source src="video.mp4" type="video/mp4">
+                        កម្មវិធីរុករករបស់អ្នកមិនគាំទ្រការចាក់វីដេអូឡើយ។
+                    </video>
+                </div>
 
-            <!-- ប៊ូតុងទំព័របន្ទាប់ នៅបាតក្រោមនៃ Page 1 -->
-        <div class="nav-btn-container" style="margin-bottom: 20px;">
-            <button class="nav-btn" onclick="nextPage()">ទំព័របន្ទាប់ ➔</button>
-        </div>
-        </div>
+                <!-- ប៊ូតុងទំព័របន្ទាប់ នៅបាតក្រោមនៃ Page 1 -->
+                <div class="nav-btn-container" style="margin-bottom: 20px;">
+                    <button class="nav-btn" onclick="nextPage()">ទំព័របន្ទាប់ ➔</button>
+                </div>
+            </div>
 
             <!-- ===== ទំព័រទី ២ (PAGE 2) ===== -->
             <div id="page2" class="page-content">
@@ -583,31 +568,31 @@
                 </div>
 
                 <!-- ទំនាក់ទំនង -->
-<div class="thank-you-section">
-    <h3 style="font-family: 'Moul'; font-size: 15px; color: var(--dark-gold); margin-bottom: 12px;">ទំនាក់ទំនង</h3>
-    
-    <!-- ទំនាក់ទំនងកូនប្រុស -->
-    <div style="margin-bottom: 10px;">
-        <span style="font-weight: bold; color: #3f06fc;">កូនប្រុស (ដេវីត):</span><br>
-        <a href="https://facebook.com/sngoeun.devith" target="_blank" style="text-decoration: none; color: #1877F2; margin-right: 15px; font-size: 14px;">
-            <i class="fab fa-facebook" style="font-size: 18px; vertical-align: middle;"></i> Sngoeun Devith
-        </a>
-        <a href="https://t.me/sngoeun_devith" target="_blank" style="text-decoration: none; color: #0088cc; font-size: 14px;">
-            <i class="fab fa-telegram" style="font-size: 18px; vertical-align: middle;"></i> 012 29 26 04
-        </a>
-    </div>
+                <div class="thank-you-section">
+                    <h3 style="font-family: 'Moul'; font-size: 15px; color: var(--dark-gold); margin-bottom: 12px;">ទំនាក់ទំនង</h3>
+                    
+                    <!-- ទំនាក់ទំនងកូនប្រុស -->
+                    <div style="margin-bottom: 10px;">
+                        <span style="font-weight: bold; color: #3f06fc;">កូនប្រុស (ដេវីត):</span><br>
+                        <a href="https://facebook.com/sngoeun.devith" target="_blank" style="text-decoration: none; color: #1877F2; margin-right: 15px; font-size: 14px;">
+                            <i class="fab fa-facebook" style="font-size: 18px; vertical-align: middle;"></i> Sngoeun Devith
+                        </a>
+                        <a href="https://t.me/sngoeun_devith" target="_blank" style="text-decoration: none; color: #0088cc; font-size: 14px;">
+                            <i class="fab fa-telegram" style="font-size: 18px; vertical-align: middle;"></i> 012 29 26 04
+                        </a>
+                    </div>
 
-    <!-- ទំនាក់ទំនងកូនស្រី -->
-    <div>
-        <span style="font-weight: bold; color: #3f06fc;">កូនស្រី (ផាត់សិកា):</span><br>
-        <a href="https://facebook.com/your-facebook-id" target="_blank" style="text-decoration: none; color: #1877F2; margin-right: 15px; font-size: 14px;">
-            <i class="fab fa-facebook" style="font-size: 18px; vertical-align: middle;"></i> Phally Phatseka
-        </a>
-        <a href="https://t.me/+855969316977" target="_blank" style="text-decoration: none; color: #0088cc; font-size: 14px;">
-            <i class="fab fa-telegram" style="font-size: 18px; vertical-align: middle;"></i> 096 93 16 977
-        </a>
-    </div>
-</div>
+                    <!-- ទំនាក់ទំនងកូនស្រី -->
+                    <div>
+                        <span style="font-weight: bold; color: #3f06fc;">កូនស្រី (ផាត់សិកា):</span><br>
+                        <a href="https://facebook.com/your-facebook-id" target="_blank" style="text-decoration: none; color: #1877F2; margin-right: 15px; font-size: 14px;">
+                            <i class="fab fa-facebook" style="font-size: 18px; vertical-align: middle;"></i> Phally Phatseka
+                        </a>
+                        <a href="https://t.me/+855969316977" target="_blank" style="text-decoration: none; color: #0088cc; font-size: 14px;">
+                            <i class="fab fa-telegram" style="font-size: 18px; vertical-align: middle;"></i> 096 93 16 977
+                        </a>
+                    </div>
+                </div>
 
                 <!-- ប៊ូតុងត្រឡប់ទៅទំព័រមុន -->
                 <div class="nav-btn-container">
@@ -659,20 +644,20 @@
         }
 
         function createPetals() {
-            const container = document.getElementById('cardContainer');
-            for (let i = 0; i < 25; i++) {
+            const container = document.body;
+            for (let i = 0; i < 30; i++) {
                 const petal = document.createElement('div');
                 petal.classList.add('petal');
-                petal.style.left = Math.random() * 100 + '%';
-                petal.style.width = Math.random() * 10 + 8 + 'px';
-                petal.style.height = Math.random() * 10 + 8 + 'px';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.width = Math.random() * 10 + 10 + 'px';
+                petal.style.height = Math.random() * 10 + 15 + 'px';
                 petal.style.animationDuration = Math.random() * 3 + 3 + 's';
                 petal.style.animationDelay = Math.random() * 2 + 's';
                 container.appendChild(petal);
             }
         }
 
-        /* កែប្រែថ្ងៃ Countdown ឱ្យត្រូវនឹងថ្ងៃអាពាហ៍ពិពាហ៍ (4 Dec 2026 17:00:00) */
+        /* Countdown Timer (4 Dec 2026 17:00:00) */
         const weddingDate = new Date("Dec 4, 2026 17:00:00").getTime();
         setInterval(function() {
             const now = new Date().getTime();
@@ -690,16 +675,6 @@
                 document.getElementById("seconds").innerText = "00";
             }
         }, 1000);
-        function nextPage() {
-            document.getElementById('page1').classList.remove('active');
-            document.getElementById('page2').classList.add('active');
-            document.getElementById('page2').scrollTop = 0; // Scroll ទៅលើគេបង្អស់នៃ Page 2
-        }
-        
-        function prevPage() {
-            document.getElementById('page2').classList.remove('active');
-            document.getElementById('page1').classList.add('active');
-        }
     </script>
 </body>
 </html>
