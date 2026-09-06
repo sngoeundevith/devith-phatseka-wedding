@@ -69,19 +69,14 @@
         }
 
         .door-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            margin: 0 auto;
-            width: 100%;
-            max-width: 430px;
-            height: 100vh;
-            z-index: 1000;
-            display: flex;
-            transition: visibility 2s;
-            perspective: 1200px;
-        }
+    display: flex;
+    width: 100%;
+    max-width: 450px;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    perspective: 1000px; /* បន្ថែមទ្រនាប់លំហ 3D នៅទីនេះ */
+}
 
         .door {
     width: 50%;
