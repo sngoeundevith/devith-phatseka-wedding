@@ -158,22 +158,34 @@
         }
 
        #page1 {
-            height: auto; /* ប្តូរពី calc(100vh - 30px) មកជា auto ដើម្បីឱ្យវាទូលាយតាមតម្រូវការ */
-            min-height: calc(100vh - 30px);
-            overflow-y: auto;
+            height: calc(100vh - 30px);
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* ឱ្យវាខ្ចាត់ខ្ចាយធម្មជាតិទៅតាមសាច់វីដេអូ */
+            justify-content: center; /* ប្រមូលផ្ដុំធាតុទាំងអស់មកកណ្តាល */
             align-items: center;
+            gap: 12px; /* កំណត់ចន្លោះគម្លាតរវាងធាតុនីមួយៗឱ្យនៅជិតគ្នា সাល្មម */
             padding: 10px 0;
-            gap: 12px;
         }
 
         #page2.active {
             height: auto;
             overflow-y: auto;
         }
+        .page-content {
+            display: none; /* បិទគ្រប់ page ទាំងអស់ជាមុនសិន */
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-sizing: border-box;
+        }
 
+        .page-content.active {
+            display: flex; /* បង្ហាញតែ page ណាដែលមាន class active តែមួយប៉ុណ្ណោះ */
+            flex-direction: column;
+        }
         .nav-btn-container {
             margin: 10px 0;
             display: flex;
@@ -439,7 +451,7 @@
             <div id="page1" class="page-content active">
                 <div style="text-align: center;">
                     <h1 class="header-title" style="font-size: 20px; margin: 0;">សិរីសួស្តី អាពាហ៍ពិពាហ៍</h1>
-                    <p style="font-size: 11px; color: var(--dark-gold); margin: 2px 0;">កូនប្រុស    និង    កូនស្រី</p>
+                    <p style="font-size: 14px; color: var(--dark-gold); margin: 2px 0;">កូនប្រុស    និង    កូនស្រី</p>
                     <div class="couple-names" id="animatedNames" style="margin: 0;"></div>
                 </div>
 
@@ -634,18 +646,43 @@
             createPetals();
             setTimeout(typeWriter, 1000);
         }
+        let currentPage = 1;
+        const totalPages = 3; // (ឬចំនួនទំព័រពិតប្រាកដរបស់អ្នក)
+
+        function showPage(pageNumber) {
+            // ដក class active ចេញពីគ្រប់ page ទាំងអស់
+            for (let i = 1; i <= totalPages; i++) {
+                const page = document.getElementById('page' + i);
+                if (page) {
+                    page.classList.remove('active');
+                }
+            }
+
+            // បន្ថែម class active ទៅកាន់ page បច្ចុប្បន្នដែលត្រូវបង្ហាញ
+            const targetPage = document.getElementById('page' + pageNumber);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+        }
 
         function nextPage() {
-            document.getElementById('page1').classList.remove('active');
-            document.getElementById('page2').classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (currentPage < totalPages) {
+                currentPage++;
+                showPage(currentPage);
+            }
         }
 
         function prevPage() {
-            document.getElementById('page2').classList.remove('active');
-            document.getElementById('page1').classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (currentPage > 1) {
+                currentPage--;
+                showPage(currentPage);
+            }
         }
+
+        // កំណត់ឱ្យបង្ហាញទំព័រទី១ នៅពេលចាប់ផ្តើមដំបូង
+        window.onload = function() {
+            showPage(1);
+        };
 
         function createPetals() {
             const container = document.getElementById('cardContainer');
