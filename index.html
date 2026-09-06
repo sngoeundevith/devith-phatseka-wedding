@@ -221,8 +221,9 @@
 
         .photo-frame {
             width: 100%;
-            max-width: 340px; /* កំណត់ទទឹងអតិបរមាដើម្បីកុំឱ្យវាធំពេកលើអេក្រង់ធំ */
-            height: auto !important; /* ប្តូរមកជា auto ដើម្បីឱ្យស៊ុមយោងតាមកម្ពស់វីដេអូ */
+            max-width: 320px;
+            /* ផ្លាស់ប្តូរ ឬដក height: auto ចេញ ហើយជំនួសដោយកម្ពស់ថេរ ឬ min-height វិញ ដើម្បីឱ្យស៊ុមទូលាយវែង */
+            height: 480px !important; /* អ្នកអាចកែលេខនេះឡើងចុះបាន (ឧទាហរណ៍ 450px, 500px, 550px) តាមប្រវែងវីដេអូរបស់អ្នក */
             border-radius: 12px;
             overflow: hidden;
             border: 3px solid var(--primary-gold);
@@ -236,10 +237,10 @@
 
         .photo-frame video {
             width: 100% !important;
-            height: auto !important;
-            max-height: 1400px; /* កំណត់កម្ពស់អតិបរិមាសម្រាប់វីដេអូបញ្ឈរ ការពារកុំឱ្យវែងជ្រុល */
+            height: 100% !important;
+            max-height: 100% !important;
             display: block;
-            object-fit: contain !important;
+            object-fit: contain !important; /* ធានាថាវីដេអូបង្ហាញពេញក្នុងស៊ុមដោយមិនបាច់ Crop ឬដាច់សាច់វីដេអូឡើយ */
         }
        
         .date-badge-wrapper {
