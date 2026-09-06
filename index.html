@@ -95,13 +95,12 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
-    
-    /* កែសម្រួលត្រង់ចំណុចនេះវិញ */
-    background-size: cover; 
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-color: #1a0c05;
-    overflow: hidden; /* កុំឱ្យរូបភាពលាតសន្ធឹងហួសស៊ុមទ្វារ */
+    overflow: hidden;
+    cursor: pointer; /* បន្ថែមរូបសញ្ញាដៃពេលတို့ចំបើកទ្វារ */
 }
 
 /* ទ្វារខាងឆ្វេង */
@@ -436,19 +435,14 @@
     
     <div class="mobile-card locked" id="cardContainer">
         
-        <!-- ទ្វារឈើប្រណីត -->
+        <!-- ទ្វារឈើប្រណីត (ចុចលើទ្វារដើម្បីបើក) -->
         <div class="door-wrapper" id="doorWrapper">
-            <div class="door door-left">
-                <div class="door-panel"></div>
-                <div class="door-panel"></div>
+            <div class="door door-left" onclick="openInvitation()">
                 <div class="door-handle"></div>
             </div>
-            <div class="door door-right">
-                <div class="door-panel"></div>
-                <div class="door-panel"></div>
+            <div class="door door-right" onclick="openInvitation()">
                 <div class="door-handle"></div>
             </div>
-            <button class="open-btn" onclick="openInvitation()">ចុចបើក</button>
         </div>
 
         <!-- Audio Players -->
