@@ -147,14 +147,16 @@
             flex-direction: column;
         }
 
+        /* ត្រូវធានាថា page-content ទាំងអស់ត្រូវលាក់ជាមុនសិន */
         .page-content {
-            display: none;
-            flex: 1;
+            display: none !important; 
+            width: 100%;
             flex-direction: column;
-            justify-content: space-between;
         }
+
+        /* បង្ហាញតែ page ណាដែលមាន class active តែមួយប៉ុណ្ណោះ */
         .page-content.active {
-            display: flex;
+            display: flex !important;
         }
 
        #page1 {
