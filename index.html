@@ -97,8 +97,11 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-size: cover; /* ប្រើប្រាស់ cover ដើម្បីឱ្យពេញលេញល្អ */
-            background-repeat: no-repeat;
+            
+            /* កែសម្រួលត្រង់នេះ ដើម្បីធានាថាមិនឱ្យកាត់គែមលើ ឬក្រោម */
+            background-size: 100% 100% !important; 
+            background-repeat: no-repeat !important;
+            
             background-color: #1a0c05;
             backface-visibility: hidden;
             cursor: pointer;
@@ -119,11 +122,11 @@
         }
 
         .door-wrapper.opened .door-left {
-            transform: rotateY(-90deg);
+            transform: rotateY(120deg);
             opacity: 0.3;
         }
         .door-wrapper.opened .door-right {
-            transform: rotateY(90deg);
+            transform: rotateY(-120deg);
             opacity: 0.3;
         }
         .door-wrapper.opened {
