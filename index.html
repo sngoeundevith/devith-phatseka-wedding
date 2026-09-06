@@ -219,12 +219,25 @@
             display: inline-block;
         }
 
-        
+        .photo-frame {
+            width: 100%;
+            max-width: 340px; /* កំណត់ទទឹងអតិបរមាដើម្បីកុំឱ្យវាធំពេកលើអេក្រង់ធំ */
+            height: auto !important; /* ប្តូរមកជា auto ដើម្បីឱ្យស៊ុមយោងតាមកម្ពស់វីដេអូ */
+            border-radius: 12px;
+            overflow: hidden;
+            border: 3px solid var(--primary-gold);
+            margin: 5px auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
         .photo-frame video {
             width: 100% !important;
             height: auto !important;
-            max-height: 100%; /* កំណត់កម្ពស់អតិបរិមាសម្រាប់វីដេអូបញ្ឈរ ការពារកុំឱ្យវែងជ្រុល */
+            max-height: 100px; /* កំណត់កម្ពស់អតិបរិមាសម្រាប់វីដេអូបញ្ឈរ ការពារកុំឱ្យវែងជ្រុល */
             display: block;
             object-fit: contain !important;
         }
