@@ -221,7 +221,7 @@
 
         .photo-frame {
             width: 100%;
-            max-height: 100%; /* កំណត់កម្ពស់អតិបរមា មិនឱ្យវាបែកទម្រង់ធំពេកទេ */
+            height: 180px; /* កំណត់កម្ពស់ស៊ុមល្មម ឬអាចប្តូរតាមតម្រូវការ */
             border-radius: 12px;
             overflow: hidden;
             border: 3px solid var(--primary-gold);
@@ -236,7 +236,7 @@
         .photo-frame video {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* ប្តូរពី cover មក contain ដើម្បីកុំឱ្យកាត់បាំងសាច់វីដេអូ ទោះវីដេអូទំហំខុសគ្នាក៏ដោយ */
+            object-fit: contain !important; /* ប្រើ contain ដើម្បីបង្ហាញវីដេអូពេញលេញទាំងស្រុង មិនឱ្យកាត់ដាច់កម្ពស់ */
         }
        
         .date-badge-wrapper {
