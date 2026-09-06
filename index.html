@@ -157,14 +157,16 @@
             display: flex;
         }
 
-        #page1 {
-            height: calc(100vh - 30px);
-            overflow: hidden;
+       #page1 {
+            height: auto; /* ប្តូរពី calc(100vh - 30px) មកជា auto ដើម្បីឱ្យវាទូលាយតាមតម្រូវការ */
+            min-height: calc(100vh - 30px);
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* កណ្តាលបញ្ឈរ */
+            justify-content: space-between; /* ឱ្យវាខ្ចាត់ខ្ចាយធម្មជាតិទៅតាមសាច់វីដេអូ */
             align-items: center;
-            gap: 15px; /* កំណត់គម្លាតរវាងកាតនីមួយៗឱ្យសមល្មម */
+            padding: 10px 0;
+            gap: 12px;
         }
 
         #page2.active {
@@ -210,12 +212,22 @@
 
         .photo-frame {
             width: 100%;
-            height: 200px;
+            max-height: 280px; /* កំណត់កម្ពស់អតិបរមា មិនឱ្យវាបែកទម្រង់ធំពេកទេ */
             border-radius: 12px;
             overflow: hidden;
             border: 3px solid var(--primary-gold);
             margin: 5px 0;
             box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .photo-frame video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* ប្តូរពី cover មក contain ដើម្បីកុំឱ្យកាត់បាំងសាច់វីដេអូ ទោះវីដេអូទំហំខុសគ្នាក៏ដោយ */
         }
        
         .date-badge-wrapper {
