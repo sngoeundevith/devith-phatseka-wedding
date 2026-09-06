@@ -160,6 +160,11 @@
         #page1 {
             height: calc(100vh - 30px);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* កណ្តាលបញ្ឈរ */
+            align-items: center;
+            gap: 15px; /* កំណត់គម្លាតរវាងកាតនីមួយៗឱ្យសមល្មម */
         }
 
         #page2.active {
@@ -418,21 +423,24 @@
         </audio>
 
         <div class="content">            
+            <!-- ===== ទំព័រទី ១ (PAGE 1) ===== -->
             <div id="page1" class="page-content active">
-                <div>
-                    <h1 class="header-title" style="font-size: 22px; margin-top: 2px;">សិរីសួស្តី អាពាហ៍ពិពាហ៍</h1>
-                    <p style="font-size: 12px; color: var(--dark-gold); margin: 2px 0;">កូនប្រុស    និង    កូនស្រី</p>
-                    <div class="couple-names" id="animatedNames"></div>
+                <div style="text-align: center;">
+                    <h1 class="header-title" style="font-size: 20px; margin: 0;">សិរីសួស្តី អាពាហ៍ពិពាហ៍</h1>
+                    <p style="font-size: 11px; color: var(--dark-gold); margin: 2px 0;">កូនប្រុស    និង    កូនស្រី</p>
+                    <div class="couple-names" id="animatedNames" style="margin: 0;"></div>
                 </div>
 
-                <div class="photo-frame">
+                <!-- វីដេអូ Highlight -->
+                <div class="photo-frame" style="height: 180px; margin: 0;">
                     <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;">
                         <source src="video.mp4" type="video/mp4">
                         កម្មវិធីរុករករបស់អ្នកមិនគាំទ្រការចាក់វីដេអូឡើយ។
                     </video>
                 </div>
 
-                <div class="date-badge-wrapper">
+                <!-- ថ្ងៃទទួលភ្ញៀវ -->
+                <div class="date-badge-wrapper" style="margin: 0;">
                     <div class="date-top-month">ធ្នូ</div>
                     <div class="date-middle-row">
                         <div class="date-day-container">
@@ -448,7 +456,7 @@
                     <div class="date-bottom-year">២០២៦</div>
                 </div>
 
-                <div class="nav-btn-container" style="margin-top: 5px;">
+                <div class="nav-btn-container" style="margin: 0;">
                     <button class="nav-btn" onclick="nextPage()">ទំព័របន្ទាប់ ➔</button>
                 </div>
             </div>
