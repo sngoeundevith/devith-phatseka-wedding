@@ -151,12 +151,20 @@
         .page-content {
             display: none !important; 
             width: 100%;
-            flex-direction: column;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-sizing: border-box;
+            
+            /* បន្ថែម padding ត្រង់នេះដើម្បីសន្សល់គែមឆ្វេង ស្តាំ លើ ក្រោម កុំឱ្យដាច់អក្សរ */
+            padding: 15px 20px !important; 
+            overflow-y: auto; /* អនុញ្ញាតឱ្យរំកិលមើលបានបើខ្លឹមសារវែងពេក */
         }
 
-        /* បង្ហាញតែ page ណាដែលមាន class active តែមួយប៉ុណ្ណោះ */
         .page-content.active {
             display: flex !important;
+            flex-direction: column;
         }
 
        #page1 {
