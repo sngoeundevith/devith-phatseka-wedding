@@ -221,11 +221,12 @@
 
         .photo-frame {
             width: 100%;
-            height: 180px; /* កំណត់កម្ពស់ស៊ុមល្មម ឬអាចប្តូរតាមតម្រូវការ */
+            max-width: 320px; /* កំណត់ទទឹងអតិបរមាដើម្បីកុំឱ្យវាធំពេកលើអេក្រង់ធំ */
+            height: auto !important; /* ប្តូរមកជា auto ដើម្បីឱ្យស៊ុមយោងតាមកម្ពស់វីដេអូ */
             border-radius: 12px;
             overflow: hidden;
             border: 3px solid var(--primary-gold);
-            margin: 5px 0;
+            margin: 5px auto;
             box-shadow: 0 5px 15px rgba(0,0,0,0.15);
             background: #000;
             display: flex;
@@ -234,9 +235,11 @@
         }
 
         .photo-frame video {
-            width: 100%;
-            height: 100%;
-            object-fit: contain !important; /* ប្រើ contain ដើម្បីបង្ហាញវីដេអូពេញលេញទាំងស្រុង មិនឱ្យកាត់ដាច់កម្ពស់ */
+            width: 100% !important;
+            height: auto !important;
+            max-height: 400px; /* កំណត់កម្ពស់អតិបរិមាសម្រាប់វីដេអូបញ្ឈរ ការពារកុំឱ្យវែងជ្រុល */
+            display: block;
+            object-fit: contain !important;
         }
        
         .date-badge-wrapper {
