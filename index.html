@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>លិខិតអញ្ជើញមង្គលការ - Full Gallery & Video</title>
+    <title>លិខិតអញ្ជើញមង្គលការ - ស្ងឿន ដេវីត & ផល្លី ផាត់សិកា</title>
     <link href="https://fonts.googleapis.com/css2?family=Moul&family=Kantumruy+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -48,7 +48,6 @@
             overflow-y: auto;
         }
 
-        /* Animation ធ្លាក់ផ្កា - កំណត់ឱ្យបង្ហាញតែក្នុង Page 1 */
         .petal {
             position: absolute;
             top: -20px;
@@ -65,17 +64,10 @@
         }
 
         @keyframes fall {
-            0% { 
-                transform: translateY(0) rotate(0deg); 
-                opacity: 0.8; 
-            }
-            100% { 
-                transform: translateY(105vh) rotate(360deg); 
-                opacity: 0.2; 
-            }
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+            100% { transform: translateY(105vh) rotate(360deg); opacity: 0.2; }
         }
 
-        /* ទ្វារឈើប្រណីត 3D */
         .door-wrapper {
             position: fixed;
             top: 0;
@@ -162,7 +154,6 @@
         .door-wrapper.opened .open-btn { display: none; }
         .door-wrapper.opened { pointer-events: none; opacity: 0; transition: opacity 0.5s ease 1.5s, visibility 2s; }
 
-        /* Content ខាងក្នុង */
         .content {
             padding: 30px 20px;
             text-align: center;
@@ -171,13 +162,8 @@
             z-index: 10;
         }
 
-        .page-content {
-            display: none;
-        }
-
-        .page-content.active {
-            display: block;
-        }
+        .page-content { display: none; }
+        .page-content.active { display: block; }
 
         .nav-btn-container {
             margin: 25px 0 10px 0;
@@ -197,11 +183,6 @@
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
             transition: all 0.3s ease;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(212, 175, 55, 0.4);
         }
 
         .header-title {
@@ -237,6 +218,89 @@
             margin: 20px 0;
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
+        
+        /* ស្ទីលកាលបរិច្ឆេទថ្មីក្រោមវីដេអូ */
+        .date-badge-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 15px auto;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            max-width: 320px;
+        }
+
+        .date-top-month {
+            font-size: 14px;
+            font-family: 'Moul', cursive;
+            color: var(--dark-gold);
+            margin-bottom: 2px;
+        }
+
+        .date-middle-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .date-day-name {
+            font-size: 13px;
+            font-family: 'Moul', cursive;
+            color: var(--dark-gold);
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .date-day-name::before, .date-day-name::after {
+            content: "";
+            position: absolute;
+            left: -20px;
+            right: -20px;
+            height: 1.5px;
+            background: var(--primary-gold);
+        }
+        .date-day-name::before { top: -3px; }
+        .date-day-name::after { bottom: -3px; }
+
+        .date-big-number {
+            font-size: 32px;
+            font-family: 'Moul', cursive;
+            color: var(--dark-gold);
+            line-height: 1;
+            margin: 0 5px;
+        }
+
+        .date-time {
+    font-size: 12px;
+    font-family: 'Moul', cursive;
+    color: var(--dark-gold);
+    white-space: nowrap;
+    position: relative; /* បន្ថែមបន្ទាត់ */
+}
+
+/* បន្ថែមបន្ទាត់លើ និងក្រោមឱ្យម៉ោង */
+.date-time::before, .date-time::after {
+    content: "";
+    position: absolute;
+    left: -15px;
+    right: -15px;
+    height: 1.5px;
+    background: var(--primary-gold);
+}
+.date-time::before { top: -3px; }
+.date-time::after { bottom: -3px; }
+
+        .date-bottom-year {
+            font-size: 14px;
+            font-family: 'Moul', cursive;
+            color: var(--dark-gold);
+            margin-top: 2px;
+        }
 
         .gallery-section { margin: 25px 0; }
         .gallery-grid {
@@ -251,11 +315,7 @@
             overflow: hidden;
             border: 1px solid var(--primary-gold);
         }
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
 
         .timer-container {
             display: flex;
@@ -349,10 +409,7 @@
             text-align: center;
         }
 
-        .item {
-            margin-bottom: 6px;
-            font-size: 14px;
-        }
+        .item { margin-bottom: 6px; font-size: 14px; }
 
         #page1 {
             display: flex;
@@ -413,7 +470,20 @@
                     </video>
                 </div>
 
-                <!-- ប៊ូតុងទំព័របន្ទាប់ នៅបាតក្រោមនៃ Page 1 -->
+                <!-- ថ្ងៃទទួលភ្ញៀវទម្រង់ថ្មី នៅចន្លោះវីដេអូ និងប៊ូតុង -->
+                 <div style="text-align: center; margin-top: 10px;">
+                    
+                    <div class="date-badge-wrapper">
+                        <div class="date-top-month">ខែធ្នូ</div>
+                        <div class="date-middle-row">
+                            <span class="date-day-name">ថ្ងៃសុក្រ</span>
+                            <span class="date-big-number">០៤</span>
+                            <span class="date-time">៥:០០ ល្ងាច</span>
+                        </div>
+                        <div class="date-bottom-year">២០២៦</div>
+                    </div>
+                </div>
+
                 <div class="nav-btn-container" style="margin-bottom: 20px;">
                     <button class="nav-btn" onclick="nextPage()">ទំព័របន្ទាប់ ➔</button>
                 </div>
@@ -441,7 +511,7 @@
                     </div>
                 </div>
 
-                <h1 class="header-title" style="font-size:14px">មានកិត្តិយសសូមគោរពអញ្ជើញ</h1>
+                <h1 class="header-title" style="font-size:14px">មាកិត្តិយសសូមគោរពអញ្ជើញ</h1>
                 
                 <p style="font-size: 14px; color: #ffa200;">ឯកឧត្តម លោកជំទាវ លោក លោកស្រី អ្នកនាងកញ្ញា</p>
                 <p style="color: #ffa200">អញ្ជើញចូលរួមជាធិបតី និងជាភ្ញៀវកិត្តិយស ក្នុង 
@@ -455,62 +525,25 @@
                 </p>
                 <p style="color: #ffa200; font-size: 12px; font-family:'Moul'"> (សូមពិនិត្យមើលប្លង់បញ្ជាក់)</p>
 
-                <!-- ដំណើរការកម្មវិធី (Schedule) -->
+                <!-- របៀបវារៈ -->
                 <div class="schedule-section">
                     <h3 style="font-family: 'Moul'; font-size: 14px; color: var(--dark-gold);">របៀបវារៈ</h3>
-                    <p style="font-size: 18px; line-height: 1.8; color: #ffa200">
-                        ថ្ងៃព្រហស្បតិ៍ ទី៣ ខែធ្នូ ឆ្នាំ២០២៦<br>
-                    </p>
+                    <p style="font-size: 18px; line-height: 1.8; color: #ffa200">ថ្ងៃព្រហស្បតិ៍ ទី៣ ខែធ្នូ ឆ្នាំ២០២៦<br></p>
                     <div class="schedule-list">
-                        <div class="schedule-item">
-                            <span class="schedule-time">៣:០០ រសៀល</span>
-                            <span class="schedule-title" style="color: blue;">ពិធីក្រុងពាលី</span>
-                        </div>
-                        <div class="schedule-item">
-                            <span class="schedule-time">៤:០០ រសៀល</span>
-                            <span class="schedule-title" style="color: blue;">ពិធីសូត្រមន្តចំរើនព្រះបរិត្ត</span>
-                        </div>
-                        <div class="schedule-item">
-                            <span class="schedule-time">៥:០០ ល្ងាច</span>
-                            <span class="schedule-title" style="color: blue;">ពិធីកាត់ខាន់ស្លា</span>
-                        </div>
-                        <div class="schedule-item">
-                            <span class="schedule-time">៦:០០ ល្ងាច</span>
-                            <span class="schedule-title" style="color: blue;">អញ្ជើញភ្ញៀវពិសាអាហារពេលល្ងាច</span>
-                        </div>
+                        <div class="schedule-item"><span class="schedule-time">៣:០០ រសៀល</span><span class="schedule-title" style="color: blue;">ពិធីក្រុងពាលី</span></div>
+                        <div class="schedule-item"><span class="schedule-time">៤:០០ រសៀល</span><span class="schedule-title" style="color: blue;">ពិធីសូត្រមន្តចំរើនព្រះបរិត្ត</span></div>
+                        <div class="schedule-item"><span class="schedule-time">៥:០០ ល្ងាច</span><span class="schedule-title" style="color: blue;">ពិធីកាត់ខាន់ស្លា</span></div>
+                        <div class="schedule-item"><span class="schedule-time">៦:០០ ល្ងាច</span><span class="schedule-title" style="color: blue;">អញ្ជើញភ្ញៀវពិសាអាហារពេលល្ងាច</span></div>
                     </div>
-                    <p style="font-size: 18px; line-height: 1.8; color: #ffa200">
-                        ថ្ងៃសុក្រ ទី៤ ខែធ្នូ ឆ្នាំ២០២៦<br>
-                    </p>
+                    <p style="font-size: 18px; line-height: 1.8; color: #ffa200">ថ្ងៃសុក្រ ទី៤ ខែធ្នូ ឆ្នាំ២០២៦<br></p>
                     <div class="schedule-list">
-                        <div class="schedule-item">
-                            <span class="schedule-time">៦:៣០ ព្រឹក</span>
-                            <span class="schedule-title" style="color: blue;">ជួបជុំភ្ញៀវកិត្តិយសរៀបចំហែរជំនួន</span>
-                        </div>
-                        <div class="schedule-item">
-                            <span class="schedule-time">៧:០០ ព្រឹក</span>
-                            <span class="schedule-title" style="color: blue;">ពិធីហែជំនូន(កំណត់)</span>
-                        </div>
-                        <div class="schedule-item">
-                            <span class="schedule-time">៧:៣០ ព្រឹក</span>
-                            <span class="schedule-title" style="color: blue;">ពិធីរាប់ផ្លែឈើ ពិសាស្លា និងបំពាក់ចិញ្ចៀន</span>
-                        </div>
-                        <div class="schedule-item">
-                            <span class="schedule-time">០៩:០០ ព្រឹក</span>
-                            <span class="schedule-title" style="color: blue;">ពិធីកាត់សក់បង្កក់សិរី</span>
-                        </div>
-                        <div class="schedule-item">
-                            <span class="schedule-time">១០:១៥ ព្រឹក</span>
-                            <span class="schedule-title" style="color: blue;">ពិធីសំពះផ្ទឹម សែនចងដៃ និងបាចផ្កាស្លា</span>
-                        </div>
-                        <div class="schedule-item">
-                            <span class="schedule-time">១១:១៥ ថ្ងៃត្រង់</span>
-                            <span class="schedule-title" style="color: blue;">អញ្ជើញភ្ញៀវពិសារអាហារថ្ងៃត្រង់</span>
-                        </div>
-                        <div class="schedule-item">
-                            <span class="schedule-time">៥:០០ រសៀល</span>
-                            <span class="schedule-title" style="color: blue;">អញ្ជើញភ្ញៀវពិសារភោជនាហារពេលល្ងាច</span>
-                        </div>
+                        <div class="schedule-item"><span class="schedule-time">៦:៣០ ព្រឹក</span><span class="schedule-title" style="color: blue;">ជួបជុំភ្ញៀវកិត្តិយសរៀបចំហែរជំនួន</span></div>
+                        <div class="schedule-item"><span class="schedule-time">៧:០០ ព្រឹក</span><span class="schedule-title" style="color: blue;">ពិធីហែជំនូន(កំណត់)</span></div>
+                        <div class="schedule-item"><span class="schedule-time">៧:៣០ ព្រឹក</span><span class="schedule-title" style="color: blue;">ពិធីរាប់ផ្លែឈើ ពិសាស្លា និងបំពាក់ចិញ្ចៀន</span></div>
+                        <div class="schedule-item"><span class="schedule-time">០៩:០០ ព្រឹក</span><span class="schedule-title" style="color: blue;">ពិធីកាត់សក់បង្កក់សិរី</span></div>
+                        <div class="schedule-item"><span class="schedule-time">១០:១៥ ព្រឹក</span><span class="schedule-title" style="color: blue;">ពិធីសំពះផ្ទឹម សែនចងដៃ និងបាចផ្កាស្លា</span></div>
+                        <div class="schedule-item"><span class="schedule-time">១១:១៥ ថ្ងៃត្រង់</span><span class="schedule-title" style="color: blue;">អញ្ជើញភ្ញៀវពិសារអាហារថ្ងៃត្រង់</span></div>
+                        <div class="schedule-item"><span class="schedule-time">៥:០០ រសៀល</span><span class="schedule-title" style="color: blue;">អញ្ជើញភ្ញៀវពិសារភោជនាហារពេលល្ងាច</span></div>
                     </div>
                 </div>
 
@@ -523,7 +556,7 @@
                     <div class="timer-box"><span class="timer-number" id="seconds">00</span><span class="timer-label">វិនាទី</span></div>
                 </div>
 
-                <!-- អាល់ប៊ុមរូបថត (Gallery) -->
+                <!-- Gallery -->
                 <div class="gallery-section">
                     <h3 style="font-family: 'Moul'; font-size: 14px; color: var(--dark-gold);">រូបថតកម្រងអនុស្សាវរីយ៍</h3>
                     <div class="gallery-grid">
@@ -538,13 +571,13 @@
                     </div>
                 </div>
 
-                <!-- Google Maps (Updated Location: 13.026198, 103.072659) -->
+                <!-- Google Maps -->
                 <div style="margin: 25px 0;">
                     <h3 style="font-family: 'Moul'; font-size: 14px; color: var(--dark-gold);">ទីតាំងប្រារព្ធពិធី</h3>
                     <div class="map-container">
                         <iframe src="https://maps.google.com/maps?q=13.026198,103.072659&z=17&output=embed" allowfullscreen="" loading="lazy"></iframe>
                     </div>
-                    <a href="https://maps.google.com/?q=13.026198,103.072659" target="_blank" style="display: inline-block; margin-top: 10px; padding: 10px 20px; background-color: var(--dark-gold, #c59d5f); color: white; text-decoration: none; border-radius: 8px; font-size: 13px; font-weight: bold;">
+                    <a href="https://maps.google.com/?q=13.026198,103.072659" target="_blank" style="display: inline-block; margin-top: 10px; padding: 10px 20px; background-color: var(--dark-gold); color: white; text-decoration: none; border-radius: 8px; font-size: 13px; font-weight: bold;">
                         📍 បើកមើលទីតាំងក្នុង Google Maps
                     </a>
                 </div>
@@ -569,8 +602,6 @@
                 <!-- ទំនាក់ទំនង -->
                 <div class="thank-you-section">
                     <h3 style="font-family: 'Moul'; font-size: 15px; color: var(--dark-gold); margin-bottom: 12px;">ទំនាក់ទំនង</h3>
-                    
-                    <!-- ទំនាក់ទំនងកូនប្រុស -->
                     <div style="margin-bottom: 10px;">
                         <span style="font-weight: bold; color: #3f06fc;">កូនប្រុស (ដេវីត):</span><br>
                         <a href="https://facebook.com/sngoeun.devith" target="_blank" style="text-decoration: none; color: #1877F2; margin-right: 15px; font-size: 14px;">
@@ -580,12 +611,10 @@
                             <i class="fab fa-telegram" style="font-size: 18px; vertical-align: middle;"></i> 012 29 26 04
                         </a>
                     </div>
-
-                    <!-- ទំនាក់ទំនងកូនស្រី -->
                     <div>
                         <span style="font-weight: bold; color: #3f06fc;">កូនស្រី (ផាត់សិកា):</span><br>
-                        <a href="https://www.facebook.com/share/1HYmVxYV45/" target="_blank" style="text-decoration: none; color: #1877F2; margin-right: 15px; font-size: 14px;">
-                            <i class="fab fa-facebook" style="font-size: 18px; vertical-align: middle;"></i> ផល្លី ផាត់សិកា
+                        <a href="https://facebook.com/your-facebook-id" target="_blank" style="text-decoration: none; color: #1877F2; margin-right: 15px; font-size: 14px;">
+                            <i class="fab fa-facebook" style="font-size: 18px; vertical-align: middle;"></i> Phally Phatseka
                         </a>
                         <a href="https://t.me/+855969316977" target="_blank" style="text-decoration: none; color: #0088cc; font-size: 14px;">
                             <i class="fab fa-telegram" style="font-size: 18px; vertical-align: middle;"></i> 096 93 16 977
@@ -593,12 +622,10 @@
                     </div>
                 </div>
 
-                <!-- ប៊ូតុងត្រឡប់ទៅទំព័រមុន -->
                 <div class="nav-btn-container">
                     <button class="nav-btn" onclick="prevPage()">➔ ទំព័រមុន</button>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -617,19 +644,28 @@
         }
 
         function openInvitation() {
+            // ចាក់សំឡេងបើកទ្វារ
+            const doorSound = document.getElementById('doorSound');
+            doorSound.play().catch(error => {
+                console.log("Audio play blocked or missing:", error);
+            });
+
             document.getElementById('doorWrapper').classList.add('opened');
             
             const card = document.getElementById('cardContainer');
             card.classList.remove('locked');
             card.classList.add('unlocked');
 
-            document.getElementById('weddingMusic').play();
+            // ចាក់ភ្លេងមង្គលការបន្ទាប់ពីបើកទ្វាររួចបន្តិច
+            setTimeout(() => {
+                document.getElementById('weddingMusic').play().catch(err => console.log(err));
+            }, 500);
+
             createPetals();
 
             setTimeout(typeWriter, 1000);
         }
 
-        /* មុខងារផ្លាស់ប្តូរទំព័រ */
         function nextPage() {
             document.getElementById('page1').classList.remove('active');
             document.getElementById('page2').classList.add('active');
@@ -642,7 +678,6 @@
             document.getElementById('cardContainer').scrollTop = 0;
         }
 
-        /* បង្កើតផ្កាឱ្យធ្លាក់តែនៅក្នុង Page 1 */
         function createPetals() {
             const container = document.getElementById('page1');
             for (let i = 0; i < 30; i++) {
@@ -657,7 +692,6 @@
             }
         }
 
-        /* Countdown Timer (4 Dec 2026 17:00:00) */
         const weddingDate = new Date("Dec 4, 2026 17:00:00").getTime();
         setInterval(function() {
             const now = new Date().getTime();
