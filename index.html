@@ -68,13 +68,12 @@
             100% { transform: translateY(105vh) rotate(360deg); opacity: 0.2; }
         }
 
-        /* កែសម្រួល Door Wrapper ឱ្យត្រូវគ្នាមិនឱ្យ Crop បាត់គែមលើទូរស័ព្ទ */
+        /* កែសម្រួលទ្វារមិនឱ្យកាត់គែម និងទប់ទំហំឱ្យត្រូវកណ្តាលស្អាត */
         .door-wrapper {
             display: flex;
             width: 100%;
             max-width: 430px;
             height: 100vh;
-            height: 100dvh; /* គាំទ្រទូរស័ព្ទទំនើបដែលមាន Screen Notch */
             position: fixed;
             top: 0;
             left: 50%;
@@ -90,16 +89,15 @@
         .door {
             width: 50%;
             height: 100%;
-            border: 6px solid #d4af37;
-            box-shadow: inset 0 0 25px rgba(0,0,0,0.9), 0 0 15px rgba(212, 175, 55, 0.3);
+            border: 4px solid #d4af37;
+            box-shadow: inset 0 0 25px rgba(0,0,0,0.9);
             position: relative;
             transition: transform 2.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 2.2s ease;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            /* ប្រើប្រាស់ contain ដើម្បីការពារការ Crop រូបភាពទ្វារ */
-            background-size: 200% 100%; 
+            background-size: cover; /* ប្រើប្រាស់ cover ដើម្បីឱ្យពេញលេញល្អ */
             background-repeat: no-repeat;
             background-color: #1a0c05;
             backface-visibility: hidden;
@@ -121,11 +119,11 @@
         }
 
         .door-wrapper.opened .door-left {
-            transform: rotateY(120deg);
+            transform: rotateY(-90deg);
             opacity: 0.3;
         }
         .door-wrapper.opened .door-right {
-            transform: rotateY(-120deg);
+            transform: rotateY(90deg);
             opacity: 0.3;
         }
         .door-wrapper.opened {
