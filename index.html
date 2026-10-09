@@ -85,32 +85,6 @@
             border: 2px solid var(--primary-gold);
         }
 
-        .lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            color: #fff;
-            font-size: 30px;
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-
-        .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #fff;
-            font-size: 24px;
-            background: rgba(0,0,0,0.5);
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 50%;
-        }
-
-        .lightbox-prev { left: 15px; }
-        .lightbox-next { right: 15px; }
         :root {
             --primary-gold: #d4af37;
             --dark-gold: #aa7c11;
@@ -310,7 +284,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-top: auto; /* រុញវាឱ្យធ្លាក់ចុះមកក្រោមជាប់នឹងប៊ូតុង */
+            margin-top: auto;
             margin-bottom: 10px;
             padding: 5px 20px;
             background: rgba(255, 255, 255, 0);
@@ -320,9 +294,8 @@
         }
 
         .date-top-month {
-            color: #ffdf73 !important; /* ប្តូរជាពណ៌លឿងមាសស្រស់ស្អាត */
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(212, 175, 55, 0.5); /* បន្ថែមស្រមោលក្រាស់ និងពន្លឺមាស */
-            /*font-weight: bold;*/
+            color: #ffdf73 !important;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(212, 175, 55, 0.5);
             font-size: 16px;
             font-family: 'Moul', cursive;
         }
@@ -342,8 +315,8 @@
         .date-day-name {
             font-size: 16px;
             font-family: 'Moul', cursive;
-            color: #ffdf73 !important; /* ប្តូរជាពណ៌លឿងមាសស្រស់ស្អាត */
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(212, 175, 55, 0.5); /* បន្ថែមស្រមោលក្រាស់ និងពន្លឺមាស */
+            color: #ffdf73 !important;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(212, 175, 55, 0.5);
         }
 
         .date-divider-line {
@@ -355,8 +328,8 @@
         .date-big-number {
             font-size: 24px;
             font-family: 'Moul', cursive;
-            color: #ffdf73 !important; /* ប្តូរជាពណ៌លឿងមាសស្រស់ស្អាត */
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(212, 175, 55, 0.5); /* បន្ថែមស្រមោលក្រាស់ និងពន្លឺមាស */
+            color: #ffdf73 !important;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(212, 175, 55, 0.5);
             line-height: 1;
             margin: 0 10px;
         }
@@ -370,16 +343,16 @@
         .date-time {
             font-size: 16px;
             font-family: 'Moul', cursive;
-            color: #ffdf73 !important; /* ប្តូរជាពណ៌លឿងមាសស្រស់ស្អាត */
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(212, 175, 55, 0.5); /* បន្ថែមស្រមោលក្រាស់ និងពន្លឺមាស */
+            color: #ffdf73 !important;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(212, 175, 55, 0.5);
             color: var(--dark-gold);
         }
 
         .date-bottom-year {
             font-size: 16px;
             font-family: 'Moul', cursive;
-            color: #ffdf73 !important; /* ប្តូរជាពណ៌លឿងមាសស្រស់ស្អាត */
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(212, 175, 55, 0.5); /* បន្ថែមស្រមោលក្រាស់ និងពន្លឺមាស */
+            color: #ffdf73 !important;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(212, 175, 55, 0.5);
         }
 
         .nav-btn-container {
@@ -413,11 +386,9 @@
             padding: 20px;
             z-index: 5;
         }
-        /* សម្រាប់លាក់ Scroll bar សម្រាប់ Chrome, Safari និង Opera */
         #page2::-webkit-scrollbar {
             display: none;
         }
-        /* CSS សម្រាប់ Animation ពេលអូសចុះក្រោម */
         .reveal-item {
             opacity: 0;
             transform: translateY(30px);
@@ -496,16 +467,6 @@
         }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        .map-container {
-            width: 100%;
-            height: 200px;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--primary-gold);
-            margin-top: 10px;
-        }
-        .map-container iframe { width: 100%; height: 100%; border: 0; }
-
         .qr-section {
             background: #ffffff;
             padding: 15px;
@@ -537,13 +498,12 @@
         .item { margin-bottom: 6px; font-size: 13px; }
     </style>
 </head>
-<!-- Lightbox Modal សម្រាប់បង្ហាញរូបទំហំធំ -->
-    <div class="lightbox-modal" id="lightboxModal">
-        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
-        <button class="lightbox-nav lightbox-prev" onclick="changeLightboxImage(-1)">&#10094;</button>
-        <img class="lightbox-content" id="lightboxImg" src="" alt="Zoomed Photo">
-        <button class="lightbox-nav lightbox-next" onclick="changeLightboxImage(1)">&#10095;</button>
-    </div>
+
+<!-- Lightbox Modal (កែសម្រួលដកប៊ូតុងចេញ និងបន្ថែមការចុចបិទពីខាងក្រៅ) -->
+<div class="lightbox-modal" id="lightboxModal" onclick="closeLightboxOnOutsideClick(event)">
+    <img class="lightbox-content" id="lightboxImg" src="" alt="Zoomed Photo">
+</div>
+
 <body>
    
     <div class="mobile-card" id="cardContainer">
@@ -571,7 +531,7 @@
 
                 <div>
                     <h1 class="header-title">សិរីសួស្តី អាពាហ៍ពិពាហ៍</h1>
-                    <p style="font-size: 14px; color: #f5b65d; text-shadow: 0 1px 4px rgba(0,0,0,0.8); margin: 2px 0;">កូនប្រុស និង កូនស្រី</p>
+                    <p style="font-size: 16px; color: #f5b65d; text-shadow: 0 1px 4px rgba(0,0,0,0.8); margin: 2px 0;">កូនប្រុស និង កូនស្រី</p>
                     <div class="couple-names" id="animatedNames"></div>
                 </div>
 
@@ -620,7 +580,7 @@
                         ដែលត្រូវនឹង
                         <span style="font-size:12px; font-family: 'Moul'; color: var(--dark-gold);">ថ្ងៃទី៤ ខែធ្នូ ឆ្នាំ២០២៦ វេលាម៉ោង ៥:០០ ល្ងាច</span>
                         នៅគេហដ្ឋានខាងស្រីស្ថិតនៅ
-                        <b>ភូមិក្រពើជើង ឃុំភ្នំសំពៅ ស្រុកបាណន់ ខេត្តបាត់ដំបង (ហួសវត្តអណ្ដើកចម្ងាយ ៣០០ម)</b>ដោយមេត្រីភាព។
+                        <b>ភូមិក្រពើជើង ឃុំភ្នំសំពៅ ស្រុកបាណន់ ខេត្តបាត់ដំបង (ហួសវត្តអណ្ដើកចម្ងាយ ២០០ម)</b>ដោយមេត្រីភាព។
                     </p>
                     <p style="color:  #10035b; font-size: 11px; margin-top: 5px; text-align: center;">(សូមពិនិត្យមើលប្លង់បញ្ជាក់)</p>
                 </div>
@@ -678,9 +638,12 @@
 
                 <div style="margin: 20px 0; text-align: center;" class="reveal-item">
                     <h3 style="font-family: 'Moul'; font-size: 13px; color: var(--dark-gold);">ទីតាំងប្រារព្ធពិធី</h3>
-                    <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2829.319530957587!2d103.07261109999999!3d13.026055599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTPCsDAxJzMzLjgiTiAxMDPCsDA0JzIxLjQiRQ!5e1!3m2!1sen!2skh!4v1790508535915!5m2!1sen!2skh" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                    
+                    <!-- ប្រអប់បង្ហាញរូបភាពផែនទីទំហំដើមពេញលេញ -->
+                    <div style="width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid var(--primary-gold); margin-top: 10px; background: #fff;">
+                        <img src="Map.png" alt="Map Location" style="width: 100%; height: auto; display: block; object-fit: contain;">
                     </div>
+
                     <a href="https://maps.app.goo.gl/jQN3Aejwy4Fkmh478" target="_blank" style="display: inline-block; margin-top: 10px; padding: 8px 18px; background-color: var(--dark-gold); color: white; text-decoration: none; border-radius: 6px; font-size: 12px; font-weight: bold;">
                         📍 បើកមើលទីតាំងក្នុង Google Maps
                     </a>
@@ -779,7 +742,6 @@
             currentPage = pageNumber;
         }
 
-        // ភ្ជាប់ Event Listener ផ្ទាល់ជាមួយ JavaScript ដើម្បីធានាថាវាដំណើរការ ១០០%
         document.addEventListener("DOMContentLoaded", function() {
             showPage(1);
 
@@ -835,12 +797,12 @@
                 if(secondsEl) secondsEl.innerText = Math.floor((distance % (1000 * 60)) / 1000);
             }
         }, 1000);
-        // កូដសម្រាប់ដំណើរការ Scroll Reveal Animation នៅទំព័រទី ២
+
         document.addEventListener("DOMContentLoaded", function() {
             const observerOptions = {
-                root: document.getElementById('page2'), // កំណត់ឱ្យវាផ្អែកលើការអូសក្នុង page2
+                root: document.getElementById('page2'),
                 rootMargin: '0px',
-                threshold: 0.15 // ឱ្យចេញសកម្មភាពនៅពេលប្លុកនោះលេចចេញមក ១៥%
+                threshold: 0.15
             };
 
             const observer = new IntersectionObserver(function(entries, observer) {
@@ -856,7 +818,8 @@
                 observer.observe(item);
             });
         });
-        // ប្រមូលតំណររូបភាពទាំងអស់សម្រាប់ Lightbox
+
+        // ================= គ្រប់គ្រង Lightbox រូបភាព (Swipe & Click Outside) =================
         const galleryImages = [
             "photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg",
             "photo5.jpg", "photo6.jpg", "photo7.jpg", "photo8.jpg",
@@ -877,6 +840,12 @@
             modal.classList.remove('active');
         }
 
+        function closeLightboxOnOutsideClick(event) {
+            if (event.target.id === 'lightboxModal') {
+                closeLightbox();
+            }
+        }
+
         function changeLightboxImage(direction) {
             currentImageIndex += direction;
             if (currentImageIndex < 0) {
@@ -887,7 +856,31 @@
             document.getElementById('lightboxImg').src = galleryImages[currentImageIndex];
         }
 
-        // កំណត់ស្វ័យប្រវត្តិបង្ហាញចំនួនសល់លើរូបទី៤ (ឧទាហរណ៍ សរុបមាន១០ លាក់អស់៦ សល់ +6)
+        // អូសដៃឆ្វេង/ស្ដាំលើអេក្រង់
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const lightboxModal = document.getElementById('lightboxModal');
+
+        lightboxModal.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+
+        lightboxModal.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+
+        function handleSwipe() {
+            const swipeThreshold = 40;
+            if (touchEndX < touchStartX - swipeThreshold) {
+                changeLightboxImage(1); // អូសទៅឆ្វេង -> មើលរូបបន្ទាប់
+            }
+            if (touchEndX > touchStartX + swipeThreshold) {
+                changeLightboxImage(-1); // អូសទៅស្ដាំ -> មើលរូបមុន
+            }
+        }
+
         document.addEventListener("DOMContentLoaded", function() {
             const totalImgs = galleryImages.length;
             if (totalImgs > 4) {
