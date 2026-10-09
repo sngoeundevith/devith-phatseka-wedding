@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>លិខិតអញ្ជើញមង្គលការ-ស្ងឿន ដេវីត & ផល្លី ផាត់សិកា</title>
+    <title>លិខិតអញ្ជើញមង្គលការ(ដេវីត & ផាត់សិកា)</title>
     <link href="https://fonts.googleapis.com/css2?family=Moul&family=Kantumruy+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -84,6 +84,14 @@
             border-radius: 8px;
             border: 2px solid var(--primary-gold);
             cursor: grab;
+            transition: transform 0.3s ease, opacity 0.3s ease; /* បន្ថែម Transition ឲ្យរលូន */
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .lightbox-content.animating {
+            opacity: 0;
+            transform: scale(0.92);
         }
 
         .lightbox-content:active {
@@ -876,14 +884,24 @@
         }
 
         function changeLightboxImage(direction) {
-            currentImageIndex += direction;
-            if (currentImageIndex < 0) {
-                currentImageIndex = galleryImages.length - 1;
-            } else if (currentImageIndex >= galleryImages.length) {
-                currentImageIndex = 0;
-            }
             const img = document.getElementById('lightboxImg');
-            if (img) img.src = galleryImages[currentImageIndex];
+            if (!img) return;
+
+            // ដាក់ Animation បញ្ចូលពេលប្តូររូប
+            img.classList.add('animating');
+
+            setTimeout(() => {
+                currentImageIndex += direction;
+                if (currentImageIndex < 0) {
+                    currentImageIndex = galleryImages.length - 1;
+                } else if (currentImageIndex >= galleryImages.length) {
+                    currentImageIndex = 0;
+                }
+                img.src = galleryImages[currentImageIndex];
+
+                // ដក Animation ចេញវិញដើម្បីឲ្យរូបថ្មីលេចចេញមកសរុបយ៉ាងរលូន
+                img.classList.remove('animating');
+            }, 200); // ល្បឿននៃការប្តូរ (0.2 វិនាទី)
         }
 
         document.addEventListener("DOMContentLoaded", function() {
