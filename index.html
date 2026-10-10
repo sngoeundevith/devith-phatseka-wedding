@@ -879,10 +879,11 @@
     </div>
 
     <script>
-        // ការកំណត់ការតភ្ជាប់ Firebase របស់អ្នក
+        // ការកំណត់ការតភ្ជាប់ Firebase របស់អ្នក (បានបន្ថែម databaseURL រួចរាល់)
         const firebaseConfig = {
             apiKey: "AIzaSyCark0HnpbVrRshS7W4BJWorCEduSEqHSY",
             authDomain: "wedding-wish-book.firebaseapp.com",
+            databaseURL: "https://wedding-wish-book-default-rtdb.firebaseio.com/",
             projectId: "wedding-wish-book",
             storageBucket: "wedding-wish-book.firebasestorage.app",
             messagingSenderId: "1090142331799",
@@ -1284,7 +1285,7 @@
 
                     if (bf.x < -30) { bf.x = -30; bf.vx *= -1; }
                     if (bf.x > w - 20) { bf.x = w - 20; bf.vx *= -1; }
-                    if (bf.y < -30) { bf.y = -30; bf.vx *= -1; }
+                    if (bf.y < -30) { bf.y = -30; bf.vy *= -1; }
                     if (bf.y > h - 20) { bf.y = h - 20; bf.vy *= -1; }
 
                     const targetAngle = Math.atan2(bf.vy, bf.vx) * (180 / Math.PI) + 90;
