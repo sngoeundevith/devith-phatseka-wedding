@@ -633,11 +633,11 @@
             100% { transform: scaleX(0.2); }
         }
 
-        /* Particles រាងបេះដូងពេលមេអំបៅផ្ទុះបែក */
+        /* Particles រាងបេះដូងធំច្បាស់ល្អ */
         .particle {
             position: absolute;
-            width: 8px;
-            height: 8px;
+            width: 18px;
+            height: 18px;
             pointer-events: none;
             will-change: transform, opacity;
         }
@@ -1160,7 +1160,7 @@
             });
         });
 
-        // ================= មេអំបៅពីរតួ វិលខ្ញាល់ ផ្ទុះចេញជារាងបេះដូង និងចេញពីគែមម្ខាងទៀត =================
+        // ================= មេអំបៅពីរតួ វិលខ្ញាល់ ផ្ទុះជារាងបេះដូងធំ រលាយយឺតៗ និងកើតថ្មីហោះចូលពីគែមម្ខាងទៀតពីតូចទៅធំ =================
         (function initSVGButterflies() {
             const bfContainer = document.createElement('div');
             bfContainer.className = 'butterfly-container';
@@ -1226,8 +1226,8 @@
                         } else {
                             div.style.opacity = '0';
 
-                            // បង្កើត Particles ច្រើន (៥០ គ្រាប់) រៀបចំជាទម្រង់រាងបេះដូងច្បាស់ល្អ
-                            const particleCount = 50;
+                            // បង្កើត Particles រាងបេះដូងធំច្បាស់ល្អ ចំនួន ៦០ គ្រាប់
+                            const particleCount = 60;
                             const particles = [];
                             const currentX = bfObj.x + 25;
                             const currentY = bfObj.y + 25;
@@ -1235,61 +1235,90 @@
                             for (let p = 0; p < particleCount; p++) {
                                 const particle = document.createElement('div');
                                 particle.className = 'particle';
-                                particle.innerHTML = `<svg viewBox="0 0 24 24" style="width:100%; height:100%; fill:${bfObj.color}; filter: drop-shadow(0 0 3px ${bfObj.color});">
+                                particle.innerHTML = `<svg viewBox="0 0 24 24" style="width:100%; height:100%; fill:${bfObj.color}; filter: drop-shadow(0 0 5px ${bfObj.color});">
                                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                                 </svg>`;
                                 particle.style.left = currentX + 'px';
                                 particle.style.top = currentY + 'px';
                                 bfContainer.appendChild(particle);
 
-                                // កំណត់មុំនិងល្បឿនឱ្យបែកចេញជារាងបេះដូង
                                 const t = (p / particleCount) * Math.PI * 2;
-                                // រូបមន្តគណិតវិទ្យារាងបេះដូង (Cardioid / Heart Parametric Equations)
                                 const hx = 16 * Math.pow(Math.sin(t), 3);
                                 const hy = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
                                 
-                                const scaleFactor = 0.35 + Math.random() * 0.15;
+                                const scaleFactor = 0.55 + Math.random() * 0.2; // បង្កើនទំហំរាងបេះដូងឱ្យធំជាងមុន
                                 particles.push({
                                     element: particle,
                                     vx: hx * scaleFactor,
                                     vy: hy * scaleFactor,
                                     x: currentX,
-                                    y: currentY
+                                    y: currentY,
+                                    alpha: 1
                                 });
                             }
 
+                            // ដំណាក់កាលបេះដូងហោះរីកធំ និងរលាយបាត់យឺតៗ
                             let frame = 0;
                             function explodeAnimation() {
                                 frame++;
+                                let currentAlpha = 1 - (frame / 90); // រលាយបាត់យឺតៗ (៩០ frames)
+                                
                                 particles.forEach(pt => {
-                                    pt.x += pt.vx * 0.12;
-                                    pt.y += pt.vy * 0.12;
+                                    pt.x += pt.vx * 0.1;
+                                    pt.y += pt.vy * 0.1;
                                     pt.element.style.left = pt.x + 'px';
                                     pt.element.style.top = pt.y + 'px';
-                                    pt.vx *= 0.94;
-                                    pt.vy *= 0.94;
+                                    pt.element.style.opacity = Math.max(currentAlpha, 0);
+                                    pt.vx *= 0.95;
+                                    pt.vy *= 0.95;
                                 });
 
-                                if (frame < 60) {
+                                if (frame < 90) {
                                     requestAnimationFrame(explodeAnimation);
                                 } else {
                                     particles.forEach(pt => pt.element.remove());
                                     
+                                    // ដំណាក់កាលបង្កើតមេអំបៅថ្មី ហោះចូលមកពីគែមម្ខាងទៀតពីតូចទៅធំ
                                     bfObj.color = getRandomColor();
                                     updateButterflySVG(bfObj);
                                     
-                                    // ពេលកើតថ្មី ឱ្យវាហោះចេញពីគែមម្ខាងទៀតនៃអេក្រង់ (ប្រឆាំងនឹងទីតាំងចាស់)
                                     const screenW = window.innerWidth;
                                     const screenH = window.innerHeight;
+                                    
+                                    // កំណត់ទីតាំងចាប់ផ្ដើមនៅគែមម្ខាងទៀត
+                                    let startX, startY;
                                     if (bfObj.x < screenW / 2) {
-                                        bfObj.x = screenW + 30; // ហោះចេញពីគែមស្ដាំ
+                                        startX = screenW + 50; // ចេញពីគែមស្ដាំ
                                     } else {
-                                        bfObj.x = -60; // ហោះចេញពីគែមឆ្វេង
+                                        startX = -80; // ចេញពីគែមឆ្វេង
                                     }
-                                    bfObj.y = Math.random() * (screenH - 60);
+                                    startY = Math.random() * (screenH - 60);
 
-                                    div.style.opacity = '1';
-                                    bfObj.isExploding = false;
+                                    let targetX = Math.random() * (screenW - 60);
+                                    let targetY = Math.random() * (screenH - 60);
+
+                                    let entryFrame = 0;
+                                    const entryDuration = 40; // រយៈពេលហោះចូល
+
+                                    function entryAnimation() {
+                                        entryFrame++;
+                                        let progress = entryFrame / entryDuration;
+                                        // គណនាចលនាពីគែមមកទិសដៅគោលដៅ
+                                        bfObj.x = startX + (targetX - startX) * progress;
+                                        bfObj.y = startY + (targetY - startY) * progress;
+
+                                        // រីកធំពីតូច (scale 0.1) រហូតដល់ទំហំធម្មតា (scale 1)
+                                        let currentScale = progress;
+                                        div.style.opacity = progress;
+                                        div.style.transform = `translate3d(${bfObj.x}px, ${bfObj.y}px, 0) scale(${currentScale})`;
+
+                                        if (entryFrame < entryDuration) {
+                                            requestAnimationFrame(entryAnimation);
+                                        } else {
+                                            bfObj.isExploding = false;
+                                        }
+                                    }
+                                    requestAnimationFrame(entryAnimation);
                                 }
                             }
                             requestAnimationFrame(explodeAnimation);
