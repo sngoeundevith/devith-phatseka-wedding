@@ -7,10 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Moul&family=Kantumruy+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Firebase App & Realtime Database SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-
     <style>
         /* ស្ទីលសម្រាប់កម្រងរូបភាពទម្រង់បែប Facebook */
         .fb-gallery-grid {
@@ -878,8 +874,11 @@
         </div>
     </div>
 
-    <script>
-        // ការកំណត់ការតភ្ជាប់ Firebase របស់អ្នក (បានបន្ថែម databaseURL រួចរាល់)
+    <!-- Firebase Modular SDK Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+
         const firebaseConfig = {
             apiKey: "AIzaSyCark0HnpbVrRshS7W4BJWorCEduSEqHSY",
             authDomain: "wedding-wish-book.firebaseapp.com",
@@ -891,12 +890,12 @@
             measurementId: "G-N661HDK3BF"
         };
 
-        // เริ่มต้น Firebase
-        firebase.initializeApp(firebaseConfig);
-        const dbRef = firebase.database().ref('wedding_wishes');
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const dbRef = ref(db, 'wedding_wishes');
 
-        // ទាញយកសារទាំងអស់មកបង្ហាញជាក់ស្ដែង (Realtime) សម្រាប់ភ្ញៀវគ្រប់រូប
-        dbRef.on('value', (snapshot) => {
+        // ទាញយក និងបង្ហាញសារแบบ Realtime សម្រាប់ភ្ញៀវគ្រប់រូប
+        onValue(dbRef, (snapshot) => {
             const wishesList = document.getElementById('wishesList');
             if (!wishesList) return;
             
@@ -905,7 +904,6 @@
             
             if (data) {
                 const wishesArray = Object.values(data).reverse();
-                
                 wishesArray.forEach(wish => {
                     const wishCard = document.createElement('div');
                     wishCard.className = 'wish-card';
@@ -918,8 +916,8 @@
             }
         });
 
-        // មុខងារសម្រាប់ភ្ញៀវចុចផ្ញើសារជូនពរ
-        function submitWish() {
+        // មុខងារសម្រាប់ចុចផ្ញើសារ
+        window.submitWish = function() {
             const nameInput = document.getElementById('wishName');
             const textInput = document.getElementById('wishText');
 
@@ -931,7 +929,7 @@
                 return;
             }
 
-            dbRef.push({
+            push(dbRef, {
                 name: name,
                 text: text,
                 timestamp: Date.now()
@@ -941,7 +939,7 @@
             }).catch((error) => {
                 alert("មានបញ្ហាក្នុងការផ្ញើសារ៖ " + error.message);
             });
-        }
+        };
 
         function escapeHtml(str) {
             return str.replace(/&/g, "&amp;")
@@ -950,7 +948,9 @@
                       .replace(/"/g, "&quot;")
                       .replace(/'/g, "&#039;");
         }
+    </script>
 
+    <script>
         const textToType = "ស្ងឿន ដេវីត    ♥    ផល្លី ផាត់សិកា";
         let charIndex = 0;
 
