@@ -275,19 +275,22 @@
             z-index: 10 !important;
         }
 
+        /* កែប្រែទំហំអក្សរឱ្យរីកបង្រួមស្វ័យប្រវត្តិ និងហាមឃាត់មិនឱ្យចុះបន្ទាត់ */
         .header-title {
             font-family: 'Moul', cursive;
             color: #ffdf73;
             text-shadow: 0 2px 6px rgba(0,0,0,0.9);
-            font-size: 28px;
+            font-size: clamp(20px, 6.5vw, 28px);
+            white-space: nowrap;
             margin: 5px 0;
         }
 
         .couple-names {
             font-family: 'Moul', cursive;
-            font-size: 24px;
+            font-size: clamp(16px, 5.2vw, 24px);
             color: #ffdf73;
             text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+            white-space: nowrap;
             margin: 5px 0;
             min-height: 30px;
             display: inline-block;
@@ -932,13 +935,20 @@
     </script>
 
     <script>
-        const textToType = "ស្ងឿន ដេវីត    ♥    ផល្លី ផាត់សិកា";
+        // ប្រើ &nbsp; ដើម្បីការពារកុំឱ្យអក្សរចុះបន្ទាត់ដាច់ពីគ្នា
+        const textToType = "ស្ងឿន&nbsp;ដេវីត    ♥    ផល្លី&nbsp;ផាត់សិកា";
         let charIndex = 0;
 
         function typeWriter() {
             if (charIndex < textToType.length) {
-                document.getElementById("animatedNames").innerHTML += textToType.charAt(charIndex);
-                charIndex++;
+                const char = textToType.charAt(charIndex);
+                if (textToType.substring(charIndex, charIndex + 6) === "&nbsp;") {
+                    document.getElementById("animatedNames").innerHTML += "&nbsp;";
+                    charIndex += 6;
+                } else {
+                    document.getElementById("animatedNames").innerHTML += char;
+                    charIndex++;
+                }
                 setTimeout(typeWriter, 120);
             }
         }
