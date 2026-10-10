@@ -531,48 +531,50 @@
 
         /* ================= ស្ទីលសម្រាប់មេអំបៅ SVG ================= */
         .butterfly-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 999999;
-            overflow: hidden;
-        }
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* អនុញ្ញាតឱ្យចុចធ្លាយទៅក្រោមបាន លើកលែងតែមេអំបៅផ្ទាល់ */
+    z-index: 9999999;
+    overflow: hidden;
+}
 
-        .butterfly {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            will-change: transform;
-            perspective: 1000px;
-            cursor: pointer;
-            transition: transform 0.1s linear;
-        }
+.butterfly {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    will-change: transform;
+    perspective: 1000px;
+    cursor: pointer;
+    pointer-events: auto !important; /* បង្ខំឱ្យមេអំបៅអាចទទួលការប៉ះបាន ១០០% */
+    transition: transform 0.1s linear;
+}
 
-        /* ពេលវិលខ្ញាល់ និងផ្ទុះបែក */
-        .butterfly.exploding {
-            animation: spinAndExplode 0.8s ease-in-out forwards !important;
-            pointer-events: none;
-        }
+/* ពេលវិលខ្ញាល់ និងផ្ទុះបែក */
+.butterfly.exploding {
+    animation: spinAndExplode 0.8s ease-out forwards !important;
+    pointer-events: none;
+}
 
-        @keyframes spinAndExplode {
-            0% {
-                transform: translate3d(var(--curr-x), var(--curr-y), 0) scale(1) rotate(0deg);
-                opacity: 1;
-            }
-            40% {
-                transform: translate3d(var(--curr-x), var(--curr-y), 0) scale(1.4) rotate(720deg); /* វិលខ្ញាល់នៅនឹងកន្លែង */
-                opacity: 1;
-                filter: brightness(2) drop-shadow(0 0 10px #ff0844);
-            }
-            100% {
-                transform: translate3d(var(--curr-x), var(--curr-y), 0) scale(0) rotate(1440deg); /* ផ្ទុះបែករលាយបាត់ */
-                opacity: 0;
-                filter: brightness(3);
-            }
-        }
+@keyframes spinAndExplode {
+    0% {
+        transform: translate3d(var(--curr-x), var(--curr-y), 0) scale(1) rotate(0deg);
+        opacity: 1;
+        filter: drop-shadow(0 0 5px rgba(255, 8, 68, 0.8));
+    }
+    30% {
+        transform: translate3d(var(--curr-x), var(--curr-y), 0) scale(1.6) rotate(540deg);
+        opacity: 1;
+        filter: brightness(2.5) drop-shadow(0 0 15px #ff0844) drop-shadow(0 0 25px #ffeb3b);
+    }
+    100% {
+        transform: translate3d(var(--curr-x), var(--curr-y), 0) scale(2.2) rotate(1080deg);
+        opacity: 0;
+        filter: brightness(3) drop-shadow(0 0 35px #ffffff);
+    }
+}
 
         .butterfly svg {
             width: 100%;
@@ -1029,6 +1031,7 @@
         });
         // ================= បង្កើតចលនាមេអំបៅ SVG ហោះហើរគ្រប់ទិស និងអាចចុចឱ្យប្រកាច់វិលខ្ញាល់ =================
         // ================= បង្កើតចលនាមេអំបៅហោះគ្រប់ទិស និងប៉ះផ្ទុះបែកហោះចេញពីគែមថ្មី =================
+// ================= បង្កើតចលនាមេអំបៅហោះយឺត និងប៉ះផ្ទុះបែករលាយ =================
 (function initSVGButterflies() {
     const bfContainer = document.createElement('div');
     bfContainer.className = 'butterfly-container';
@@ -1059,57 +1062,57 @@
             element: div,
             x: Math.random() * (window.innerWidth - 60),
             y: Math.random() * (window.innerHeight - 60),
-            vx: (Math.random() - 0.5) * 3,
-            vy: (Math.random() - 0.5) * 3,
+            vx: (Math.random() - 0.5) * 1.5, // កាត់បន្ថយល្បឿនដំបូងឱ្យយឺត
+            vy: (Math.random() - 0.5) * 1.5,
             angle: 0,
             isDead: false
         };
 
-        // ពេលប៉ះចំមេអំបៅ (Click ឬ Touch)
-        div.addEventListener('pointerdown', (e) => {
+        function handleButterflyTouch(e) {
+            e.preventDefault();
             e.stopPropagation();
             if (bfObj.isDead) return;
             bfObj.isDead = true;
 
-            // កំណត់ទីតាំងសម្រាប់ធ្វើ Animation វិលនិងផ្ទុះ
             div.style.setProperty('--curr-x', bfObj.x + 'px');
             div.style.setProperty('--curr-y', bfObj.y + 'px');
             div.classList.add('exploding');
 
-            // បន្ទាប់ពីវិលផ្ទុះចប់ (០.៨វិនាទី) ឱ្យវាលេចចេញមកពីគែមម្ខាងទៀតដោយធម្មតាវិញ
             setTimeout(() => {
                 div.classList.remove('exploding');
 
-                // ចៃដន្យជ្រើសរើសគែមណាមួយ (ឆ្វេង ស្តាំ លើ ឬក្រោម) ដើម្បីឱ្យវាហោះចូលមកវិញ
                 const edge = Math.floor(Math.random() * 4);
                 const w = window.innerWidth;
                 const h = window.innerHeight;
 
-                if (edge === 0) { // គែមឆ្វេង
+                if (edge === 0) {
                     bfObj.x = -40;
                     bfObj.y = Math.random() * h;
-                    bfObj.vx = Math.random() * 2 + 1; // ហោះចូលក្នុង
-                    bfObj.vy = (Math.random() - 0.5) * 2;
-                } else if (edge === 1) { // គែមស្តាំ
+                    bfObj.vx = Math.random() * 1 + 0.8;
+                    bfObj.vy = (Math.random() - 0.5) * 1;
+                } else if (edge === 1) {
                     bfObj.x = w + 40;
                     bfObj.y = Math.random() * h;
-                    bfObj.vx = -(Math.random() * 2 + 1);
-                    bfObj.vy = (Math.random() - 0.5) * 2;
-                } else if (edge === 2) { // គែមលើ
+                    bfObj.vx = -(Math.random() * 1 + 0.8);
+                    bfObj.vy = (Math.random() - 0.5) * 1;
+                } else if (edge === 2) {
                     bfObj.x = Math.random() * w;
                     bfObj.y = -40;
-                    bfObj.vx = (Math.random() - 0.5) * 2;
-                    bfObj.vy = Math.random() * 2 + 1;
-                } else { // គែមក្រោម
+                    bfObj.vx = (Math.random() - 0.5) * 1;
+                    bfObj.vy = Math.random() * 1 + 0.8;
+                } else {
                     bfObj.x = Math.random() * w;
                     bfObj.y = h + 40;
-                    bfObj.vx = (Math.random() - 0.5) * 2;
-                    bfObj.vy = -(Math.random() * 2 + 1);
+                    bfObj.vx = (Math.random() - 0.5) * 1;
+                    bfObj.vy = -(Math.random() * 1 + 0.8);
                 }
 
                 bfObj.isDead = false;
             }, 800);
-        });
+        }
+
+        div.addEventListener('click', handleButterflyTouch);
+        div.addEventListener('touchstart', handleButterflyTouch, { passive: false });
 
         return bfObj;
     });
@@ -1121,18 +1124,16 @@
         butterflies.forEach((bf, i) => {
             if (bf.isDead) return;
 
-            // ផ្លាស់ប្ដូរទិសដៅបន្តិចម្ដងៗដោយសេរីគ្រប់ទិស
-            bf.vx += (Math.random() - 0.5) * 0.4;
-            bf.vy += (Math.random() - 0.5) * 0.4;
+            bf.vx += (Math.random() - 0.5) * 0.2;
+            bf.vy += (Math.random() - 0.5) * 0.2;
 
-            const maxSpeed = 3;
+            const maxSpeed = 1.5; // កំណត់ល្បឿនអតិបរិមាឱ្យហោះយឺតៗស្រួលចុច
             bf.vx = Math.max(-maxSpeed, Math.min(maxSpeed, bf.vx));
             bf.vy = Math.max(-maxSpeed, Math.min(maxSpeed, bf.vy));
 
             bf.x += bf.vx;
             bf.y += bf.vy;
 
-            // ឱ្យមេអំបៅបត់ត្រឡប់មកវិញ ពេលហោះដល់គែមអេក្រង់ធម្មតា
             if (bf.x < -30) { bf.x = -30; bf.vx *= -1; }
             if (bf.x > w - 20) { bf.x = w - 20; bf.vx *= -1; }
             if (bf.y < -30) { bf.y = -30; bf.vy *= -1; }
