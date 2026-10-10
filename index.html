@@ -882,7 +882,7 @@
         const firebaseConfig = {
             apiKey: "AIzaSyCark0HnpbVrRshS7W4BJWorCEduSEqHSY",
             authDomain: "wedding-wish-book.firebaseapp.com",
-            databaseURL: "https://wedding-wish-book-default-rtdb.firebaseio.com/",
+            databaseURL: "https://wedding-wish-book-default-rtdb.asia-southeast1.firebasedatabase.app/",
             projectId: "wedding-wish-book",
             storageBucket: "wedding-wish-book.firebasestorage.app",
             messagingSenderId: "1090142331799",
@@ -894,7 +894,7 @@
         const db = getDatabase(app);
         const dbRef = ref(db, 'wedding_wishes');
 
-        // ទាញយក និងបង្ហាញសារแบบ Realtime សម្រាប់ភ្ញៀវគ្រប់រូប
+        // ទាញយក និងបង្ហាញសារແບບ Realtime សម្រាប់ភ្ញៀវគ្រប់រូប
         onValue(dbRef, (snapshot) => {
             const wishesList = document.getElementById('wishesList');
             if (!wishesList) return;
