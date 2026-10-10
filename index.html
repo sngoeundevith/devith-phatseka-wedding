@@ -1157,13 +1157,12 @@
             });
         });
 
-        // ================= មេអំបៅវិលខ្ញាល់ ផ្ទុះបែកជាបំណែក និងប្រមូលផ្តុំជារូបរាងថ្មីមានពណ៌ដូរជានិច្ច =================
+        // ================= មេអំបៅពីរតួ វិលខ្ញាល់ ផ្ទុះបែកជាបំណែក និងប្រមូលផ្តុំជារូបរាងថ្មីមានពណ៌ដូរជានិច្ច =================
         (function initSVGButterflies() {
             const bfContainer = document.createElement('div');
             bfContainer.className = 'butterfly-container';
             document.body.appendChild(bfContainer);
 
-            // មុខងារបង្កើតពណ៌ចៃដន្យស្រស់ស្អាត (Random Vibrant Colors)
             function getRandomColor() {
                 const letters = '0123456789ABCDEF';
                 let color = '#';
@@ -1173,7 +1172,7 @@
                 return color;
             }
 
-            const butterflyCount = 3; // ចំនួនមេអំបៅដែលហោះលើអេក្រង់
+            const butterflyCount = 2; // កំណត់ចំនួនមេអំបៅត្រឹម ២ តួ
             const butterflies = [];
 
             for (let i = 0; i < butterflyCount; i++) {
@@ -1192,7 +1191,6 @@
                     color: getRandomColor()
                 };
 
-                // កំណត់រូបរាង SVG ជាមួយពណ៌ថ្មី
                 updateButterflySVG(bfObj);
 
                 function handleTouch(e) {
@@ -1201,10 +1199,8 @@
                     if (bfObj.isExploded) return;
                     bfObj.isExploded = true;
 
-                    // លាក់ខ្លួនមេអំបៅបណ្ដោះអាសន្ន
                     div.style.opacity = '0';
 
-                    // បង្កើតបំណែក Particles ផ្ទុះចេញពីទីតាំងមេអំបៅ
                     const particleCount = 25;
                     const particles = [];
                     const currentX = bfObj.x + 25;
@@ -1228,7 +1224,6 @@
                         });
                     }
 
-                    // ចលនាបំណែក particles ហោះខ្ចាត់ខ្ចាយ រួចប្រមូលផ្ដុំគ្នាវិញ
                     let frame = 0;
                     function animateExplosion() {
                         frame++;
@@ -1237,20 +1232,18 @@
                             const currentTop = parseFloat(pt.element.style.top);
                             pt.element.style.left = (currentLeft + pt.vx) + 'px';
                             pt.element.style.top = (currentTop + pt.vy) + 'px';
-                            pt.vx *= 0.92; // បន្ថយល្បឿនបន្តិចម្ដងៗ
+                            pt.vx *= 0.92;
                             pt.vy *= 0.92;
                         });
 
                         if (frame < 60) {
                             requestAnimationFrame(animateExplosion);
                         } else {
-                            // លុប particles ចោល ប្ដូរពណ៌ថ្មី និងបង្កើតមេអំបៅឡើងវិញ
                             particles.forEach(pt => pt.element.remove());
                             
-                            bfObj.color = getRandomColor(); // ប្ដូរពណ៌ថ្មីរាល់ពេលកើតឡើងវិញ
+                            bfObj.color = getRandomColor();
                             updateButterflySVG(bfObj);
                             
-                            // ផ្លាស់ទីមេអំបៅទៅកន្លែងថ្មីចៃដន្យលើអេក្រង់
                             bfObj.x = Math.random() * (window.innerWidth - 60);
                             bfObj.y = Math.random() * (window.innerHeight - 60);
                             div.style.opacity = '1';
