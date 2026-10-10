@@ -406,7 +406,7 @@
             display: none;
         }
 
-        /* ស៊ុមផ្ការៀបចំជា Absolute ជាប់លើ Mobile Card មិនរត់តាមការ Scroll ឡើយ */
+        /* ស៊ុមផ្ការៀបចំជា Absolute ជាប់លើ Mobile Card មិនរត់តាមการ Scroll ឡើយ */
         .page2-fixed-overlay {
             position: absolute;
             top: 0;
@@ -633,14 +633,14 @@
             100% { transform: scaleX(0.2); }
         }
 
-        /* Particles រាងបេះដូងទំហំ 30px កម្រិត opacity ស្រាលទន់ភ្លន់ (0.3) */
+        /* Particles រាងបេះដូងទំហំ 50px និងកម្រិត opacity 0.1 ស្រទន់ស្តើងបំផុតតាមសំណើ[span_2](start_span)[span_2](end_span) */
         .particle {
             position: absolute;
-            width: 30px;
-            height: 30px;
+            width: 50px;
+            height: 50px;
             pointer-events: none;
             will-change: transform, opacity;
-            opacity: 0.2;
+            opacity: 0.1;
         }
     </style>
 </head>
@@ -1161,7 +1161,7 @@
             });
         });
 
-        // ================= មេអំបៅពីរតួ វិលខ្ញាល់ ផ្ទុះជារាងបេះដូងមានក្រលាក់ជ្រៅលើ (opacity 0.3 ស្រាល) =================
+        // ================= មេអំបៅពីរតួ វិលខ្ញាល់ ផ្ទុះជាបេះដូងទំហំ 50px (opacity 0.1) និងមេអំបៅថ្មីហោះចូលតាមចលនាធម្មតា =================
         (function initSVGButterflies() {
             const bfContainer = document.createElement('div');
             bfContainer.className = 'butterfly-container';
@@ -1227,7 +1227,7 @@
                         } else {
                             div.style.opacity = '0';
 
-                            // បង្កើត Particles រាងបេះដូងទំហំ 30px ដោយប្រើប្រាស់ opacity 0.3 ស្រាលទន់ភ្លន់
+                            // បង្កើត Particles រាងបេះដូងទំហំ 50px និង opacity 0.1 តាមសំណើ[span_3](start_span)[span_3](end_span)
                             const particleCount = 60;
                             const particles = [];
                             const currentX = bfObj.x + 25;
@@ -1237,7 +1237,7 @@
                             for (let p = 0; p < particleCount; p++) {
                                 const particle = document.createElement('div');
                                 particle.className = 'particle';
-                                particle.style.opacity = '0.3'; // កម្រិត opacity ស្រាល
+                                particle.style.opacity = '0.1'; // កម្រិត opacity ស្រទន់ស្តើងបំផុត[span_4](start_span)[span_4](end_span)
                                 particle.innerHTML = `<svg viewBox="0 0 24 24" style="width:100%; height:100%; fill:${activeColor}; filter: drop-shadow(0 0 2px ${activeColor});">
                                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                                 </svg>`;
@@ -1245,7 +1245,6 @@
                                 particle.style.top = currentY + 'px';
                                 bfContainer.appendChild(particle);
 
-                                // រូបមន្តបេះដូងដែលមានក្រលាក់ជ្រៅផ្នែកខាងលើច្បាស់ស្អាត
                                 const t = (p / particleCount) * Math.PI * 2;
                                 const hx = 16 * Math.pow(Math.sin(t), 3);
                                 const hy = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
@@ -1264,8 +1263,7 @@
                             let frame = 0;
                             function explodeAnimation() {
                                 frame++;
-                                // រលាយបាត់យឺតៗចេញពី 0.3 ចុះមក 0
-                                let currentAlpha = 0.3 * (1 - (frame / 80));
+                                let currentAlpha = 0.1 * (1 - (frame / 80));
                                 
                                 particles.forEach(pt => {
                                     pt.x += pt.vx * 0.1;
