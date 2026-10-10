@@ -406,7 +406,7 @@
             display: none;
         }
 
-        /* ស៊ុមផ្ការៀបចំជា Absolute ជាប់លើ Mobile Card មិនរត់តាមการ Scroll ឡើយ */
+        /* ស៊ុមផ្ការៀបចំជា Absolute ជាប់លើ Mobile Card មិនរត់តាមការ Scroll ឡើយ */
         .page2-fixed-overlay {
             position: absolute;
             top: 0;
@@ -633,7 +633,7 @@
             100% { transform: scaleX(0.2); }
         }
 
-        /* Particles រាងបេះដូងទំហំ 50px និងកម្រិត opacity 0.1 ស្រទន់ស្តើងបំផុតតាមសំណើ[span_2](start_span)[span_2](end_span) */
+        /* Particles រាងបេះដូងទំហំ 50px និងកម្រិត opacity 0.1 */
         .particle {
             position: absolute;
             width: 50px;
@@ -1161,7 +1161,7 @@
             });
         });
 
-        // ================= មេអំបៅពីរតួ វិលខ្ញាល់ ផ្ទុះជាបេះដូងទំហំ 50px (opacity 0.1) និងមេអំបៅថ្មីហោះចូលតាមចលនាធម្មតា =================
+        // ================= មេអំបៅពីរតួ វិលខ្ញាល់ ផ្ទុះជារាងបេះដូង (opacity 0.1) និងផុសចេញថ្មីពីកន្លែងផ្សេងដោយរីកធំយឺតៗ =================
         (function initSVGButterflies() {
             const bfContainer = document.createElement('div');
             bfContainer.className = 'butterfly-container';
@@ -1227,7 +1227,7 @@
                         } else {
                             div.style.opacity = '0';
 
-                            // បង្កើត Particles រាងបេះដូងទំហំ 50px និង opacity 0.1 តាមសំណើ[span_3](start_span)[span_3](end_span)
+                            // បង្កើត Particles រាងបេះដូងទំហំ 50px និង opacity 0.1
                             const particleCount = 60;
                             const particles = [];
                             const currentX = bfObj.x + 25;
@@ -1237,7 +1237,7 @@
                             for (let p = 0; p < particleCount; p++) {
                                 const particle = document.createElement('div');
                                 particle.className = 'particle';
-                                particle.style.opacity = '0.1'; // កម្រិត opacity ស្រទន់ស្តើងបំផុត[span_4](start_span)[span_4](end_span)
+                                particle.style.opacity = '0.1';
                                 particle.innerHTML = `<svg viewBox="0 0 24 24" style="width:100%; height:100%; fill:${activeColor}; filter: drop-shadow(0 0 2px ${activeColor});">
                                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                                 </svg>`;
@@ -1280,28 +1280,34 @@
                                 } else {
                                     particles.forEach(pt => pt.element.remove());
                                     
-                                    // ដំណាក់កាលមេអំបៅថ្មី ហោះចេញពីគែមម្ខាងទៀត តាមចលនាធម្មតា
+                                    // ដំណាក់កាលមេអំបៅថ្មី ផុសចេញនៅទីតាំងថ្មីដោយគ្មានការស្ទុះហោះមកពីកន្លែងចាស់
                                     bfObj.color = getRandomColor();
                                     updateButterflySVG(bfObj);
                                     
                                     const screenW = window.innerWidth;
                                     const screenH = window.innerHeight;
                                     
-                                    let startX, startY;
-                                    if (bfObj.x < screenW / 2) {
-                                        startX = screenW + 50;
-                                    } else {
-                                        startX = -80;
+                                    // កំណត់ទីតាំងថ្មីចៃដន្យនៅលើអេក្រង់
+                                    bfObj.x = Math.random() * (screenW - 60);
+                                    bfObj.y = Math.random() * (screenH - 60);
+
+                                    let appearFrame = 0;
+                                    const appearDuration = 60; // រយៈពេលផុសចេញនិងរីកធំយឺតៗ (ប្រហែល ១វិនាទី)
+
+                                    function appearAnimation() {
+                                        appearFrame++;
+                                        let progress = appearFrame / appearDuration; // ពី ០ ដល់ ១ (តូចទៅធំ)
+
+                                        div.style.opacity = progress;
+                                        div.style.transform = `translate3d(${bfObj.x}px, ${bfObj.y}px, 0) scale(${progress})`;
+
+                                        if (appearFrame < appearDuration) {
+                                            requestAnimationFrame(appearAnimation);
+                                        } else {
+                                            bfObj.isExploding = false; // ចាប់ផ្តើមហោះហើរធម្មតាវិញ
+                                        }
                                     }
-                                    startY = Math.random() * (screenH - 60);
-
-                                    bfObj.x = startX;
-                                    bfObj.y = startY;
-                                    div.style.opacity = '1';
-                                    div.style.transform = `translate3d(${bfObj.x}px, ${bfObj.y}px, 0)`;
-
-                                    // បន្តហោះចូលតាមចលនាធម្មតា
-                                    bfObj.isExploding = false;
+                                    requestAnimationFrame(appearAnimation);
                                 }
                             }
                             requestAnimationFrame(explodeAnimation);
