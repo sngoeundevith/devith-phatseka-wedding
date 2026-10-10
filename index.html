@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>លិខិតអញ្ជើញមង្គលការ(ដេវីត & ផាត់សិកា)</title>
+    <title>លិខិតអញ្ជើញមង្គលការ-ស្ងឿន ដេវីត & ផល្លី ផាត់សិកា</title>
     <link href="https://fonts.googleapis.com/css2?family=Moul&family=Kantumruy+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -547,6 +547,31 @@
             height: 50px;
             will-change: transform;
             perspective: 1000px;
+            cursor: pointer;
+            transition: transform 0.1s linear;
+        }
+
+        /* ពេលវិលខ្ញាល់ និងផ្ទុះបែក */
+        .butterfly.exploding {
+            animation: spinAndExplode 0.8s ease-in-out forwards !important;
+            pointer-events: none;
+        }
+
+        @keyframes spinAndExplode {
+            0% {
+                transform: translate3d(var(--curr-x), var(--curr-y), 0) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            40% {
+                transform: translate3d(var(--curr-x), var(--curr-y), 0) scale(1.4) rotate(720deg); /* វិលខ្ញាល់នៅនឹងកន្លែង */
+                opacity: 1;
+                filter: brightness(2) drop-shadow(0 0 10px #ff0844);
+            }
+            100% {
+                transform: translate3d(var(--curr-x), var(--curr-y), 0) scale(0) rotate(1440deg); /* ផ្ទុះបែករលាយបាត់ */
+                opacity: 0;
+                filter: brightness(3);
+            }
         }
 
         .butterfly svg {
@@ -634,7 +659,7 @@
             <!-- ===== ទំព័រទី ២ (PAGE 2) ===== -->
             <div id="page2" class="page-content">
                 <br><br>
-                <div class="reveal-item" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 15px; margin-top: 30px 0; text-align: left;">
+                <div class="reveal-item" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 15px; margin-top: 45px 0; text-align: left;">
                     <div style="flex: 1;">
                         <div class="item"><span style="color: #aa7c11">លោក <span style="font-family: 'Moul'">ព្រឹក ស្ងឿន</span></span></div>
                         <div class="item"><span style="color: #aa7c11">អ្នកស្រី <span style="font-family: 'Moul'">ហេង សុជាតិ</span></span></div>
@@ -649,14 +674,14 @@
                     <h1 style="font-family: 'Moul'; font-size: 14px; color: var(--dark-gold); margin: 10px 0; text-align: center;">មានកិត្តិយសសូមគោរពអញ្ជើញ</h1>
                     <p style="font-size: 13px; color:  #2a09fd; text-align: center;">ឯកឧត្តម លោកជំទាវ លោក លោកស្រី អ្នកនាងកញ្ញា</p>
                     <p style="color: #2a09fd; font-size: 12px; line-height: 1.6; margin-top: 8px; text-align: justify;">
-                        អញ្ជើញចូលរួមជាធិបតី និងជាភ្ញៀវកិត្តិយសក្នុង
+                        អញ្ជើញចូលរួមជាធិបតី និងជាភ្ញៀវកិត្តិយស ក្នុង
                         <span style="font-family: 'Moul'; color: var(--dark-gold);">ពិធីរៀបអាពាហ៍ពិពាហ៍</span>
-                        កូនប្រុស-ស្រីរបស់យើងខ្ញុំដើម្បីប្រសិទ្ធិពរជ័យសិរីមង្គលបវរប្រសើរដល់គូរស្វាមីភរិយាថ្មី និងពិសារភោជនាហារប្រព្រឹត្តទៅនៅ
+                        កូនប្រុស-ស្រីរបស់យើងខ្ញុំដើម្បីប្រសិទ្ធិពរជ័យ សិរីមង្គល បវរប្រសើរ ដល់គូរស្វាមីភរិយាថ្មី និងពិសារភោជនាហារប្រព្រឹត្តទៅនៅ
                         <span style="font-size:12px; font-family: 'Moul'; color: var(--dark-gold);">ថ្ងៃសុក្រ ១០រោច ខែកត្តិក ឆ្នាំមមី អដ្ឋស័ក ព.ស. ២៥៧០</span>
                         ដែលត្រូវនឹង
                         <span style="font-size:12px; font-family: 'Moul'; color: var(--dark-gold);">ថ្ងៃទី៤ ខែធ្នូ ឆ្នាំ២០២៦ វេលាម៉ោង ៥:០០ ល្ងាច</span>
                         នៅគេហដ្ឋានខាងស្រីស្ថិតនៅ
-                        <b>ភូមិក្រពើជើង ឃុំភ្នំសំពៅ ស្រុកបាណន់ ខេត្តបាត់ដំបង (ខាងលិចវត្តអណ្ដើកចម្ងាយ ២០០ម)</b>ដោយមេត្រីភាព។
+                        <b>ភូមិក្រពើជើង ឃុំភ្នំសំពៅ ស្រុកបាណន់ ខេត្តបាត់ដំបង (ហួសវត្តអណ្ដើកចម្ងាយ ២០០ម)</b>ដោយមេត្រីភាព។
                     </p>
                     <p style="color:  #10035b; font-size: 11px; margin-top: 5px; text-align: center;">(សូមពិនិត្យមើលប្លង់បញ្ជាក់)</p>
                 </div>
@@ -1002,72 +1027,128 @@
                 }
             });
         });
+        // ================= បង្កើតចលនាមេអំបៅ SVG ហោះហើរគ្រប់ទិស និងអាចចុចឱ្យប្រកាច់វិលខ្ញាល់ =================
+        // ================= បង្កើតចលនាមេអំបៅហោះគ្រប់ទិស និងប៉ះផ្ទុះបែកហោះចេញពីគែមថ្មី =================
+(function initSVGButterflies() {
+    const bfContainer = document.createElement('div');
+    bfContainer.className = 'butterfly-container';
+    document.body.appendChild(bfContainer);
 
-        // ================= បង្កើតចលនាមេអំបៅ SVG ហោះហើរឥតឈប់ =================
-        (function initSVGButterflies() {
-            const bfContainer = document.createElement('div');
-            bfContainer.className = 'butterfly-container';
-            document.body.appendChild(bfContainer);
+    const butterflySVG1 = `<svg viewBox="0 0 50 50">
+        <path d="M25 22 C12 0 0 10 15 28 C5 35 15 45 23 32 C24 35 25 35 25 35 C25 35 26 35 27 32 C35 45 45 35 35 28 C50 10 38 0 25 22 Z" fill="#00f2fe"/>
+        <circle cx="25" cy="25" r="2" fill="#111"/>
+    </svg>`;
 
-            // SVG មេអំបៅ
-            const butterflySVG1 = `<svg viewBox="0 0 50 50">
-                <path d="M25 22 C12 0 0 10 15 28 C5 35 15 45 23 32 C24 35 25 35 25 35 C25 35 26 35 27 32 C35 45 45 35 35 28 C50 10 38 0 25 22 Z" fill="#00f2fe"/>
-                <circle cx="25" cy="25" r="2" fill="#111"/>
-            </svg>`;
+    const butterflySVG2 = `<svg viewBox="0 0 50 50">
+        <path d="M25 22 C12 0 0 10 15 28 C5 35 15 45 23 32 C24 35 25 35 25 35 C25 35 26 35 27 32 C35 45 45 35 35 28 C50 10 38 0 25 22 Z" fill="#ff0844"/>
+        <circle cx="25" cy="25" r="2" fill="#111"/>
+    </svg>`;
 
-            const butterflySVG2 = `<svg viewBox="0 0 50 50">
-                <path d="M25 22 C12 0 0 10 15 28 C5 35 15 45 23 32 C24 35 25 35 25 35 C25 35 26 35 27 32 C35 45 45 35 35 28 C50 10 38 0 25 22 Z" fill="#ff0844"/>
-                <circle cx="25" cy="25" r="2" fill="#111"/>
-            </svg>`;
+    const butterflyData = [
+        { svg: butterflySVG1, className: 'bf-1' },
+        { svg: butterflySVG2, className: 'bf-2' }
+    ];
 
-            const butterflies = [
-                {
-                    element: createBF('bf-1', butterflySVG1),
-                    x: Math.random() * (window.innerWidth - 60),
-                    y: Math.random() * (window.innerHeight - 60),
-                    vx: 2.2,
-                    vy: 1.4
-                },
-                {
-                    element: createBF('bf-2', butterflySVG2),
-                    x: Math.random() * (window.innerWidth - 60),
-                    y: Math.random() * (window.innerHeight - 60),
-                    vx: -1.8,
-                    vy: -1.2
-                }
-            ];
+    const butterflies = butterflyData.map(data => {
+        const div = document.createElement('div');
+        div.className = `butterfly ${data.className}`;
+        div.innerHTML = data.svg;
+        bfContainer.appendChild(div);
 
-            function createBF(className, svgContent) {
-                const div = document.createElement('div');
-                div.className = `butterfly ${className}`;
-                div.innerHTML = svgContent;
-                bfContainer.appendChild(div);
-                return div;
-            }
+        let bfObj = {
+            element: div,
+            x: Math.random() * (window.innerWidth - 60),
+            y: Math.random() * (window.innerHeight - 60),
+            vx: (Math.random() - 0.5) * 3,
+            vy: (Math.random() - 0.5) * 3,
+            angle: 0,
+            isDead: false
+        };
 
-            function animate() {
+        // ពេលប៉ះចំមេអំបៅ (Click ឬ Touch)
+        div.addEventListener('pointerdown', (e) => {
+            e.stopPropagation();
+            if (bfObj.isDead) return;
+            bfObj.isDead = true;
+
+            // កំណត់ទីតាំងសម្រាប់ធ្វើ Animation វិលនិងផ្ទុះ
+            div.style.setProperty('--curr-x', bfObj.x + 'px');
+            div.style.setProperty('--curr-y', bfObj.y + 'px');
+            div.classList.add('exploding');
+
+            // បន្ទាប់ពីវិលផ្ទុះចប់ (០.៨វិនាទី) ឱ្យវាលេចចេញមកពីគែមម្ខាងទៀតដោយធម្មតាវិញ
+            setTimeout(() => {
+                div.classList.remove('exploding');
+
+                // ចៃដន្យជ្រើសរើសគែមណាមួយ (ឆ្វេង ស្តាំ លើ ឬក្រោម) ដើម្បីឱ្យវាហោះចូលមកវិញ
+                const edge = Math.floor(Math.random() * 4);
                 const w = window.innerWidth;
                 const h = window.innerHeight;
 
-                butterflies.forEach((bf, i) => {
-                    bf.x += bf.vx + Math.sin(Date.now() * 0.003 + i) * 1.2;
-                    bf.y += bf.vy + Math.cos(Date.now() * 0.003 + i) * 0.8;
+                if (edge === 0) { // គែមឆ្វេង
+                    bfObj.x = -40;
+                    bfObj.y = Math.random() * h;
+                    bfObj.vx = Math.random() * 2 + 1; // ហោះចូលក្នុង
+                    bfObj.vy = (Math.random() - 0.5) * 2;
+                } else if (edge === 1) { // គែមស្តាំ
+                    bfObj.x = w + 40;
+                    bfObj.y = Math.random() * h;
+                    bfObj.vx = -(Math.random() * 2 + 1);
+                    bfObj.vy = (Math.random() - 0.5) * 2;
+                } else if (edge === 2) { // គែមលើ
+                    bfObj.x = Math.random() * w;
+                    bfObj.y = -40;
+                    bfObj.vx = (Math.random() - 0.5) * 2;
+                    bfObj.vy = Math.random() * 2 + 1;
+                } else { // គែមក្រោម
+                    bfObj.x = Math.random() * w;
+                    bfObj.y = h + 40;
+                    bfObj.vx = (Math.random() - 0.5) * 2;
+                    bfObj.vy = -(Math.random() * 2 + 1);
+                }
 
-                    const angle = Math.atan2(bf.vy, bf.vx) * (180 / Math.PI) + 90;
+                bfObj.isDead = false;
+            }, 800);
+        });
 
-                    if (bf.x > w + 40) bf.x = -40;
-                    if (bf.x < -40) bf.x = w + 40;
-                    if (bf.y > h + 40) bf.y = -40;
-                    if (bf.y < -40) bf.y = h + 40;
+        return bfObj;
+    });
 
-                    bf.element.style.transform = `translate3d(${bf.x}px, ${bf.y}px, 0) rotate(${angle}deg)`;
-                });
+    function animate() {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
 
-                requestAnimationFrame(animate);
-            }
+        butterflies.forEach((bf, i) => {
+            if (bf.isDead) return;
 
-            animate();
-        })();
+            // ផ្លាស់ប្ដូរទិសដៅបន្តិចម្ដងៗដោយសេរីគ្រប់ទិស
+            bf.vx += (Math.random() - 0.5) * 0.4;
+            bf.vy += (Math.random() - 0.5) * 0.4;
+
+            const maxSpeed = 3;
+            bf.vx = Math.max(-maxSpeed, Math.min(maxSpeed, bf.vx));
+            bf.vy = Math.max(-maxSpeed, Math.min(maxSpeed, bf.vy));
+
+            bf.x += bf.vx;
+            bf.y += bf.vy;
+
+            // ឱ្យមេអំបៅបត់ត្រឡប់មកវិញ ពេលហោះដល់គែមអេក្រង់ធម្មតា
+            if (bf.x < -30) { bf.x = -30; bf.vx *= -1; }
+            if (bf.x > w - 20) { bf.x = w - 20; bf.vx *= -1; }
+            if (bf.y < -30) { bf.y = -30; bf.vy *= -1; }
+            if (bf.y > h - 20) { bf.y = h - 20; bf.vy *= -1; }
+
+            const targetAngle = Math.atan2(bf.vy, bf.vx) * (180 / Math.PI) + 90;
+            bf.angle += (targetAngle - bf.angle) * 0.1;
+
+            bf.element.style.transform = `translate3d(${bf.x}px, ${bf.y}px, 0) rotate(${bf.angle}deg)`;
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+})();
     </script>
 </body>
 </html>
