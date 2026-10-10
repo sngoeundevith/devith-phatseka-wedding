@@ -621,29 +621,6 @@
             transition: transform 0.1s linear;
         }
 
-        .butterfly.exploding {
-            animation: spinAndExplode 0.8s ease-out forwards !important;
-            pointer-events: none;
-        }
-
-        @keyframes spinAndExplode {
-            0% {
-                transform: translate3d(var(--curr-x), var(--curr-y), 0) scale(1) rotate(0deg);
-                opacity: 1;
-                filter: drop-shadow(0 0 5px rgba(255, 8, 68, 0.8));
-            }
-            30% {
-                transform: translate3d(var(--curr-x), var(--curr-y), 0) scale(1.6) rotate(540deg);
-                opacity: 1;
-                filter: brightness(2.5) drop-shadow(0 0 15px #ff0844) drop-shadow(0 0 25px #ffeb3b);
-            }
-            100% {
-                transform: translate3d(var(--curr-x), var(--curr-y), 0) scale(2.2) rotate(1080deg);
-                opacity: 0;
-                filter: brightness(3) drop-shadow(0 0 35px #ffffff);
-            }
-        }
-
         .butterfly svg {
             width: 100%;
             height: 100%;
@@ -651,17 +628,19 @@
             transform-origin: center;
         }
 
-        .bf-1 svg {
-            filter: drop-shadow(0 0 6px rgba(0, 242, 254, 0.8));
-        }
-
-        .bf-2 svg {
-            filter: drop-shadow(0 0 6px rgba(255, 8, 68, 0.8));
-        }
-
         @keyframes flapWingsSVG {
             0% { transform: scaleX(1); }
             100% { transform: scaleX(0.2); }
+        }
+
+        /* Particles ពេលមេអំបៅផ្ទុះបែក */
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+            will-change: transform, opacity;
         }
     </style>
 </head>
@@ -675,7 +654,7 @@
    
     <div class="mobile-card" id="cardContainer">
 
-        <!-- ស៊ុមផ្កានៅផ្ទៃខាងមុខ (Foreground) ថេរនៅមួយកន្លែងលើ Mobile Card ដោយមិនរំកិលតាម Scroll -->
+        <!-- ស៊ុមផ្ការៀបចំជា Absolute ជាប់លើ Mobile Card មិនរត់តាមការ Scroll ឡើយ -->
         <img src="fram.png" alt="Flower Frame" class="page2-fixed-overlay" id="page2FrameOverlay">
        
         <!-- ទ្វារឈើប្រណីត -->
@@ -894,7 +873,6 @@
         const db = getDatabase(app);
         const dbRef = ref(db, 'wedding_wishes');
 
-        // ទាញយក និងបង្ហាញសារແບບ Realtime សម្រាប់ភ្ញៀវគ្រប់រូប
         onValue(dbRef, (snapshot) => {
             const wishesList = document.getElementById('wishesList');
             if (!wishesList) return;
@@ -916,7 +894,6 @@
             }
         });
 
-        // មុខងារសម្រាប់ចុចផ្ញើសារ
         window.submitWish = function() {
             const nameInput = document.getElementById('wishName');
             const textInput = document.getElementById('wishText');
@@ -1180,31 +1157,28 @@
             });
         });
 
-        // ================= បង្កើតចលនាមេអំបៅ SVG ហោះហើរយឺត និងប៉ះផ្ទុះបែក =================
+        // ================= មេអំបៅវិលខ្ញាល់ ផ្ទុះបែកជាបំណែក និងប្រមូលផ្តុំជារូបរាងថ្មីមានពណ៌ដូរជានិច្ច =================
         (function initSVGButterflies() {
             const bfContainer = document.createElement('div');
             bfContainer.className = 'butterfly-container';
             document.body.appendChild(bfContainer);
 
-            const butterflySVG1 = `<svg viewBox="0 0 50 50">
-                <path d="M25 22 C12 0 0 10 15 28 C5 35 15 45 23 32 C24 35 25 35 25 35 C25 35 26 35 27 32 C35 45 45 35 35 28 C50 10 38 0 25 22 Z" fill="#00f2fe"/>
-                <circle cx="25" cy="25" r="2" fill="#111"/>
-            </svg>`;
+            // មុខងារបង្កើតពណ៌ចៃដន្យស្រស់ស្អាត (Random Vibrant Colors)
+            function getRandomColor() {
+                const letters = '0123456789ABCDEF';
+                let color = '#';
+                for (let i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
 
-            const butterflySVG2 = `<svg viewBox="0 0 50 50">
-                <path d="M25 22 C12 0 0 10 15 28 C5 35 15 45 23 32 C24 35 25 35 25 35 C25 35 26 35 27 32 C35 45 45 35 35 28 C50 10 38 0 25 22 Z" fill="#ff0844"/>
-                <circle cx="25" cy="25" r="2" fill="#111"/>
-            </svg>`;
+            const butterflyCount = 3; // ចំនួនមេអំបៅដែលហោះលើអេក្រង់
+            const butterflies = [];
 
-            const butterflyData = [
-                { svg: butterflySVG1, className: 'bf-1' },
-                { svg: butterflySVG2, className: 'bf-2' }
-            ];
-
-            const butterflies = butterflyData.map(data => {
+            for (let i = 0; i < butterflyCount; i++) {
                 const div = document.createElement('div');
-                div.className = `butterfly ${data.className}`;
-                div.innerHTML = data.svg;
+                div.className = 'butterfly';
                 bfContainer.appendChild(div);
 
                 let bfObj = {
@@ -1214,64 +1188,98 @@
                     vx: (Math.random() - 0.5) * 1.5,
                     vy: (Math.random() - 0.5) * 1.5,
                     angle: 0,
-                    isDead: false
+                    isExploded: false,
+                    color: getRandomColor()
                 };
 
-                function handleButterflyTouch(e) {
+                // កំណត់រូបរាង SVG ជាមួយពណ៌ថ្មី
+                updateButterflySVG(bfObj);
+
+                function handleTouch(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    if (bfObj.isDead) return;
-                    bfObj.isDead = true;
+                    if (bfObj.isExploded) return;
+                    bfObj.isExploded = true;
 
-                    div.style.setProperty('--curr-x', bfObj.x + 'px');
-                    div.style.setProperty('--curr-y', bfObj.y + 'px');
-                    div.classList.add('exploding');
+                    // លាក់ខ្លួនមេអំបៅបណ្ដោះអាសន្ន
+                    div.style.opacity = '0';
 
-                    setTimeout(() => {
-                        div.classList.remove('exploding');
+                    // បង្កើតបំណែក Particles ផ្ទុះចេញពីទីតាំងមេអំបៅ
+                    const particleCount = 25;
+                    const particles = [];
+                    const currentX = bfObj.x + 25;
+                    const currentY = bfObj.y + 25;
 
-                        const edge = Math.floor(Math.random() * 4);
-                        const w = window.innerWidth;
-                        const h = window.innerHeight;
+                    for (let p = 0; p < particleCount; p++) {
+                        const particle = document.createElement('div');
+                        particle.className = 'particle';
+                        particle.style.backgroundColor = bfObj.color;
+                        particle.style.left = currentX + 'px';
+                        particle.style.top = currentY + 'px';
+                        bfContainer.appendChild(particle);
 
-                        if (edge === 0) {
-                            bfObj.x = -40;
-                            bfObj.y = Math.random() * h;
-                            bfObj.vx = Math.random() * 1 + 0.8;
-                            bfObj.vy = (Math.random() - 0.5) * 1;
-                        } else if (edge === 1) {
-                            bfObj.x = w + 40;
-                            bfObj.y = Math.random() * h;
-                            bfObj.vx = -(Math.random() * 1 + 0.8);
-                            bfObj.vy = (Math.random() - 0.5) * 1;
-                        } else if (edge === 2) {
-                            bfObj.x = Math.random() * w;
-                            bfObj.y = -40;
-                            bfObj.vx = (Math.random() - 0.5) * 1;
-                            bfObj.vy = Math.random() * 1 + 0.8;
+                        const angle = Math.random() * Math.PI * 2;
+                        const speed = Math.random() * 6 + 2;
+                        particles.push({
+                            element: particle,
+                            vx: Math.cos(angle) * speed,
+                            vy: Math.sin(angle) * speed,
+                            alpha: 1
+                        });
+                    }
+
+                    // ចលនាបំណែក particles ហោះខ្ចាត់ខ្ចាយ រួចប្រមូលផ្ដុំគ្នាវិញ
+                    let frame = 0;
+                    function animateExplosion() {
+                        frame++;
+                        particles.forEach(pt => {
+                            const currentLeft = parseFloat(pt.element.style.left);
+                            const currentTop = parseFloat(pt.element.style.top);
+                            pt.element.style.left = (currentLeft + pt.vx) + 'px';
+                            pt.element.style.top = (currentTop + pt.vy) + 'px';
+                            pt.vx *= 0.92; // បន្ថយល្បឿនបន្តិចម្ដងៗ
+                            pt.vy *= 0.92;
+                        });
+
+                        if (frame < 60) {
+                            requestAnimationFrame(animateExplosion);
                         } else {
-                            bfObj.x = Math.random() * w;
-                            bfObj.y = h + 40;
-                            bfObj.vx = (Math.random() - 0.5) * 1;
-                            bfObj.vy = -(Math.random() * 1 + 0.8);
+                            // លុប particles ចោល ប្ដូរពណ៌ថ្មី និងបង្កើតមេអំបៅឡើងវិញ
+                            particles.forEach(pt => pt.element.remove());
+                            
+                            bfObj.color = getRandomColor(); // ប្ដូរពណ៌ថ្មីរាល់ពេលកើតឡើងវិញ
+                            updateButterflySVG(bfObj);
+                            
+                            // ផ្លាស់ទីមេអំបៅទៅកន្លែងថ្មីចៃដន្យលើអេក្រង់
+                            bfObj.x = Math.random() * (window.innerWidth - 60);
+                            bfObj.y = Math.random() * (window.innerHeight - 60);
+                            div.style.opacity = '1';
+                            bfObj.isExploded = false;
                         }
-
-                        bfObj.isDead = false;
-                    }, 800);
+                    }
+                    requestAnimationFrame(animateExplosion);
                 }
 
-                div.addEventListener('click', handleButterflyTouch);
-                div.addEventListener('touchstart', handleButterflyTouch, { passive: false });
+                div.addEventListener('click', handleTouch);
+                div.addEventListener('touchstart', handleTouch, { passive: false });
 
-                return bfObj;
-            });
+                butterflies.push(bfObj);
+            }
+
+            function updateButterflySVG(bf) {
+                bf.element.innerHTML = `<svg viewBox="0 0 50 50">
+                    <path d="M25 22 C12 0 0 10 15 28 C5 35 15 45 23 32 C24 35 25 35 25 35 C25 35 26 35 27 32 C35 45 45 35 35 28 C50 10 38 0 25 22 Z" fill="${bf.color}"/>
+                    <circle cx="25" cy="25" r="2" fill="#111"/>
+                </svg>`;
+                bf.element.style.filter = `drop-shadow(0 0 8px ${bf.color})`;
+            }
 
             function animate() {
                 const w = window.innerWidth;
                 const h = window.innerHeight;
 
-                butterflies.forEach((bf, i) => {
-                    if (bf.isDead) return;
+                butterflies.forEach(bf => {
+                    if (bf.isExploded) return;
 
                     bf.vx += (Math.random() - 0.5) * 0.2;
                     bf.vy += (Math.random() - 0.5) * 0.2;
@@ -1285,7 +1293,7 @@
 
                     if (bf.x < -30) { bf.x = -30; bf.vx *= -1; }
                     if (bf.x > w - 20) { bf.x = w - 20; bf.vx *= -1; }
-                    if (bf.y < -30) { bf.y = -30; bf.vy *= -1; }
+                    if (bf.y < -30) { bf.y = -30; bf.vx *= -1; }
                     if (bf.y > h - 20) { bf.y = h - 20; bf.vy *= -1; }
 
                     const targetAngle = Math.atan2(bf.vy, bf.vx) * (180 / Math.PI) + 90;
