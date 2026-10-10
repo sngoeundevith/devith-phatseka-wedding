@@ -633,13 +633,14 @@
             100% { transform: scaleX(0.2); }
         }
 
-        /* Particles រាងបេះដូងទំហំ 30px មានពណ៌តាមមេអំបៅ */
+        /* Particles រាងបេះដូងទំហំ 30px កម្រិត opacity ស្រាលទន់ភ្លន់ */
         .particle {
             position: absolute;
             width: 30px;
             height: 30px;
             pointer-events: none;
             will-change: transform, opacity;
+            opacity: 0.7; /* កម្រិត capacity/opacity ស្រាលជាងមុន */
         }
     </style>
 </head>
@@ -1160,7 +1161,7 @@
             });
         });
 
-        // ================= មេអំបៅពីរតួ វិលខ្ញាល់ ផ្ទុះជាបេះដូងទំហំ 30px (ពណ៌តាមមេអំបៅ) រលាយយឺតៗ និងមេអំបៅថ្មីហោះចូលតាមចលនាធម្មតា =================
+        // ================= មេអំបៅពីរតួ វិលខ្ញាល់ ផ្ទុះជារាងបេះដូងច្បាស់មានក្រលាក់ជ្រៅលើ ( opacity 0.7 ស្រាល) =================
         (function initSVGButterflies() {
             const bfContainer = document.createElement('div');
             bfContainer.className = 'butterfly-container';
@@ -1226,28 +1227,30 @@
                         } else {
                             div.style.opacity = '0';
 
-                            // បង្កើត Particles រាងបេះដូងទំហំ 30px ចំនួន ៦០ គ្រាប់ ដោយប្រើប្រាស់ពណ៌របស់មេអំបៅផ្ទាល់
+                            // បង្កើត Particles រាងបេះដូងទំហំ 30px ដោយប្រើប្រាស់រូបមន្ត Heart Parametric Equation ដែលមានក្រលាក់ជ្រៅផ្នែកខាងលើច្បាស់ស្អាត
                             const particleCount = 60;
                             const particles = [];
                             const currentX = bfObj.x + 25;
                             const currentY = bfObj.y + 25;
-                            const activeColor = bfObj.color; // យកពណ៌មេអំបៅបច្ចុប្បន្ន
+                            const activeColor = bfObj.color;
 
                             for (let p = 0; p < particleCount; p++) {
                                 const particle = document.createElement('div');
                                 particle.className = 'particle';
-                                particle.innerHTML = `<svg viewBox="0 0 24 24" style="width:100%; height:100%; fill:${activeColor}; filter: drop-shadow(0 0 4px ${activeColor});">
+                                particle.style.opacity = '0.7'; // សម្រួល capacity/opacity ឱ្យស្រាល
+                                particle.innerHTML = `<svg viewBox="0 0 24 24" style="width:100%; height:100%; fill:${activeColor}; filter: drop-shadow(0 0 3px ${activeColor});">
                                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                                 </svg>`;
                                 particle.style.left = currentX + 'px';
                                 particle.style.top = currentY + 'px';
                                 bfContainer.appendChild(particle);
 
+                                // រូបមន្តបេះដូងត្រឹមត្រូវ និងមានក្រលាក់ជ្រៅលើ (Deep Notch Heart Formula)
                                 const t = (p / particleCount) * Math.PI * 2;
                                 const hx = 16 * Math.pow(Math.sin(t), 3);
                                 const hy = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
                                 
-                                const scaleFactor = 0.6 + Math.random() * 0.25;
+                                const scaleFactor = 0.55 + Math.random() * 0.2;
                                 particles.push({
                                     element: particle,
                                     vx: hx * scaleFactor,
@@ -1261,7 +1264,8 @@
                             let frame = 0;
                             function explodeAnimation() {
                                 frame++;
-                                let currentAlpha = 1 - (frame / 100); // រលាយបាត់យឺតៗ (១០០ frames)
+                                // រលាយបាត់យឺតៗចេញពី 0.7 ចុះមក 0
+                                let currentAlpha = 0.7 * (1 - (frame / 100));
                                 
                                 particles.forEach(pt => {
                                     pt.x += pt.vx * 0.1;
