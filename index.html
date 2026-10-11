@@ -755,7 +755,7 @@
                         <div class="schedule-item"><span class="schedule-time">៧:៣០ ព្រឹក</span><span class="schedule-title">ជួបជុំភ្ញៀវកិត្តិយសរៀបចំហែរជំនួន</span></div>
                         <div class="schedule-item"><span class="schedule-time">៨:០០ ព្រឹក</span><span class="schedule-title">ពិធីហែជំនូន(កំណត់)</span></div>
                         <div class="schedule-item"><span class="schedule-time">៨:៣០ ព្រឹក</span><span class="schedule-title">ពិធីរាប់ផ្លែឈើ ពិសាស្លា និងបំពាក់ចិញ្ចៀន</span></div>
-                        <div class="schedule-item"><span class="schedule-time">០៩:៣၀ ព្រឹក</span><span class="schedule-title">ពិធីកាត់សក់បង្កក់សិរី</span></div>
+                        <div class="schedule-item"><span class="schedule-time">០៩:៣០ ព្រឹក</span><span class="schedule-title">ពិធីកាត់សក់បង្កក់សិរី</span></div>
                         <div class="schedule-item"><span class="schedule-time">១០:៣០ ព្រឹក</span><span class="schedule-title">ពិធីសំពះផ្ទឹម សែនចងដៃ និងបាចផ្កាស្លា</span></div>
                         <div class="schedule-item"><span class="schedule-time">១១:១៥ ថ្ងៃត្រង់</span><span class="schedule-title">អញ្ជើញភ្ញៀវពិសារអាហារថ្ងៃត្រង់</span></div>
                         <div class="schedule-item"><span class="schedule-time">៥:០០ ល្ងាច</span><span class="schedule-title">អញ្ជើញភ្ញៀវពិសារភោជនាហារពេលល្ងាច</span></div>
@@ -1169,26 +1169,24 @@
             });
         });
 
-        // ================= មេអំបៅពណ៌ចម្រុះបែបធម្មជាតិ និងចលនាផុសចេញយឺតៗ =================
+        // ================= មេអំបៅប្តូរពណ៌ចម្រុះថ្មីៗក្រោយពេលផ្ទុះបែក =================
         (function initSVGButterflies() {
             const bfContainer = document.createElement('div');
             bfContainer.className = 'butterfly-container';
             document.body.appendChild(bfContainer);
 
-            // បង្កើត SVG Gradient សម្រាប់ពណ៌ចម្រុះបែបធម្មជាតិ (ក្រហម លឿង ទឹកក្រូច ខ្មៅ ស)
-            const svgDefs = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svgDefs.setAttribute("style", "width:0;height:0;position:absolute;");
-            svgDefs.innerHTML = `
-                <defs>
-                    <linearGradient id="butterflyWingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#ff4500" />
-                        <stop offset="40%" stop-color="#ff8c00" />
-                        <stop offset="70%" stop-color="#ffd700" />
-                        <stop offset="100%" stop-color="#8b0000" />
-                    </linearGradient>
-                </defs>
-            `;
-            document.body.appendChild(svgDefs);
+            // បញ្ជីប្រភេទទម្រង់ពណ៌ធម្មជាតិចម្រុះជាច្រើនជម្រើស
+            const colorPalettes = [
+                { id: 'grad_orange_red', stops: ['#ff4500', '#ff8c00', '#ffd700', '#8b0000'], glow: 'rgba(255,140,0,0.8)' },
+                { id: 'grad_blue_purple', stops: ['#00bfff', '#1e90ff', '#8a2be2', '#4b0082'], glow: 'rgba(30,144,255,0.8)' },
+                { id: 'grad_green_gold', stops: ['#00ff7f', '#3cb371', '#ffd700', '#006400'], glow: 'rgba(50,205,50,0.8)' },
+                { id: 'grad_pink_violet', stops: ['#ff1493', '#ff69b4', '#da70d6', '#800080'], glow: 'rgba(255,105,180,0.8)' },
+                { id: 'grad_golden_amber', stops: ['#ffe57f', '#ffc107', '#ff8f00', '#b71c1c'], glow: 'rgba(255,193,7,0.8)' }
+            ];
+
+            function getRandomPalette() {
+                return colorPalettes[Math.floor(Math.random() * colorPalettes.length)];
+            }
 
             const butterflyCount = 2;
             const butterflies = [];
@@ -1205,7 +1203,9 @@
                     vx: (Math.random() - 0.5) * 1.5,
                     vy: (Math.random() - 0.5) * 1.5,
                     angle: 0,
-                    isExploding: false
+                    isExploding: false,
+                    palette: getRandomPalette(),
+                    idNum: i + '_' + Date.now()
                 };
 
                 updateButterflySVG(bfObj);
@@ -1240,17 +1240,18 @@
                         } else {
                             div.style.opacity = '0';
 
-                            // បង្កើត Particles រាងបេះដូងទំហំ 50px និង opacity 0.1
+                            // បង្កើត Particles រាងបេះដូងទំហំ 50px មានពណ៌ស្របតាមមេអំបៅដែលទើបផ្ទុះ
                             const particleCount = 60;
                             const particles = [];
                             const currentX = bfObj.x + 25;
                             const currentY = bfObj.y + 25;
+                            const activeGradId = `bfGrad_${bfObj.idNum}`;
 
                             for (let p = 0; p < particleCount; p++) {
                                 const particle = document.createElement('div');
                                 particle.className = 'particle';
                                 particle.style.opacity = '0.1';
-                                particle.innerHTML = `<svg viewBox="0 0 24 24" style="width:100%; height:100%; fill:url(#butterflyWingGrad); filter: drop-shadow(0 0 2px #ff8c00);">
+                                particle.innerHTML = `<svg viewBox="0 0 24 24" style="width:100%; height:100%; fill:url(#${activeGradId}); filter: drop-shadow(0 0 2px ${bfObj.palette.stops[1]});">
                                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                                 </svg>`;
                                 particle.style.left = currentX + 'px';
@@ -1292,7 +1293,9 @@
                                 } else {
                                     particles.forEach(pt => pt.element.remove());
                                     
-                                    // ដំណាក់កាលមេអំបៅថ្មី ផុសចេញនៅទីតាំងថ្មីដោយគ្មានការស្ទុះហោះមកពីកន្លែងចាស់
+                                    // ជ្រើសរើសពណ៌ចម្រុះថ្មី សម្រាប់មេអំបៅដែលកើតឡើងមកវិញ
+                                    bfObj.palette = getRandomPalette();
+                                    bfObj.idNum = i + '_' + Date.now();
                                     updateButterflySVG(bfObj);
                                     
                                     const screenW = window.innerWidth;
@@ -1333,29 +1336,41 @@
                 butterflies.push(bfObj);
             }
 
-            // រចនាមេអំបៅពណ៌ចម្រុះបែបធម្មជាតិ (មានស្លាបពណ៌ក្រហម-លឿង-ទឹកក្រូច គែមខ្មៅ និងចំណុចពណ៌ស)
+            // រចនាមេអំបៅ SVG ពណ៌ចម្រុះ និងអាចប្ដូរ Gradient ID តាមការកើតឡើងថ្មី
             function updateButterflySVG(bf) {
+                const gradId = `bfGrad_${bf.idNum}`;
+                const p = bf.palette;
+
                 bf.element.innerHTML = `<svg viewBox="0 0 60 60">
+                    <defs>
+                        <linearGradient id="${gradId}" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="${p.stops[0]}" />
+                            <stop offset="40%" stop-color="${p.stops[1]}" />
+                            <stop offset="70%" stop-color="${p.stops[2]}" />
+                            <stop offset="100%" stop-color="${p.stops[3]}" />
+                        </linearGradient>
+                    </defs>
+
                     <!-- ស្លាបឆ្វេង -->
-                    <path d="M30 30 C15 5 0 10 5 30 C0 45 15 55 30 40 Z" fill="url(#butterflyWingGrad)" stroke="#111" stroke-width="1.5"/>
-                    <path d="M30 32 C18 15 8 18 10 32 C6 42 18 48 30 38 Z" fill="#222" opacity="0.8"/>
+                    <path d="M30 30 C15 5 0 10 5 30 C0 45 15 55 30 40 Z" fill="url(#${gradId})" stroke="#111" stroke-width="1.5"/>
+                    <path d="M30 32 C18 15 8 18 10 32 C6 42 18 48 30 38 Z" fill="#222" opacity="0.75"/>
                     <circle cx="15" cy="25" r="2.5" fill="#fff"/>
                     <circle cx="12" cy="35" r="2" fill="#ffdf73"/>
                     
                     <!-- ស្លាបស្តាំ -->
-                    <path d="M30 30 C45 5 60 10 55 30 C60 45 45 55 30 40 Z" fill="url(#butterflyWingGrad)" stroke="#111" stroke-width="1.5"/>
-                    <path d="M30 32 C42 15 52 18 50 32 C54 42 42 48 30 38 Z" fill="#222" opacity="0.8"/>
+                    <path d="M30 30 C45 5 60 10 55 30 C60 45 45 55 30 40 Z" fill="url(#${gradId})" stroke="#111" stroke-width="1.5"/>
+                    <path d="M30 32 C42 15 52 18 50 32 C54 42 42 48 30 38 Z" fill="#222" opacity="0.75"/>
                     <circle cx="45" cy="25" r="2.5" fill="#fff"/>
                     <circle cx="48" cy="35" r="2" fill="#ffdf73"/>
 
                     <!--ដងខ្លួន និងក្បាលមេអំបៅ-->
-                    <ellipse cx="30" cy="32" rx="2" ry="10" fill="#2b1700"/>
-                    <circle cx="30" cy="20" r="2.5" fill="#2b1700"/>
+                    <ellipse cx="30" cy="32" rx="2" ry="10" fill="#1f1100"/>
+                    <circle cx="30" cy="20" r="2.5" fill="#1f1100"/>
                     <!-- ការនេញ (Antennae) -->
-                    <path d="M30 18 Q 24 10 20 12" fill="none" stroke="#2b1700" stroke-width="1.2"/>
-                    <path d="M30 18 Q 36 10 40 12" fill="none" stroke="#2b1700" stroke-width="1.2"/>
+                    <path d="M30 18 Q 24 10 20 12" fill="none" stroke="#1f1100" stroke-width="1.2"/>
+                    <path d="M30 18 Q 36 10 40 12" fill="none" stroke="#1f1100" stroke-width="1.2"/>
                 </svg>`;
-                bf.element.style.filter = `drop-shadow(0 0 6px rgba(255,140,0,0.7))`;
+                bf.element.style.filter = `drop-shadow(0 0 6px ${p.glow})`;
             }
 
             function animate() {
