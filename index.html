@@ -1169,7 +1169,7 @@
             });
         });
 
-        // ================= មេអំបៅវិលចប់ ទើបផ្ទុះបែកបេះដូងធំ រលាយយឺតៗ រួចផុសចេញមេអំបៅថ្មីពី 0 ដល់ធំនៅនឹងកន្លែង =================
+        // ================= មេអំបៅវិលចប់ ផ្ទុះបេះដូងធំនៅនឹងកន្លែង រលាយយឺតៗ រួចផុសមេអំបៅថ្មីនៅទីតាំងផ្សេងពី 0 យ៉ាងស្អាត =================
         (function initSVGButterflies() {
             const bfContainer = document.createElement('div');
             bfContainer.className = 'butterfly-container';
@@ -1306,18 +1306,24 @@
                         requestAnimationFrame(heartFadeAnimation);
                     }
 
-                    // ដំណាក់កាលទី ៣៖ មេអំបៅថ្មីផុសចេញពីចំណុច 0 ត្រង់កន្លែងដដែលដោយមិនស្ទុះហោះទៅណាទេ
+                    // ដំណាក់កាលទី ៣៖ ប្ដូរទៅទីតាំងថ្មីដោយស្ងៀមស្ងាត់ រួចផុសចេញពី 0 យឺតៗ
                     function startNewButterflyAppearance() {
+                        // កំណត់ទីតាំងថ្មី (Random ក្នុងកម្រិតអេក្រង់) ដោយគ្មានចលនាស្ទុះហោះមកពីទីតាំងចាស់ទេ
+                        bfObj.x = Math.random() * (window.innerWidth - 60);
+                        bfObj.y = Math.random() * (window.innerHeight - 60);
+                        bfObj.vx = (Math.random() - 0.5) * 1.5;
+                        bfObj.vy = (Math.random() - 0.5) * 1.5;
+
                         bfObj.palette = getRandomPalette();
                         bfObj.idNum = i + '_' + Date.now();
                         updateButterflySVG(bfObj);
 
                         let appearFrame = 0;
-                        const appearDuration = 55;
+                        const appearDuration = 60; // ផុសឡើងយឺតៗស្រទន់
 
                         function appearAnimation() {
                             appearFrame++;
-                            let progress = appearFrame / appearDuration;
+                            let progress = appearFrame / appearDuration; // ពី 0 ដល់ 1
 
                             div.style.opacity = progress;
                             div.style.transform = `translate3d(${bfObj.x}px, ${bfObj.y}px, 0) scale(${progress})`;
