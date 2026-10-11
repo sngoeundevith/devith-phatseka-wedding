@@ -1169,7 +1169,7 @@
             });
         });
 
-        // ================= មេអំបៅវិលចប់ ទើបផ្ទុះបែកបេះដូងធំ រលាយយឺតៗ រួចផុសចេញមេអំបៅថ្មីពី 0 ដល់ធំ =================
+        // ================= មេអំបៅវិលចប់ ទើបផ្ទុះបែកបេះដូងធំ រលាយយឺតៗ រួចផុសចេញមេអំបៅថ្មីពី 0 ដល់ធំនៅនឹងកន្លែង =================
         (function initSVGButterflies() {
             const bfContainer = document.createElement('div');
             bfContainer.className = 'butterfly-container';
@@ -1224,9 +1224,9 @@
 
                     // ដំណាក់កាលទី ១៖ មេអំបៅបង្វិលខ្ញាល់ចប់សព្វគ្រប់នៅនឹងកន្លែង
                     let spinDegree = 0;
-                    const totalSpin = 1080; // វិល ៣ ជុំពេញ
+                    const totalSpin = 1080;
                     const spinStartTime = performance.now();
-                    const spinDuration = 600; // រយៈពេលវិល
+                    const spinDuration = 600;
 
                     function spinPhase(currentTime) {
                         const elapsed = currentTime - spinStartTime;
@@ -1238,7 +1238,7 @@
                         if (progress < 1) {
                             requestAnimationFrame(spinPhase);
                         } else {
-                            // ពេលវិលចប់ទាំងស្រុង លាក់មេអំបៅ និងចាប់ផ្តើមផ្ទុះចេញរូបបេះដូងធំ
+                            // ពេលវិលចប់ទាំងស្រុង លាក់មេអំបៅ និងចាប់ផ្តើមផ្ទុះចេញរូបបេះដូងធំចំកន្លែង
                             div.style.opacity = '0';
                             startHeartExplosion();
                         }
@@ -1264,7 +1264,7 @@
                             bfContainer.appendChild(particle);
 
                             const t = (p / particleCount) * Math.PI * 2;
-                            const hx = 22 * Math.pow(Math.sin(t), 3); // ធ្វើឱ្យបេះដូងរីកធំជាងមុន
+                            const hx = 22 * Math.pow(Math.sin(t), 3);
                             const hy = -(16 * Math.cos(t) - 6 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
                             
                             const scaleFactor = 0.7 + Math.random() * 0.3;
@@ -1278,7 +1278,7 @@
                         }
 
                         let heartFrame = 0;
-                        const heartDuration = 90; // រយៈពេលរលាយបាត់យឺតៗម្ដងបន្តិចៗ (យូរជាងមុន)
+                        const heartDuration = 90;
 
                         function heartFadeAnimation() {
                             heartFrame++;
@@ -1298,7 +1298,6 @@
                             if (heartFrame < heartDuration) {
                                 requestAnimationFrame(heartFadeAnimation);
                             } else {
-                                // ពេលបេះដូងរលាយបាត់ទាំងស្រុង លុបចោល particles ហើយផុសមេអំបៅថ្មី
                                 particles.forEach(pt => pt.element.remove());
                                 startNewButterflyAppearance();
                             }
@@ -1307,18 +1306,18 @@
                         requestAnimationFrame(heartFadeAnimation);
                     }
 
-                    // ដំណាក់កាលទី ៣៖ មេអំបៅថ្មីផុសចេញពីចំណុច 0 រហូតដល់ធំទំហំធម្មតា
+                    // ដំណាក់កាលទី ៣៖ មេអំបៅថ្មីផុសចេញពីចំណុច 0 ត្រង់កន្លែងដដែលដោយមិនស្ទុះហោះទៅណាទេ
                     function startNewButterflyAppearance() {
                         bfObj.palette = getRandomPalette();
                         bfObj.idNum = i + '_' + Date.now();
                         updateButterflySVG(bfObj);
 
                         let appearFrame = 0;
-                        const appearDuration = 55; // ផុសចេញយឺតៗស្អាត
+                        const appearDuration = 55;
 
                         function appearAnimation() {
                             appearFrame++;
-                            let progress = appearFrame / appearDuration; // ពី 0 ដល់ 1
+                            let progress = appearFrame / appearDuration;
 
                             div.style.opacity = progress;
                             div.style.transform = `translate3d(${bfObj.x}px, ${bfObj.y}px, 0) scale(${progress})`;
