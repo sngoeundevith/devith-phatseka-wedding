@@ -1138,7 +1138,7 @@
             });
 
             modal.addEventListener('mouseup', function(e) {
-                if (!isDragging) return;
+                if (!isDragging, !isDragging) return;
                 isDragging = false;
                 endX = e.clientX;
                 handleSwipe();
@@ -1169,7 +1169,7 @@
             });
         });
 
-        // ================= មេអំបៅវិលចប់ ផ្ទុះបេះដូងធំនៅនឹងកន្លែង រលាយយឺតៗ រួចផុសមេអំបៅថ្មីនៅទីតាំងផ្សេងពី 0 យ៉ាងស្អាត =================
+        // ================= មេអំបៅវិលចប់ ផ្ទុះបេះដូងភ្លាមៗចំកន្លែង រលាយយឺតៗ រួចផុសមេអំបៅថ្មីនៅទីតាំងផ្សេងយ៉ាងរលូន =================
         (function initSVGButterflies() {
             const bfContainer = document.createElement('div');
             bfContainer.className = 'butterfly-container';
@@ -1213,7 +1213,7 @@
                     e.preventDefault();
                     e.stopPropagation();
                     if (bfObj.isExploding) return;
-                    bfObj.isExploding = true;
+                    bfObj.isExploding = true; // ចាក់សោរទីតាំងមេអំបៅឱ្យឈប់ហោះរំកិល
 
                     // ចាក់សំឡេង ផេះៗ
                     const popSound = document.getElementById('popSound');
@@ -1222,7 +1222,10 @@
                         popSound.play().catch(err => console.log("Sound play error:", err));
                     }
 
-                    // ដំណាក់កាលទី ១៖ មេអំបៅបង្វិលខ្ញាល់ចប់សព្វគ្រប់នៅនឹងកន្លែង
+                    // ចាប់យកទីតាំងពិតប្រាកដចុងក្រោយបង្អស់នៅពេលចុច
+                    const fixedX = bfObj.x;
+                    const fixedY = bfObj.y;
+
                     let spinDegree = 0;
                     const totalSpin = 1080;
                     const spinStartTime = performance.now();
@@ -1233,21 +1236,21 @@
                         const progress = Math.min(elapsed / spinDuration, 1);
 
                         spinDegree = progress * totalSpin;
-                        div.style.transform = `translate3d(${bfObj.x}px, ${bfObj.y}px, 0) rotate(${bfObj.angle + spinDegree}deg) scale(1)`;
+                        // ប្រើទីតាំង fixedX និង fixedY ដើម្បីធានាថាការវិលគឺនៅត្រង់កន្លែងនោះពិតប្រាកដ គ្មានការរំកិលចេញក្រៅទេ
+                        div.style.transform = `translate3d(${fixedX}px, ${fixedY}px, 0) rotate(${bfObj.angle + spinDegree}deg) scale(1)`;
 
                         if (progress < 1) {
                             requestAnimationFrame(spinPhase);
                         } else {
-                            // ពេលវិលចប់ទាំងស្រុង លាក់មេអំបៅ និងចាប់ផ្តើមផ្ទុះចេញរូបបេះដូងធំចំកន្លែង
+                            // ពេលវិលចប់គ្រប់ចំនួនជុំ លាក់មេអំបៅ ហើយផ្ទុះចេញរូបបេះដូងភ្លាមៗនៅចំកន្លែងនោះ គ្មានពេលឈប់រង់ចាំឡើយ
                             div.style.opacity = '0';
-                            startHeartExplosion();
+                            startHeartExplosion(fixedX, fixedY);
                         }
                     }
 
-                    // ដំណាក់កាលទី ២៖ ផ្ទុះបែកចេញរូបបេះដូងធំ និងរលាយបាត់យឺតៗម្ដងបន្តិចៗ
-                    function startHeartExplosion() {
-                        const currentX = bfObj.x + 25;
-                        const currentY = bfObj.y + 25;
+                    function startHeartExplosion(fx, fy) {
+                        const currentX = fx + 25;
+                        const currentY = fy + 25;
                         const activeGradId = `bfGrad_${bfObj.idNum}`;
                         const particleCount = 70;
                         const particles = [];
@@ -1306,9 +1309,8 @@
                         requestAnimationFrame(heartFadeAnimation);
                     }
 
-                    // ដំណាក់កាលទី ៣៖ ប្ដូរទៅទីតាំងថ្មីដោយស្ងៀមស្ងាត់ រួចផុសចេញពី 0 យឺតៗ
                     function startNewButterflyAppearance() {
-                        // កំណត់ទីតាំងថ្មី (Random ក្នុងកម្រិតអេក្រង់) ដោយគ្មានចលនាស្ទុះហោះមកពីទីតាំងចាស់ទេ
+                        // កំណត់ទីតាំងថ្មីដោយស្ងៀមស្ងាត់នៅកន្លែងផ្សេង
                         bfObj.x = Math.random() * (window.innerWidth - 60);
                         bfObj.y = Math.random() * (window.innerHeight - 60);
                         bfObj.vx = (Math.random() - 0.5) * 1.5;
@@ -1319,11 +1321,11 @@
                         updateButterflySVG(bfObj);
 
                         let appearFrame = 0;
-                        const appearDuration = 60; // ផុសឡើងយឺតៗស្រទន់
+                        const appearDuration = 60;
 
                         function appearAnimation() {
                             appearFrame++;
-                            let progress = appearFrame / appearDuration; // ពី 0 ដល់ 1
+                            let progress = appearFrame / appearDuration;
 
                             div.style.opacity = progress;
                             div.style.transform = `translate3d(${bfObj.x}px, ${bfObj.y}px, 0) scale(${progress})`;
@@ -1331,7 +1333,7 @@
                             if (appearFrame < appearDuration) {
                                 requestAnimationFrame(appearAnimation);
                             } else {
-                                bfObj.isExploding = false; // បន្តហោះហើរធម្មតា
+                                bfObj.isExploding = false; // បើកសោរឱ្យហោះហើរធម្មតាវិញ
                             }
                         }
 
