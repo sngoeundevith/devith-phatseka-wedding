@@ -1138,7 +1138,7 @@
             });
 
             modal.addEventListener('mouseup', function(e) {
-                if (!isDragging, !isDragging) return;
+                if (!isDragging) return;
                 isDragging = false;
                 endX = e.clientX;
                 handleSwipe();
@@ -1169,7 +1169,7 @@
             });
         });
 
-        // ================= មេអំបៅវិលចប់ ផ្ទុះបេះដូងភ្លាមៗចំកន្លែង រលាយយឺតៗ រួចផុសមេអំបៅថ្មីនៅទីតាំងផ្សេងយ៉ាងរលូន =================
+        // ================= មេអំបៅវិលចប់ ផ្ទុះបេះដូងភ្លាមៗចំកន្លែងពិត 100% គ្មានពេលឈប់សម្រាក (No Pause) =================
         (function initSVGButterflies() {
             const bfContainer = document.createElement('div');
             bfContainer.className = 'butterfly-container';
@@ -1213,16 +1213,15 @@
                     e.preventDefault();
                     e.stopPropagation();
                     if (bfObj.isExploding) return;
-                    bfObj.isExploding = true; // ចាក់សោរទីតាំងមេអំបៅឱ្យឈប់ហោះរំកិល
+                    bfObj.isExploding = true; // ចាក់សោរទីតាំងមេអំបៅ
 
-                    // ចាក់សំឡេង ផេះៗ
                     const popSound = document.getElementById('popSound');
                     if (popSound) {
                         popSound.currentTime = 0;
                         popSound.play().catch(err => console.log("Sound play error:", err));
                     }
 
-                    // ចាប់យកទីតាំងពិតប្រាកដចុងក្រោយបង្អស់នៅពេលចុច
+                    // ចាប់យកទីតាំងពិតប្រាកដចុងក្រោយនៅពេលចុច
                     const fixedX = bfObj.x;
                     const fixedY = bfObj.y;
 
@@ -1236,21 +1235,18 @@
                         const progress = Math.min(elapsed / spinDuration, 1);
 
                         spinDegree = progress * totalSpin;
-                        // ប្រើទីតាំង fixedX និង fixedY ដើម្បីធានាថាការវិលគឺនៅត្រង់កន្លែងនោះពិតប្រាកដ គ្មានការរំកិលចេញក្រៅទេ
                         div.style.transform = `translate3d(${fixedX}px, ${fixedY}px, 0) rotate(${bfObj.angle + spinDegree}deg) scale(1)`;
 
                         if (progress < 1) {
                             requestAnimationFrame(spinPhase);
                         } else {
-                            // ពេលវិលចប់គ្រប់ចំនួនជុំ លាក់មេអំបៅ ហើយផ្ទុះចេញរូបបេះដូងភ្លាមៗនៅចំកន្លែងនោះ គ្មានពេលឈប់រង់ចាំឡើយ
+                            // វិលចប់ភ្លាម ផ្ទុះបេះដូងចេញមកទိုင်លំអរចំកន្លែងពិតប្រាកដ (បូកទំហំកណ្តាល +25) ដោយគ្មានការឈប់សម្រាក (No Pause)
                             div.style.opacity = '0';
-                            startHeartExplosion(fixedX, fixedY);
+                            startHeartExplosion(fixedX + 25, fixedY + 25);
                         }
                     }
 
-                    function startHeartExplosion(fx, fy) {
-                        const currentX = fx + 25;
-                        const currentY = fy + 25;
+                    function startHeartExplosion(currentX, currentY) {
                         const activeGradId = `bfGrad_${bfObj.idNum}`;
                         const particleCount = 70;
                         const particles = [];
@@ -1310,7 +1306,6 @@
                     }
 
                     function startNewButterflyAppearance() {
-                        // កំណត់ទីតាំងថ្មីដោយស្ងៀមស្ងាត់នៅកន្លែងផ្សេង
                         bfObj.x = Math.random() * (window.innerWidth - 60);
                         bfObj.y = Math.random() * (window.innerHeight - 60);
                         bfObj.vx = (Math.random() - 0.5) * 1.5;
@@ -1333,7 +1328,7 @@
                             if (appearFrame < appearDuration) {
                                 requestAnimationFrame(appearAnimation);
                             } else {
-                                bfObj.isExploding = false; // បើកសោរឱ្យហោះហើរធម្មតាវិញ
+                                bfObj.isExploding = false;
                             }
                         }
 
