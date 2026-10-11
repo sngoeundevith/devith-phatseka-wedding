@@ -1169,13 +1169,12 @@
             });
         });
 
-        // ================= មេអំបៅប្តូរពណ៌ចម្រុះថ្មីៗក្រោយពេលផ្ទុះបែក =================
+        // ================= មេអំបៅប្តូរពណ៌ចម្រុះ និងផុសឡើងថ្មីនៅទីតាំងថ្មីដោយរលូន =================
         (function initSVGButterflies() {
             const bfContainer = document.createElement('div');
             bfContainer.className = 'butterfly-container';
             document.body.appendChild(bfContainer);
 
-            // បញ្ជីប្រភេទទម្រង់ពណ៌ធម្មជាតិចម្រុះជាច្រើនជម្រើស
             const colorPalettes = [
                 { id: 'grad_orange_red', stops: ['#ff4500', '#ff8c00', '#ffd700', '#8b0000'], glow: 'rgba(255,140,0,0.8)' },
                 { id: 'grad_blue_purple', stops: ['#00bfff', '#1e90ff', '#8a2be2', '#4b0082'], glow: 'rgba(30,144,255,0.8)' },
@@ -1223,24 +1222,24 @@
                         popSound.play().catch(err => console.log("Sound play error:", err));
                     }
 
-                    // វិលខ្ញាល់ ៣ ទៅ ៤ ជុំ
+                    // វិលខ្ញាល់ ៣ ជុំ រួចបាត់ខ្លួននៅកន្លែងចាស់
                     let spinDegree = 0;
-                    const totalSpin = 1260;
+                    const totalSpin = 1080;
                     const spinStartTime = performance.now();
 
                     function spinAnimation(currentTime) {
                         const elapsed = currentTime - spinStartTime;
-                        const progress = Math.min(elapsed / 600, 1);
+                        const progress = Math.min(elapsed / 500, 1);
 
                         spinDegree = progress * totalSpin;
-                        div.style.transform = `translate3d(${bfObj.x}px, ${bfObj.y}px, 0) rotate(${bfObj.angle + spinDegree}deg) scale(${1 + progress * 0.4})`;
+                        div.style.transform = `translate3d(${bfObj.x}px, ${bfObj.y}px, 0) rotate(${bfObj.angle + spinDegree}deg) scale(${1 + progress * 0.3})`;
 
                         if (progress < 1) {
                             requestAnimationFrame(spinAnimation);
                         } else {
                             div.style.opacity = '0';
 
-                            // បង្កើត Particles រាងបេះដូងទំហំ 50px មានពណ៌ស្របតាមមេអំបៅដែលទើបផ្ទុះ
+                            // បង្កើត Particles រាងបេះដូងផ្ទុះចេញពីកន្លែងចាស់
                             const particleCount = 60;
                             const particles = [];
                             const currentX = bfObj.x + 25;
@@ -1272,11 +1271,10 @@
                                 });
                             }
 
-                            // ដំណាក់កាលបេះដូងហោះរីកធំ និងរលាយបាត់យឺតៗ
                             let frame = 0;
                             function explodeAnimation() {
                                 frame++;
-                                let currentAlpha = 0.1 * (1 - (frame / 80));
+                                let currentAlpha = 0.1 * (1 - (frame / 70));
                                 
                                 particles.forEach(pt => {
                                     pt.x += pt.vx * 0.1;
@@ -1288,28 +1286,26 @@
                                     pt.vy *= 0.95;
                                 });
 
-                                if (frame < 80) {
+                                if (frame < 70) {
                                     requestAnimationFrame(explodeAnimation);
                                 } else {
                                     particles.forEach(pt => pt.element.remove());
                                     
-                                    // ជ្រើសរើសពណ៌ចម្រុះថ្មី សម្រាប់មេអំបៅដែលកើតឡើងមកវិញ
+                                    // ប្ដូរពណ៌ថ្មី និងកំណត់ទីតាំងថ្មីផ្ដាច់មុខ (គ្មានការហោះមកពីកន្លែងចាស់)
                                     bfObj.palette = getRandomPalette();
                                     bfObj.idNum = i + '_' + Date.now();
                                     updateButterflySVG(bfObj);
                                     
-                                    const screenW = window.innerWidth;
-                                    const screenH = window.innerHeight;
-                                    
-                                    bfObj.x = Math.random() * (screenW - 60);
-                                    bfObj.y = Math.random() * (screenH - 60);
+                                    bfObj.x = Math.random() * (window.innerWidth - 60);
+                                    bfObj.y = Math.random() * (window.innerHeight - 60);
 
+                                    // ផុសចេញថ្មីនៅកន្លែងថ្មីដោយរលូន (Fade in & Scale up ពី 0 ទៅ 1)
                                     let appearFrame = 0;
-                                    const appearDuration = 60;
+                                    const appearDuration = 50;
 
                                     function appearAnimation() {
                                         appearFrame++;
-                                        let progress = appearFrame / appearDuration;
+                                        let progress = appearFrame / appearDuration; // ពី 0 ដល់ 1
 
                                         div.style.opacity = progress;
                                         div.style.transform = `translate3d(${bfObj.x}px, ${bfObj.y}px, 0) scale(${progress})`;
@@ -1317,7 +1313,7 @@
                                         if (appearFrame < appearDuration) {
                                             requestAnimationFrame(appearAnimation);
                                         } else {
-                                            bfObj.isExploding = false;
+                                            bfObj.isExploding = false; // ចាប់ផ្ដើមហោះហើរធម្មតា
                                         }
                                     }
                                     requestAnimationFrame(appearAnimation);
@@ -1336,7 +1332,6 @@
                 butterflies.push(bfObj);
             }
 
-            // រចនាមេអំបៅ SVG ពណ៌ចម្រុះ និងអាចប្ដូរ Gradient ID តាមការកើតឡើងថ្មី
             function updateButterflySVG(bf) {
                 const gradId = `bfGrad_${bf.idNum}`;
                 const p = bf.palette;
