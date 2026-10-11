@@ -620,7 +620,6 @@
             perspective: 1000px;
             cursor: pointer;
             pointer-events: auto !important;
-            transition: transform 0.1s linear;
         }
 
         .butterfly svg {
@@ -657,7 +656,7 @@
     <div class="mobile-card" id="cardContainer">
 
         <!-- ស៊ុមផ្ការៀបចំជា Absolute ជាប់លើ Mobile Card មិនរត់តាមការ Scroll ឡើយ -->
-        <img src="fram.png" alt="Flower Frame" class="page2-fixed-overlay" id="page2FrameOverlay">
+        <img src="fram.png" alt="Flower Frame" class="page2-fixed-overlay" id="page2FixedOverlay">
        
         <!-- ទ្វារឈើប្រណីត -->
         <div class="door-wrapper" id="doorWrapper" onclick="openInvitation()">
@@ -748,7 +747,7 @@
                         <div class="schedule-item"><span class="schedule-time">៣:០០ រសៀល</span><span class="schedule-title">ពិធីក្រុងពាលី</span></div>
                         <div class="schedule-item"><span class="schedule-time">៤:០០ រសៀល</span><span class="schedule-title">ពិធីសូត្រមន្តចំរើនព្រះបរិត្ត</span></div>
                         <div class="schedule-item"><span class="schedule-time">៥:០០ ល្ងាច</span><span class="schedule-title">ពិធីកាត់ខាន់ស្លា</span></div>
-                        <div class="schedule-item"><span class="schedule-time">۶:០០ ល្ងាច</span><span class="schedule-title">អញ្ជើញភ្ញៀវពិសាអាហារពេលល្ងាច</span></div>
+                        <div class="schedule-item"><span class="schedule-time">៦:០០ ល្ងាច</span><span class="schedule-title">អញ្ជើញភ្ញៀវពិសាអាហារពេលល្ងាច</span></div>
                     </div>
                     <p style="font-size: 13px; color: var(--dark-gold); margin-top: 15px; text-align: center"><b>ថ្ងៃសុក្រ ទី៤ ខែធ្នូ ឆ្នាំ២០២៦</b></p>
                     <div class="schedule-list">
@@ -987,7 +986,7 @@
             }
             currentPage = pageNumber;
 
-            const frameOverlay = document.getElementById('page2FrameOverlay');
+            const frameOverlay = document.getElementById('page2FixedOverlay');
             if (frameOverlay) {
                 if (pageNumber === 2) {
                     frameOverlay.style.display = 'block';
@@ -1169,7 +1168,7 @@
             });
         });
 
-        // ================= មេអំបៅវិលចប់ ផ្ទុះបេះដូងភ្លាមៗចំកន្លែងពិតប្រាកដ និងគ្មានការឈប់សម្រាក (No Pause) =================
+        // ================= ចលនាមេអំបៅវិល និងផ្ទុះបេះដូងរលូនឥតខ្ចោះ គ្មានការឈប់សម្រាក (Seamless & Smooth) =================
         (function initSVGButterflies() {
             const bfContainer = document.createElement('div');
             bfContainer.className = 'butterfly-container';
@@ -1218,135 +1217,138 @@
                     const popSound = document.getElementById('popSound');
                     if (popSound) {
                         popSound.currentTime = 0;
-                        popSound.play().catch(err => console.log("Sound play error:", err));
+                        popSound.play().catch(err => console.log("Sound error:", err));
                     }
 
-                    // កំណត់ទីតាំងកណ្តាលពិតប្រាកដរបស់មេអំបៅ (ទំហំកាត 50x50 ដូច្នេះកណ្តាលគឺ +25)
+                    // យកទីតាំងកណ្តាលពិតប្រាកដចុងក្រោយ
                     const centerX = bfObj.x + 25;
                     const centerY = bfObj.y + 25;
                     const startAngle = bfObj.angle;
 
                     let spinDegree = 0;
-                    const totalSpin = 1080;
+                    const totalSpin = 1080; // វិល ៣ ជុំពេញយ៉ាងរលូន
                     const spinStartTime = performance.now();
-                    const spinDuration = 500;
+                    const spinDuration = 550; // ល្បឿនវិលសមល្មម មិនលឿនពេក មិនយឺតពេក
 
-                    function spinPhase(currentTime) {
-                        const elapsed = currentTime - spinStartTime;
-                        const progress = Math.min(elapsed / spinDuration, 1);
+                    // រៀបចំ particles រាងបេះដូងទុកជាមុន តែទុករង់ចាំបញ្ចេញពេលវិលចប់ដោយរលូន
+                    const activeGradId = `bfGrad_${bfObj.idNum}`;
+                    const particleCount = 70;
+                    const particles = [];
 
-                        spinDegree = progress * totalSpin;
+                    for (let p = 0; p < particleCount; p++) {
+                        const particle = document.createElement('div');
+                        particle.className = 'particle';
+                        particle.style.opacity = '0'; // លាក់ទុកជាមុនសិន
+                        particle.innerHTML = `<svg viewBox="0 0 24 24" style="width:100%; height:100%; fill:url(#${activeGradId}); filter: drop-shadow(0 0 3px ${bfObj.palette.stops[1]});">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>`;
+                        particle.style.left = (centerX - 35) + 'px';
+                        particle.style.top = (centerY - 35) + 'px';
+                        bfContainer.appendChild(particle);
+
+                        const t = (p / particleCount) * Math.PI * 2;
+                        const hx = 22 * Math.pow(Math.sin(t), 3);
+                        const hy = -(16 * Math.cos(t) - 6 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
                         
-                        // ពេលវិលត្រូវធានាថាកូអរដោនេកណ្តាលស្របគ្នាបេះបិទ
-                        div.style.transform = `translate3d(${centerX - 25}px, ${centerY - 25}px, 0) rotate(${startAngle + spinDegree}deg) scale(1)`;
-
-                        if (progress < 1) {
-                            requestAnimationFrame(spinPhase);
-                        } else {
-                            // វិលចប់ភ្លាម លាក់មេអំបៅ ហើយបញ្ចេញរូបបេះដូងផ្ទុះភ្លាមៗនៅចំកន្លែងកណ្តាលនោះ (No Pause)
-                            div.style.opacity = '0';
-                            startHeartExplosion(centerX, centerY);
-                        }
+                        const scaleFactor = 0.7 + Math.random() * 0.3;
+                        particles.push({
+                            element: particle,
+                            vx: hx * scaleFactor,
+                            vy: hy * scaleFactor,
+                            x: centerX - 35,
+                            y: centerY - 35
+                        });
                     }
 
-                    function startHeartExplosion(currentX, currentY) {
-                        const activeGradId = `bfGrad_${bfObj.idNum}`;
-                        const particleCount = 70;
-                        const particles = [];
+                    // ប្រើប្រាស់ Animation Loop តែមួយបន្តគ្នា flawless ទាំងការវិល និងការផ្ទុះរលាយបាត់
+                    let totalAnimTime = spinDuration + 1200; // រួមបញ្ចូលពេលវិល និងពេលបេះដូងរលាយបាត់យឺតៗ
 
-                        for (let p = 0; p < particleCount; p++) {
-                            const particle = document.createElement('div');
-                            particle.className = 'particle';
-                            particle.style.opacity = '0.15';
-                            particle.innerHTML = `<svg viewBox="0 0 24 24" style="width:100%; height:100%; fill:url(#${activeGradId}); filter: drop-shadow(0 0 3px ${bfObj.palette.stops[1]});">
-                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                            </svg>`;
-                            // particle ត្រូវដកចេញពាក់កណ្តាលទំហំខ្លួនឯង (70px / 2 = 35px) ដើម្បីឱ្យចេញចំកណ្តាលពិតប្រាកដ
-                            particle.style.left = (currentX - 35) + 'px';
-                            particle.style.top = (currentY - 35) + 'px';
-                            bfContainer.appendChild(particle);
+                    function combinedAnimation(currentTime) {
+                        const elapsed = currentTime - spinStartTime;
 
-                            const t = (p / particleCount) * Math.PI * 2;
-                            const hx = 22 * Math.pow(Math.sin(t), 3);
-                            const hy = -(16 * Math.cos(t) - 6 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
-                            
-                            const scaleFactor = 0.7 + Math.random() * 0.3;
-                            particles.push({
-                                element: particle,
-                                vx: hx * scaleFactor,
-                                vy: hy * scaleFactor,
-                                x: currentX - 35,
-                                y: currentY - 35
-                            });
-                        }
+                        if (elapsed <= spinDuration) {
+                            // ដំណាក់កាលទី១៖ ចលនាវិលយ៉ាងរលូន (Smooth Spin)
+                            let progress = elapsed / spinDuration;
+                            // Cubic ease-out ធ្វើឱ្យចលនាវិលទន់ភ្លន់មិនរឹង
+                            let easeProgress = 1 - Math.pow(1 - progress, 3);
+                            spinDegree = easeProgress * totalSpin;
 
-                        let heartFrame = 0;
-                        const heartDuration = 90;
+                            div.style.transform = `translate3d(${centerX - 25}px, ${centerY - 25}px, 0) rotate(${startAngle + spinDegree}deg) scale(1)`;
+                            requestAnimationFrame(combinedAnimation);
+                        } else {
+                            // ដំណាក់កាលទី២៖ វិលចប់ភ្លាម លាក់មេអំបៅ ហើយបញ្ចេញបេះដូងផ្ទុះភ្លាមៗដោយគ្មានការឈប់ (No Pause)
+                            div.style.opacity = '0';
 
-                        function heartFadeAnimation() {
-                            heartFrame++;
-                            let heartProgress = heartFrame / heartDuration;
-                            let currentAlpha = 0.15 * (1 - heartProgress);
+                            let heartElapsed = elapsed - spinDuration;
+                            let heartProgress = heartElapsed / 1200; // ពេលវេលារលាយបាត់យឺតៗស្រទន់
 
-                            particles.forEach(pt => {
-                                pt.x += pt.vx * 0.04;
-                                pt.y += pt.vy * 0.04;
-                                pt.element.style.left = pt.x + 'px';
-                                pt.element.style.top = pt.y + 'px';
-                                pt.element.style.opacity = Math.max(currentAlpha, 0);
-                                pt.vx *= 0.96;
-                                pt.vy *= 0.96;
-                            });
+                            if (heartProgress <= 1) {
+                                let currentAlpha = 0.15 * (1 - heartProgress);
 
-                            if (heartFrame < heartDuration) {
-                                requestAnimationFrame(heartFadeAnimation);
+                                particles.forEach(pt => {
+                                    pt.x += pt.vx * 0.04;
+                                    pt.y += pt.vy * 0.04;
+                                    pt.element.style.left = pt.x + 'px';
+                                    pt.element.style.top = pt.y + 'px';
+                                    pt.element.style.opacity = Math.max(currentAlpha, 0);
+                                    pt.vx *= 0.96;
+                                    pt.vy *= 0.96;
+                                });
+
+                                requestAnimationFrame(combinedAnimation);
                             } else {
+                                // រលាយបាត់ទាំងស្រុង លុប particles ចោល ហើយបង្កើតមេអំបៅថ្មីនៅកន្លែងផ្សេង
                                 particles.forEach(pt => pt.element.remove());
                                 startNewButterflyAppearance();
                             }
                         }
-
-                        requestAnimationFrame(heartFadeAnimation);
                     }
 
-                    function startNewButterflyAppearance() {
-                        // កំណត់ទីតាំងថ្មីដោយស្ងៀមស្ងាត់នៅកន្លែងផ្សេង
-                        bfObj.x = Math.random() * (window.innerWidth - 60);
-                        bfObj.y = Math.random() * (window.innerHeight - 60);
-                        bfObj.vx = (Math.random() - 0.5) * 1.5;
-                        bfObj.vy = (Math.random() - 0.5) * 1.5;
-
-                        bfObj.palette = getRandomPalette();
-                        bfObj.idNum = i + '_' + Date.now();
-                        updateButterflySVG(bfObj);
-
-                        let appearFrame = 0;
-                        const appearDuration = 50;
-
-                        function appearAnimation() {
-                            appearFrame++;
-                            let progress = appearFrame / appearDuration;
-
-                            div.style.opacity = progress;
-                            div.style.transform = `translate3d(${bfObj.x}px, ${bfObj.y}px, 0) scale(${progress})`;
-
-                            if (appearFrame < appearDuration) {
-                                requestAnimationFrame(appearAnimation);
-                            } else {
-                                bfObj.isExploding = false;
-                            }
-                        }
-
-                        requestAnimationFrame(appearAnimation);
-                    }
-
-                    requestAnimationFrame(spinPhase);
+                    requestAnimationFrame(combinedAnimation);
                 }
 
                 div.addEventListener('click', handleTouch);
                 div.addEventListener('touchstart', handleTouch, { passive: false });
 
                 butterflies.push(bfObj);
+            }
+
+            function startNewButterflyAppearance() {
+                let div = butterflies[i]?.element; // ប្រើប្រាស់សጣុបបន្ត
+                // កំណត់ទីតាំងថ្មីដោយស្ងៀមស្ងាត់នៅកន្លែងផ្សេង
+                let newX = Math.random() * (window.innerWidth - 60);
+                let newY = Math.random() * (window.innerHeight - 60);
+
+                // រកមើល index របស់មេអំបៅនេះ
+                let bfObj = butterflies.find(b => b.element === div);
+                if (!bfObj) return;
+
+                bfObj.x = newX;
+                bfObj.y = newY;
+                bfObj.vx = (Math.random() - 0.5) * 1.5;
+                bfObj.vy = (Math.random() - 0.5) * 1.5;
+                bfObj.palette = getRandomPalette();
+                bfObj.idNum = Date.now() + Math.random();
+                updateButterflySVG(bfObj);
+
+                let appearStart = performance.now();
+                let appearDuration = 600; // ផុសឡើងពី 0 យឺតៗយ៉ាងរលូន
+
+                function appearAnimation(currentTime) {
+                    let elapsed = currentTime - appearStart;
+                    let progress = Math.min(elapsed / appearDuration, 1);
+
+                    div.style.opacity = progress;
+                    div.style.transform = `translate3d(${bfObj.x}px, ${bfObj.y}px, 0) scale(${progress})`;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(appearAnimation);
+                    } else {
+                        bfObj.isExploding = false; // បើកសោរឱ្យហោះហើរធម្មតាវិញ
+                    }
+                }
+
+                requestAnimationFrame(appearAnimation);
             }
 
             function updateButterflySVG(bf) {
