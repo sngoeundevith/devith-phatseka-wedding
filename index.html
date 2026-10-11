@@ -1269,8 +1269,8 @@
 
                         // បេះដូងរីកធំចេញដំណាលគ្នា
                         particles.forEach(pt => {
-                            pt.x += pt.vx * 0.05;
-                            pt.y += pt.vy * 0.05;
+                            pt.x += pt.vx * 0.01;
+                            pt.y += pt.vy * 0.01;
                             pt.element.style.left = pt.x + 'px';
                             pt.element.style.top = pt.y + 'px';
                             pt.element.style.opacity = Math.max(0.1 * (1 - progress), 0);
