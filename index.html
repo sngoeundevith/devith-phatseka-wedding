@@ -169,7 +169,7 @@
             width: 12px;
             height: 18px;
             border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%;
-            opacity: 0.60;
+            opacity: 0.70;
             pointer-events: none;
             animation: fall linear infinite;
             z-index: 99;
@@ -189,7 +189,7 @@
             }
         }
 
-        /* ទ្វារ (រុញបើកចូលខាងក្នុង 3D Push-in) */
+        /* ទ្វារ */
         .door-wrapper {
             display: flex;
             width: 100%;
@@ -203,7 +203,7 @@
             background: #0d0d0d;
             pointer-events: auto;
             perspective: 1200px;
-            transition: visibility 1.5s ease, opacity 1.5s ease;
+            transition: visibility 8.5s ease, opacity 8.5s ease;
         }
 
         .door {
@@ -212,7 +212,7 @@
             border: 4px solid #d4af37;
             box-shadow: inset 0 0 25px rgba(0,0,0,0.9);
             position: relative;
-            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.5s ease;
+            transition: transform 8.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 8.5s ease;
             background-size: cover !important;
             background-repeat: no-repeat !important;
             background-color: #1a0c05;
@@ -231,21 +231,10 @@
             transform-origin: right center;
         }
 
-        .door-wrapper.opened .door-left { 
-            transform: translateX(-100%) scale(1.2); 
-            opacity: 0; 
-        }
-        .door-wrapper.opened .door-right { 
-            transform: translateX(100%) scale(1.2); 
-            opacity: 0; 
-        }
-        .door-wrapper.opened { 
-            pointer-events: none; 
-            visibility: hidden; 
-            opacity: 0; 
-            transition: visibility 0s 1.5s, opacity 1.5s ease;
-        }
-
+        .door-wrapper.opened .door-left { transform: rotateY(120deg); opacity: 0.3; }
+        .door-wrapper.opened .door-right { transform: rotateY(-120deg); opacity: 0.3; }
+        .door-wrapper.opened { pointer-events: none; visibility: hidden; opacity: 0; }
+        
         .content {
             width: 100%;
             height: 100%;
