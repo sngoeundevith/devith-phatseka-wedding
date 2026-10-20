@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>លិខិតអញ្ជើញមង្គលការ(ដេវីត ♥ ផាត់សិកា)</title>
+    <title>លិខិតអញ្ជើញមង្គលការ(ដេវីត♥ផាត់សិកា)</title>
     <link href="https://fonts.googleapis.com/css2?family=Moul&family=Kantumruy+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* ស្ទីលសម្រាប់កម្រងរូបភាពទម្រង់បែប Facebook */
         .fb-gallery-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -58,7 +57,6 @@
             font-family: 'Moul', cursive;
         }
 
-        /* Lightbox សម្រាប់ពេលចុចមើលរូបធំ */
         .lightbox-modal {
             display: none;
             position: fixed;
@@ -676,7 +674,6 @@
     </style>
 </head>
 
-<!-- Lightbox Modal -->
 <div class="lightbox-modal" id="lightboxModal">
     <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
     <button class="lightbox-nav lightbox-prev" onclick="changeLightboxImage(-1)">&#10094;</button>
@@ -755,17 +752,19 @@
 
                 <div class="reveal-item" style="text-align: center; margin: 15px 0;">
                     <h1 style="font-family: 'Moul'; font-size: 14px; color: var(--dark-gold); margin-bottom: 6px;">មានកិត្តិយសសូមគោរពអញ្ជើញ</h1>
+                    
+                    <div style="font-size: 14px; color: var(--primary-gold); margin-bottom: 4px; text-shadow: 0 0 2px rgba(212, 175, 55, 0.5);">
+                        ❖ ✤ ♥ ❖ ✤ ♥ ❖ ✤ ♥ ❖
+                    </div>
 
-                    <!-- ឈ្មោះភ្ញៀវ (ភ្ជាប់ជាមួយ JavaScript សម្រាប់ចាប់យក Link ?to=...) -->
                     <div style="margin: 4px 0;">
                         <p id="guestNameDisplay" style="font-size: 16px; font-weight: bold; color: #0000ff; font-family: 'Moul', cursive; margin: 0;">
                             ឯកឧត្តម លោកជំទាវ លោក លោកស្រី អ្នកនាងកញ្ញា
                         </p>
                     </div>
 
-                    <!-- ក្បាច់ផ្កា និងបេះដូងផ្នែកខាងក្រោម -->
                     <div style="font-size: 14px; color: var(--primary-gold); margin-top: 4px; text-shadow: 0 0 2px rgba(212, 175, 55, 0.5);">
-                        ✤ ♥ ❖ ✤ ♥ ❖ ✤ ♥ ❖ ✤ ♥ ❖ ✤ ♥ ❖ ✤ ♥ ❖ ✤ ♥ ❖ ✤ ♥ ❖
+                        ❖ ✤ ♥ ❖ ✤ ♥ ❖ ✤ ♥ ❖
                     </div>
 
                     <p style="color: #2a09fd; font-size: 12px; line-height: 1.6; margin-top: 12px; text-align: justify;">
@@ -920,7 +919,6 @@
         </div>
     </div>
 
-    <!-- Firebase Modular SDK Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
@@ -1090,7 +1088,6 @@
             }
         }, 1000);
 
-        // ================= គ្រប់គ្រង LIGHTBOX =================
         const galleryImages = [
             "photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg",
             "photo5.jpg", "photo6.jpg", "photo7.jpg", "photo8.jpg",
@@ -1158,14 +1155,24 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            // អានឈ្មោះភ្ញៀវពី URL Parameter (?to=ឈ្មោះភ្ញៀវ)
-            const urlParams = new URLSearchParams(window.location.search);
-            const guestName = urlParams.get('to');
+            // អានតម្លៃឈ្មោះភ្ញៀវពី URL យ៉ាងមានប្រសិទ្ធភាពខ្ពស់ (គាំទ្រទាំង %20 និងសញ្ញាចន្លោះ)
+            const currentUrl = window.location.href;
+            const toParamIndex = currentUrl.indexOf('?to=');
 
-            if (guestName) {
-                const guestDisplay = document.getElementById('guestNameDisplay');
-                if (guestDisplay) {
-                    guestDisplay.innerText = decodeURIComponent(guestName);
+            if (toParamIndex !== -1) {
+                let rawName = currentUrl.substring(toParamIndex + 4);
+                // កាត់យកត្រឹមសញ្ញា # បើមានភ្ជាប់ Hash
+                if (rawName.includes('#')) {
+                    rawName = rawName.substring(0, rawName.indexOf('#'));
+                }
+                try {
+                    let decodedName = decodeURIComponent(rawName.replace(/\+/g, ' '));
+                    const guestDisplay = document.getElementById('guestNameDisplay');
+                    if (guestDisplay) {
+                        guestDisplay.innerText = decodedName;
+                    }
+                } catch (e) {
+                    console.log("Error decoding name:", e);
                 }
             }
 
@@ -1269,7 +1276,6 @@
             });
         });
 
-        // ================= មេអំបៅវិលចប់ ផ្ទុះបេះដូងភ្លាមៗចំកន្លែងពិតប្រាកដ និងគ្មានការឈប់សម្រាក =================
         (function initSVGButterflies() {
             const bfContainer = document.createElement('div');
             bfContainer.className = 'butterfly-container';
@@ -1491,7 +1497,7 @@
 
                     if (bf.x < -30) { bf.x = -30; bf.vx *= -1; }
                     if (bf.x > w - 20) { bf.x = w - 20; bf.vx *= -1; }
-                    if (bf.y < -30) { bf.y = -30; bf.vx *= -1; }
+                    if (bf.y < -30) { bf.y = -30; bf.vy *= -1; }
                     if (bf.y > h - 20) { bf.y = h - 20; bf.vy *= -1; }
 
                     const targetAngle = Math.atan2(bf.vy, bf.vx) * (180 / Math.PI) + 90;
