@@ -79,8 +79,8 @@
         }
 
         .lightbox-content {
-            max-width: 90%;
-            max-height: 80vh;
+            max-width: 95%;
+            max-height: 85vh;
             object-fit: contain;
             border-radius: 8px;
             border: 2px solid var(--primary-gold);
@@ -88,6 +88,7 @@
             transition: transform 0.3s ease, opacity 0.3s ease;
             opacity: 1;
             transform: scale(1);
+            touch-action: manipulation;
         }
 
         .lightbox-content.animating {
@@ -98,7 +99,42 @@
         .lightbox-content:active {
             cursor: grabbing;
         }
+        /* ស្ទីលបន្ថែមសម្រាប់ Lightbox និងប៊ូតុង */
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            color: #ffffff;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1000000;
+            line-height: 1;
+            user-select: none;
+        }
 
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(212, 175, 55, 0.4);
+            color: white;
+            border: none;
+            font-size: 24px;
+            padding: 12px 16px;
+            cursor: pointer;
+            border-radius: 50%;
+            z-index: 1000000;
+            transition: background 0.3s ease;
+            user-select: none;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(212, 175, 55, 0.9);
+        }
+
+        .lightbox-prev { left: 15px; }
+        .lightbox-next { right: 15px; }
         :root {
             --primary-gold: #d4af37;
             --dark-gold: #aa7c11;
@@ -649,7 +685,13 @@
 
 <!-- Lightbox Modal -->
 <div class="lightbox-modal" id="lightboxModal">
+    <!-- ប៊ូតុងចុចបិទ ✖ -->
+    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+    
+    <!-- ប៊ូតុងព្រួញផ្លាស់ប្តូររូប ◄ និង ► -->
+    <button class="lightbox-nav lightbox-prev" onclick="changeLightboxImage(-1)">&#10094;</button>
     <img class="lightbox-content" id="lightboxImg" src="" alt="Zoomed Photo" draggable="false">
+    <button class="lightbox-nav lightbox-next" onclick="changeLightboxImage(1)">&#10095;</button>
 </div>
 
 <body>
@@ -1068,12 +1110,30 @@
         let currentImageIndex = 0;
 
         function openLightbox(index) {
-            isSingleImageMode = false; // កំពុងបើកអាល់ប៊ុមរូបថត (អាច Swipe បាន)
+            isSingleImageMode = false;
             currentImageIndex = index;
             const modal = document.getElementById('lightboxModal');
             const img = document.getElementById('lightboxImg');
+            
+            // បង្ហាញប៊ូតុងព្រួញឆ្វេង-ស្តាំ ពេលមើលរូបក្នុងអាល់ប៊ុម
+            document.querySelectorAll('.lightbox-nav').forEach(btn => btn.style.display = 'block');
+
             if (modal && img) {
                 img.src = galleryImages[currentImageIndex];
+                modal.classList.add('active');
+            }
+        }
+
+        function openSingleLightbox(imageSrc) {
+            isSingleImageMode = true;
+            const modal = document.getElementById('lightboxModal');
+            const img = document.getElementById('lightboxImg');
+            
+            // លាក់ប៊ូតុងព្រួញ ពេលបើកមើលរូបទោល (ផែនទី ឬ QR Code)
+            document.querySelectorAll('.lightbox-nav').forEach(btn => btn.style.display = 'none');
+
+            if (modal && img) {
+                img.src = imageSrc;
                 modal.classList.add('active');
             }
         }
