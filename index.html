@@ -753,7 +753,12 @@
 
                 <div class="reveal-item">
                     <h1 style="font-family: 'Moul'; font-size: 14px; color: var(--dark-gold); margin: 10px 0; text-align: center;">មានកិត្តិយសសូមគោរពអញ្ជើញ</h1>
-                    <p style="font-size: 13px; color:  #2a09fd; text-align: center;">ឯកឧត្តម លោកជំទាវ លោក លោកស្រី អ្នកនាងកញ្ញា</p>
+                    <div style="text-align: center; margin: 5px 0;">
+                    <p style="font-size: 12px; color: #aa7c11;">សូមគោរពអញ្ជើញ៖</p>
+                    <p id="guestNameDisplay" style="font-size: 15px; font-weight: bold; color: #0000ff; font-family: 'Moul', cursive; margin-top: 3px; text-decoration: underline;">
+                        ឯកឧត្តម លោកជំទាវ លោក លោកស្រី អ្នកនាងកញ្ញា</p>
+                    <p id="guestNameDisplay" style="font-size: 15px; font-weight: bold; color: #0000ff; font-family: 'Moul', cursive; margin-top: 3px; text-decoration: underline;"></p>
+                </div>
                     <p style="color: #2a09fd; font-size: 12px; line-height: 1.6; margin-top: 8px; text-align: justify;">
                         អញ្ជើញចូលរួមជាធិបតីនិងជាភ្ញៀវកិត្តិយសក្នុង
                         <span style="font-family: 'Moul'; color: var(--dark-gold);">ពិធីរៀបអាពាហ៍ពិពាហ៍</span>
@@ -1298,6 +1303,17 @@
                 const overlay = document.getElementById('moreOverlay');
                 if (overlay) overlay.innerText = "+" + (totalImgs - 4);
             }
+            // អានឈ្មោះភ្ញៀវពី URL Parameter (?to=ឈ្មោះភ្ញៀវ)
+        const urlParams = new URLSearchParams(window.location.search);
+        const guestName = urlParams.get('to');
+
+        if (guestName) {
+            // ប្រសិនបើមានឈ្មោះក្នុង Link វានឹងជំនួសឈ្មោះនោះចូល
+            const guestDisplay = document.getElementById('guestNameDisplay');
+            if (guestDisplay) {
+                guestDisplay.innerText = decodeURIComponent(guestName);
+            }
+        }
         });
 
         // ================= មេអំបៅវិលចប់ ផ្ទុះបេះដូងភ្លាមៗចំកន្លែងពិតប្រាកដ និងគ្មានការឈប់សម្រាក (No Pause) =================
