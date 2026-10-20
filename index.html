@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>លិខិតអញ្ជើញមង្គលការ (ដេវីត ♥ ផាត់សិកា)</title>
+    <title>លិខិតអញ្ជើញមង្គលការ-ស្ងឿន ដេវីត & ផល្លី ផាត់សិកា</title>
     <link href="https://fonts.googleapis.com/css2?family=Moul&family=Kantumruy+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* ស្ទីលសម្រាប់កម្រងរូបភាពទម្រង់បែប Facebook */
         .fb-gallery-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -58,7 +57,6 @@
             font-family: 'Moul', cursive;
         }
 
-        /* Lightbox សម្រាប់ពេលចុចមើលរូបធំ */
         .lightbox-modal {
             display: none;
             position: fixed;
@@ -269,3 +267,1250 @@
         #page1 {
             width: 100%;
             height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 30px 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .bg-video {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            z-index: 1 !important;
+            pointer-events: none !important;
+        }
+
+        .page1-overlay {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: rgba(0, 0, 0, 0.0) !important;
+            z-index: 2 !important;
+            pointer-events: none !important;
+        }
+
+        #page1 > *:not(.bg-video):not(.page1-overlay) {
+            position: relative !important;
+            z-index: 10 !important;
+        }
+
+        .header-title {
+            font-family: 'Moul', cursive;
+            color: #ffdf73;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+            font-size: 24px;
+            white-space: nowrap;
+            margin: 5px 0;
+        }
+
+        .couple-names {
+            font-family: 'Moul', cursive;
+            font-size: 20px;
+            color: #ffdf73;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+            white-space: nowrap;
+            margin: 5px 0;
+            min-height: 30px;
+            display: inline-block;
+        }
+
+        .date-badge-wrapper {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: auto;
+            margin-bottom: 10px;
+            padding: 5px 20px;
+            background: rgba(255, 255, 255, 0);
+            border-radius: 15px;
+            border: 0px solid var(--primary-gold);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0);
+        }
+
+        .date-top-month {
+            color: #ffdf73 !important;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(212, 175, 55, 0.5);
+            font-size: 16px;
+            font-family: 'Moul', cursive;
+        }
+
+        .date-middle-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .date-day-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .date-day-name {
+            font-size: 16px;
+            font-family: 'Moul', cursive;
+            color: #ffdf73 !important;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .date-divider-line {
+            width: 100%;
+            height: 1.5px;
+            background: var(--primary-gold);
+        }
+
+        .date-big-number {
+            font-size: 24px;
+            font-family: 'Moul', cursive;
+            color: #ffdf73 !important;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(212, 175, 55, 0.5);
+            line-height: 1;
+            margin: 0 10px;
+        }
+
+        .date-time-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .date-time {
+            font-size: 16px;
+            font-family: 'Moul', cursive;
+            color: #ffdf73 !important;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(212, 175, 55, 0.5);
+            color: var(--dark-gold);
+        }
+
+        .date-bottom-year {
+            font-size: 16px;
+            font-family: 'Moul', cursive;
+            color: #ffdf73 !important;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .nav-btn-container {
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 99999;
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #d4af37, #aa7c11);
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 100000;
+            pointer-events: auto;
+        }
+
+        #page2 {
+            background-color: var(--bg-cream);
+            overflow-y: auto;
+            padding: 40px 30px 30px 30px;
+            z-index: 5;
+            position: relative;
+        }
+        
+        #page2::-webkit-scrollbar {
+            display: none;
+        }
+
+        .page2-fixed-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+            pointer-events: none;
+            z-index: 50;
+            display: none;
+        }
+
+        .reveal-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 2.0s ease-out, transform 2.0s ease-out;
+            will-change: opacity, transform;
+            position: relative;
+            z-index: 10;
+        }
+
+        .reveal-item.active-reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .schedule-section {
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.92);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--primary-gold);
+            text-align: left;
+        }
+
+        .schedule-list {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .schedule-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 10px;
+            background: rgba(212, 175, 55, 0.08);
+            border-radius: 6px;
+            border-left: 3px solid var(--primary-gold);
+        }
+
+        .schedule-time {
+            font-weight: bold;
+            color: var(--dark-gold);
+            font-size: 12px;
+        }
+
+        .schedule-title {
+            font-size: 12px;
+            color: #0000ff;
+            text-align: right;
+        }
+
+        .timer-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 15px 0;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--primary-gold);
+        }
+
+        .timer-box { display: flex; flex-direction: column; align-items: center; }
+        .timer-number { font-size: 20px; font-weight: bold; color: var(--dark-gold); }
+        .timer-label { font-size: 11px; color: #666; }
+
+        .gallery-section { margin: 20px 0; }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .gallery-item {
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--primary-gold);
+        }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        .qr-section {
+            background: rgba(255, 255, 255, 0.92);
+            padding: 15px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+            border: 1px solid var(--primary-gold);
+        }
+
+        .qr-image {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            margin: 10px 0;
+            border: 2px dashed var(--primary-gold);
+            border-radius: 8px;
+            padding: 5px;
+        }
+
+        .thank-you-section {
+            margin: 20px 0 10px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 12px;
+            border: 1px solid var(--primary-gold);
+            text-align: center;
+        }
+
+        .item { margin-bottom: 6px; font-size: 13px; }
+
+        .wishes-section {
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--primary-gold);
+            text-align: left;
+        }
+
+        .wishes-input, .wishes-textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid var(--primary-gold);
+            border-radius: 6px;
+            font-size: 13px;
+            background: #fffdfa;
+        }
+
+        .wishes-textarea {
+            resize: vertical;
+            height: 70px;
+        }
+
+        .wishes-submit-btn {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(45deg, #d4af37, #aa7c11);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Moul', cursive;
+        }
+
+        .wishes-list-container {
+            margin-top: 15px;
+            max-height: 250px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .wish-card {
+            padding: 10px 12px;
+            background: #fff;
+            border: 1.5px solid var(--primary-gold);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(212, 175, 55, 0.2);
+        }
+
+        .wish-card-name {
+            font-weight: bold;
+            color: var(--dark-gold);
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .wish-card-text {
+            font-size: 12px;
+            color: var(--text-color);
+            word-break: break-word;
+        }
+
+        .butterfly-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999999;
+            overflow: hidden;
+        }
+
+        .butterfly {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            will-change: transform;
+            perspective: 1000px;
+            cursor: pointer;
+            pointer-events: auto !important;
+            transition: transform 0.1s linear;
+        }
+
+        .butterfly svg {
+            width: 100%;
+            height: 100%;
+            animation: flapWingsSVG 0.3s infinite alternate ease-in-out;
+            transform-origin: center;
+        }
+
+        @keyframes flapWingsSVG {
+            0% { transform: scaleX(1); }
+            100% { transform: scaleX(0.2); }
+        }
+
+        .particle {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            pointer-events: none;
+            will-change: transform, opacity;
+            opacity: 0.15;
+        }
+    </style>
+</head>
+
+<div class="lightbox-modal" id="lightboxModal">
+    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+    <button class="lightbox-nav lightbox-prev" onclick="changeLightboxImage(-1)">&#10094;</button>
+    <img class="lightbox-content" id="lightboxImg" src="" alt="Zoomed Photo" draggable="false">
+    <button class="lightbox-nav lightbox-next" onclick="changeLightboxImage(1)">&#10095;</button>
+</div>
+
+<body>
+   
+    <div class="mobile-card" id="cardContainer">
+        <img src="fram.png" alt="Flower Frame" class="page2-fixed-overlay" id="page2FrameOverlay">
+       
+        <div class="door-wrapper" id="doorWrapper" onclick="openInvitation()">
+            <div class="door door-left"></div>
+            <div class="door door-right"></div>
+        </div>
+
+        <audio id="doorSound">
+            <source src="door-sound.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="weddingMusic" loop>
+            <source src="music.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="popSound">
+            <source src="pop.mp3" type="audio/mpeg">
+        </audio>
+
+        <div class="content">            
+            <!-- ===== ទំព័រទី ១ (PAGE 1) ===== -->
+            <div id="page1" class="page-content active">
+                <video autoplay loop muted playsinline class="bg-video">
+                    <source src="video.mp4" type="video/mp4">
+                </video>
+                <div class="page1-overlay"></div>
+
+                <div>
+                    <h1 class="header-title">សិរីសួស្តី អាពាហ៍ពិពាហ៍</h1>
+                    <p style="font-size: 16px; color: #f5b65d; text-shadow: 0 1px 4px rgba(0,0,0,0.8); margin: 2px 0;">កូនប្រុស និង កូនស្រី</p>
+                    <div class="couple-names" id="animatedNames"></div>
+                </div>
+
+                <div class="date-badge-wrapper">
+                    <div class="date-top-month">ធ្នូ</div>
+                    <div class="date-middle-row">
+                        <div class="date-day-container">
+                            <span class="date-day-name">​ថ្ងៃ សុក្រ </span>
+                            <div class="date-divider-line"></div>
+                        </div>
+                        <span class="date-big-number">០៤</span>
+                        <div class="date-time-container">
+                            <span class="date-time">៥ ល្ងាច</span>
+                            <div class="date-divider-line"></div>
+                        </div>
+                    </div>
+                    <div class="date-bottom-year">២០២៦</div>
+                </div>
+
+                <div class="nav-btn-container">
+                    <button type="button" class="nav-btn" id="nextBtn">ទំព័របន្ទាប់ ➔</button>
+                </div>
+            </div>
+
+            <!-- ===== ទំព័រទី ២ (PAGE 2) ===== -->
+            <div id="page2" class="page-content">
+                <br><br>
+                <div class="reveal-item" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 15px; margin-top: 50px 0; text-align: left;">
+                    <div style="flex: 1;">
+                        <div class="item"><span style="color: #aa7c11">លោក <span style="font-family: 'Moul'">ព្រឹក ស្ងឿន</span></span></div>
+                        <div class="item"><span style="color: #aa7c11">អ្នកស្រី <span style="font-family: 'Moul'">ហេង សុជាតិ</span></span></div>
+                    </div>
+                    <div style="flex: 1;">
+                        <div class="item"><span style="color: #aa7c11">លោក <span style="font-family: 'Moul'">ទូច លឹមហឿន</span></span></div>
+                        <div class="item"><span style="color: #aa7c11">អ្នកស្រី <span style="font-family: 'Moul'">ព្រំ គឹមលី</span></span></div>
+                    </div>
+                </div>
+
+                <div class="reveal-item" style="text-align: center; margin: 15px 0;">
+                    <h1 style="font-family: 'Moul'; font-size: 14px; color: var(--dark-gold); margin-bottom: 6px;">មានកិត្តិយសសូមគោរពអញ្ជើញ</h1>
+                    
+                    <div style="font-size: 14px; color: var(--primary-gold); margin-bottom: 4px; text-shadow: 0 0 2px rgba(212, 175, 55, 0.5);">
+                        ✤ ♥ ✤
+                    </div>
+
+                    <div style="margin: 4px 0;">
+                        <p id="guestNameDisplay" style="font-size: 16px; font-weight: bold; color: #0000ff; font-family: 'Moul', cursive; margin: 0;">
+                            ឯកឧត្តម លោកជំទាវ លោក លោកស្រី អ្នកនាងកញ្ញា
+                        </p>
+                    </div>
+
+                    <div style="font-size: 14px; color: var(--primary-gold); margin-top: 4px; text-shadow: 0 0 2px rgba(212, 175, 55, 0.5);">
+                        ✤ ♥ ✤
+                    </div>
+
+                    <p style="color: #2a09fd; font-size: 12px; line-height: 1.6; margin-top: 12px; text-align: justify;">
+                        អញ្ជើញចូលរួមជាធិបតីនិងជាភ្ញៀវកិត្តិយសក្នុង
+                        <span style="font-family: 'Moul'; color: var(--dark-gold);">ពិធីរៀបអាពាហ៍ពិពាហ៍</span>
+                        កូនប្រុស-ស្រីរបស់យើងខ្ញុំដើម្បីប្រសិទ្ធិពរជ័យ សិរីមង្គល បវរប្រសើរ ដល់គូរស្វាមីភរិយាថ្មី និងពិសារភោជនាហារប្រព្រឹត្តទៅនៅ
+                        <span style="font-size:11px; font-family: 'Moul'; color: var(--dark-gold);">ថ្ងៃសុក្រ ១០រោច ខែកត្តិក ឆ្នាំមមី អដ្ឋស័ក ព.ស. ២៥៧០</span>
+                        ដែលត្រូវនឹង
+                        <span style="font-size:11px; font-family: 'Moul'; color: var(--dark-gold);">ថ្ងៃទី៤ ខែធ្នូ ឆ្នាំ២០២៦ វេលាម៉ោង ៥:០០ ល្ងាច</span>
+                        នៅគេហដ្ឋានខាងស្រីស្ថិតនៅ
+                        <b>ភូមិក្រពើជើង ឃុំភ្នំសំពៅ ស្រុកបាណន់ ខេត្តបាត់ដំបង (ហួសវត្តភ្នំអណ្ដើកចម្ងាយ ៥០០ម)</b>ដោយមេត្រីភាព។
+                    </p>
+                    <p style="color:  #10035b; font-size: 11px; margin-top: 5px; text-align: center;">(សូមពិនិត្យមើលប្លង់បញ្ជាក់)</p>
+                </div>
+
+                <div class="schedule-section reveal-item">
+                    <h3 style="font-family: 'Moul'; font-size: 13px; color: var(--dark-gold); text-align: center;">របៀបវារៈ</h3>
+                    <p style="font-size: 13px; color: var(--dark-gold); margin-top: 10px; text-align: center"><b>ថ្ងៃព្រហស្បតិ៍ ទី៣ ខែធ្នូ ឆ្នាំ២០២៦</b></p>
+                    <div class="schedule-list">
+                        <div class="schedule-item"><span class="schedule-time">៣:០០ រសៀល</span><span class="schedule-title">ពិធីក្រុងពាលី</span></div>
+                        <div class="schedule-item"><span class="schedule-time">៤:០០ រសៀល</span><span class="schedule-title">ពិធីសូត្រមន្តចំរើនព្រះបរិត្ត</span></div>
+                        <div class="schedule-item"><span class="schedule-time">៥:០០ ល្ងាច</span><span class="schedule-title">ពិធីកាត់ខាន់ស្លា</span></div>
+                        <div class="schedule-item"><span class="schedule-time">۶:០០ ល្ងាច</span><span class="schedule-title">អញ្ជើញភ្ញៀវពិសាអាហារពេលល្ងាច</span></div>
+                    </div>
+                    <p style="font-size: 13px; color: var(--dark-gold); margin-top: 15px; text-align: center"><b>ថ្ងៃសុក្រ ទី៤ ខែធ្នូ ឆ្នាំ២០២៦</b></p>
+                    <div class="schedule-list">
+                        <div class="schedule-item"><span class="schedule-time">៧:៣០ ព្រឹក</span><span class="schedule-title">ជួបជុំភ្ញៀវកិត្តិយសរៀបចំហែរជំនួន</span></div>
+                        <div class="schedule-item"><span class="schedule-time">៨:០០ ព្រឹក</span><span class="schedule-title">ពិធីហែជំនូន(កំណត់)</span></div>
+                        <div class="schedule-item"><span class="schedule-time">៨:៣០ ព្រឹក</span><span class="schedule-title">ពិធីរាប់ផ្លែឈើ ពិសាស្លា និងបំពាក់ចិញ្ចៀន</span></div>
+                        <div class="schedule-item"><span class="schedule-time">០៩:៣၀ ព្រឹក</span><span class="schedule-title">ពិធីកាត់សក់បង្កក់សិរី</span></div>
+                        <div class="schedule-item"><span class="schedule-time">១០:៣០ ព្រឹក</span><span class="schedule-title">ពិធីសំពះផ្ទឹម សែនចងដៃ និងបាចផ្កាស្លា</span></div>
+                        <div class="schedule-item"><span class="schedule-time">១១:១៥ ថ្ងៃត្រង់</span><span class="schedule-title">អញ្ជើញភ្ញៀវពិសារអាហារថ្ងៃត្រង់</span></div>
+                        <div class="schedule-item"><span class="schedule-time">៥:០០ ល្ងាច</span><span class="schedule-title">អញ្ជើញភ្ញៀវពិសារភោជនាហារពេលល្ងាច</span></div>
+                    </div>
+                </div>
+
+                <div class="reveal-item">
+                    <p style="font-weight: 600; margin-top: 15px; color: var(--dark-gold); text-align: center;">កម្មវិធីនឹងចាប់ផ្តើមក្នុងរយៈពេល</p>
+                    <div class="timer-container">
+                        <div class="timer-box"><span class="timer-number" id="days">00</span><span class="timer-label">ថ្ងៃ</span></div>
+                        <div class="timer-box"><span class="timer-number" id="hours">00</span><span class="timer-label">ម៉ោង</span></div>
+                        <div class="timer-box"><span class="timer-number" id="minutes">00</span><span class="timer-label">នាទី</span></div>
+                        <div class="timer-box"><span class="timer-number" id="seconds">00</span><span class="timer-label">វិនាទី</span></div>
+                    </div>
+                </div>
+
+                <div class="gallery-section reveal-item">
+                    <h3 style="font-family: 'Moul'; font-size: 13px; color: var(--dark-gold); text-align: center;">រូបថតកម្រងអនុស្សាវរីយ៍</h3>
+                    <div class="fb-gallery-grid" id="fbGalleryGrid">
+                        <div class="fb-gallery-item" onclick="openLightbox(0)"><img src="photo1.jpg" alt="Photo 1"></div>
+                        <div class="fb-gallery-item" onclick="openLightbox(1)"><img src="photo2.jpg" alt="Photo 2"></div>
+                        <div class="fb-gallery-item" onclick="openLightbox(2)"><img src="photo3.jpg" alt="Photo 3"></div>
+                        <div class="fb-gallery-item" onclick="openLightbox(3)" id="lastVisibleItem">
+                            <img src="photo4.jpg" alt="Photo 4">
+                            <div class="fb-more-overlay" id="moreOverlay">+30</div>
+                        </div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(4)"><img src="photo5.jpg" alt="Photo 5"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(5)"><img src="photo6.jpg" alt="Photo 6"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(6)"><img src="photo7.jpg" alt="Photo 7"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(7)"><img src="photo8.jpg" alt="Photo 8"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(8)"><img src="photo9.jpg" alt="Photo 9"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(9)"><img src="photo10.jpg" alt="Photo 10"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(10)"><img src="photo11.jpg" alt="Photo 11"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(11)"><img src="photo12.jpg" alt="Photo 12"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(12)"><img src="photo13.jpg" alt="Photo 13"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(13)"><img src="photo14.jpg" alt="Photo 14"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(14)"><img src="photo15.jpg" alt="Photo 15"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(15)"><img src="photo16.jpg" alt="Photo 16"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(16)"><img src="photo17.jpg" alt="Photo 17"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(17)"><img src="photo18.jpg" alt="Photo 18"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(18)"><img src="photo19.jpg" alt="Photo 19"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(19)"><img src="photo20.jpg" alt="Photo 20"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(20)"><img src="photo21.jpg" alt="Photo 21"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(21)"><img src="photo22.jpg" alt="Photo 22"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(22)"><img src="photo23.jpg" alt="Photo 23"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(23)"><img src="photo24.jpg" alt="Photo 24"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(24)"><img src="photo25.jpg" alt="Photo 25"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(25)"><img src="photo26.jpg" alt="Photo 26"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(26)"><img src="photo27.jpg" alt="Photo 27"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(27)"><img src="photo28.jpg" alt="Photo 28"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(28)"><img src="photo29.jpg" alt="Photo 29"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(29)"><img src="photo30.jpg" alt="Photo 30"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(30)"><img src="photo31.jpg" alt="Photo 31"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(31)"><img src="photo32.jpg" alt="Photo 32"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(32)"><img src="photo33.jpg" alt="Photo 33"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(33)"><img src="photo34.jpg" alt="Photo 34"></div>
+                    </div>
+                </div>
+
+                <div style="margin: 20px 0; text-align: center;" class="reveal-item">
+                    <h3 style="font-family: 'Moul'; font-size: 13px; color: var(--dark-gold);">ទីតាំងប្រារព្ធពិធី</h3>
+                    
+                    <div style="width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid var(--primary-gold); margin-top: 10px; background: #fff;">
+                        <img src="Map.png" alt="Map Location" onclick="openSingleLightbox('Map.png')" style="width: 100%; height: auto; display: block; object-fit: contain; cursor: pointer;">
+                    </div>
+
+                    <a href="https://maps.app.goo.gl/jQN3Aejwy4Fkmh478" target="_blank" style="display: inline-block; margin-top: 10px; padding: 8px 18px; background-color: var(--dark-gold); color: white; text-decoration: none; border-radius: 6px; font-size: 12px; font-weight: bold;">
+                        📍 បើកមើលទីតាំងក្នុង Google Maps
+                    </a>
+                </div>
+
+                <div class="qr-section reveal-item">
+                    <h3 style="font-family: 'Moul'; font-size: 13px; color: var(--dark-gold);">អំណោយចងដៃ (QR Code)</h3>
+                    <p style="font-size: 11px; color: #666; margin-top: 4px;">សូមអរគុណសម្រាប់ទឹកចិត្ត និងពរជ័យ</p>
+                    <img src="qr-code.png" alt="ABA QR Code" class="qr-image" onclick="openSingleLightbox('qr-code.png')" style="cursor: pointer;">
+                    <p style="font-size: 12px; font-weight: bold; color: var(--text-color);">ឈ្មោះគណនី ABA : SNGEUON DEVITH</p>
+                </div>
+
+                <div class="thank-you-section reveal-item">
+                    <h3 style="font-family: 'Moul'; font-size: 13px; color: var(--dark-gold); margin-bottom: 6px;">សូមអរគុណ</h3>
+                    <p style="font-size: 12px; line-height: 1.6; color: #3f06fc;">
+                        វត្តមានដ៏ខ្ពង់ខ្ពស់របស់ ឯកឧត្តម លោកជំទាវ លោក លោកស្រី អ្នកនាងកញ្ញា
+                        គឺជាកិត្តិយសដ៏ធំធេង និងជាពរជ័យដ៏ប្រសើរថ្លៃថ្លាបំផុតសម្រាប់គ្រួសារយើងខ្ញុំ។
+                    </p>
+                </div>
+
+                <div class="thank-you-section reveal-item">
+                    <h3 style="font-family: 'Moul'; font-size: 13px; color: var(--dark-gold); margin-bottom: 10px;">ទំនាក់ទំនង</h3>
+                    <div style="margin-bottom: 8px;">
+                        <span style="font-weight: bold; color: #3f06fc; font-size: 12px;">កូនកម្លោះ (ដេវីត):</span><br>
+                        <a href="https://facebook.com/sngoeun.devith" target="_blank" style="text-decoration: none; color: #1877F2; margin-right: 12px; font-size: 12px;">
+                            <i class="fab fa-facebook"></i> Sngoeun Devith
+                        </a>
+                        <a href="https://t.me/sngoeun_devith" target="_blank" style="text-decoration: none; color: #0088cc; font-size: 12px;">
+                            <i class="fab fa-telegram"></i> 012 29 26 04
+                        </a>
+                    </div>
+                    <div>
+                        <span style="font-weight: bold; color: #3f06fc; font-size: 12px;">កូនក្រមុំ (ផាត់សិកា):</span><br>
+                        <a href="https://www.facebook.com/share/1bVk6PVeo9/" target="_blank" style="text-decoration: none; color: #1877F2; margin-right: 12px; font-size: 12px;">
+                            <i class="fab fa-facebook"></i> ផល្លី ផាត់សិកា
+                        </a>
+                        <a href="https://t.me/+855969316977" target="_blank" style="text-decoration: none; color: #0088cc; font-size: 12px;">
+                            <i class="fab fa-telegram"></i> 096 93 16 977
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-btn-container reveal-item" style="margin-top: 20px;">
+                    <button type="button" class="nav-btn" id="prevBtn">➔ ទំព័រមុន</button>
+                </div>
+
+                <div class="wishes-section reveal-item">
+                    <h3 style="font-family: 'Moul'; font-size: 13px; color: var(--dark-gold); text-align: center; margin-bottom: 10px;">សៀវភៅសារជូនពរ</h3>
+                    <input type="text" id="wishName" class="wishes-input" placeholder="ឈ្មោះរបស់អ្នក...">
+                    <textarea id="wishText" class="wishes-textarea" placeholder="សរសេរពាក្យពេជ្រជូនពរ..."></textarea>
+                    <button type="button" class="wishes-submit-btn" onclick="submitWish()">ផ្ញើសារជូនពរ</button>
+
+                    <div class="wishes-list-container" id="wishesList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCark0HnpbVrRshS7W4BJWorCEduSEqHSY",
+            authDomain: "wedding-wish-book.firebaseapp.com",
+            databaseURL: "https://wedding-wish-book-default-rtdb.asia-southeast1.firebasedatabase.app/",
+            projectId: "wedding-wish-book",
+            storageBucket: "wedding-wish-book.firebasestorage.app",
+            messagingSenderId: "1090142331799",
+            appId: "1:1090142331799:web:59023e85b9a3aba39fdad2",
+            measurementId: "G-N661HDK3BF"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const dbRef = ref(db, 'wedding_wishes');
+
+        onValue(dbRef, (snapshot) => {
+            const wishesList = document.getElementById('wishesList');
+            if (!wishesList) return;
+            
+            wishesList.innerHTML = '';
+            const data = snapshot.val();
+            
+            if (data) {
+                const wishesArray = Object.values(data).reverse();
+                wishesArray.forEach(wish => {
+                    const wishCard = document.createElement('div');
+                    wishCard.className = 'wish-card';
+                    wishCard.innerHTML = `
+                        <div class="wish-card-name">✨ ${escapeHtml(wish.name)}</div>
+                        <div class="wish-card-text">${escapeHtml(wish.text)}</div>
+                    `;
+                    wishesList.appendChild(wishCard);
+                });
+            }
+        });
+
+        window.submitWish = function() {
+            const nameInput = document.getElementById('wishName');
+            const textInput = document.getElementById('wishText');
+
+            const name = nameInput.value.trim();
+            const text = textInput.value.trim();
+
+            if (!name || !text) {
+                alert("សូមបំពេញឈ្មោះ និងសារជូនពរជាមុនសិន!");
+                return;
+            }
+
+            push(dbRef, {
+                name: name,
+                text: text,
+                timestamp: Date.now()
+            }).then(() => {
+                nameInput.value = '';
+                textInput.value = '';
+            }).catch((error) => {
+                alert("មានបញ្ហាក្នុងការផ្ញើសារ៖ " + error.message);
+            });
+        };
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;")
+                      .replace(/</g, "&lt;")
+                      .replace(/>/g, "&gt;")
+                      .replace(/"/g, "&quot;")
+                      .replace(/'/g, "&#039;");
+        }
+    </script>
+
+    <script>
+        const textToType = "ស្ងឿន&nbsp;ដេវីត    ♥    ផល្លី&nbsp;ផាត់សិកា";
+        let charIndex = 0;
+
+        function typeWriter() {
+            if (charIndex < textToType.length) {
+                const char = textToType.charAt(charIndex);
+                if (textToType.substring(charIndex, charIndex + 6) === "&nbsp;") {
+                    document.getElementById("animatedNames").innerHTML += "&nbsp;";
+                    charIndex += 6;
+                } else {
+                    document.getElementById("animatedNames").innerHTML += char;
+                    charIndex++;
+                }
+                setTimeout(typeWriter, 120);
+            }
+        }
+
+        let isOpened = false;
+        function openInvitation() {
+            if (isOpened) return;
+            isOpened = true;
+
+            const doorSound = document.getElementById('doorSound');
+            if(doorSound) doorSound.play().catch(error => console.log("Audio:", error));
+
+            document.getElementById('doorWrapper').classList.add('opened');
+
+            setTimeout(() => {
+                const weddingMusic = document.getElementById('weddingMusic');
+                if(weddingMusic) weddingMusic.play().catch(err => console.log(err));
+            }, 600);
+
+            createPetals();
+            setTimeout(typeWriter, 1200);
+        }
+
+        let currentPage = 1;
+        const totalPages = 2;
+
+        function showPage(pageNumber) {
+            for (let i = 1; i <= totalPages; i++) {
+                const page = document.getElementById('page' + i);
+                if (page) {
+                    page.classList.remove('active');
+                }
+            }
+
+            const targetPage = document.getElementById('page' + pageNumber);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            currentPage = pageNumber;
+
+            const frameOverlay = document.getElementById('page2FrameOverlay');
+            if (frameOverlay) {
+                if (pageNumber === 2) {
+                    frameOverlay.style.display = 'block';
+                } else {
+                    frameOverlay.style.display = 'none';
+                }
+            }
+        }
+
+        function createPetals() {
+            const container = document.getElementById('cardContainer');
+            for (let i = 0; i < 25; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.width = Math.random() * 8 + 8 + 'px';
+                petal.style.height = Math.random() * 8 + 12 + 'px';
+                petal.style.animationDuration = Math.random() * 3 + 3 + 's';
+                petal.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(petal);
+            }
+        }
+
+        const weddingDate = new Date("Dec 4, 2026 17:00:00").getTime();
+        setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance > 0) {
+                const daysEl = document.getElementById("days");
+                const hoursEl = document.getElementById("hours");
+                const minutesEl = document.getElementById("minutes");
+                const secondsEl = document.getElementById("seconds");
+
+                if(daysEl) daysEl.innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+                if(hoursEl) hoursEl.innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                if(minutesEl) minutesEl.innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                if(secondsEl) secondsEl.innerText = Math.floor((distance % (1000 * 60)) / 1000);
+            }
+        }, 1000);
+
+        const galleryImages = [
+            "photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg",
+            "photo5.jpg", "photo6.jpg", "photo7.jpg", "photo8.jpg",
+            "photo9.jpg", "photo10.jpg", "photo11.jpg", "photo12.jpg",
+            "photo13.jpg", "photo14.jpg", "photo15.jpg", "photo16.jpg",
+            "photo17.jpg", "photo18.jpg", "photo19.jpg", "photo20.jpg",
+            "photo21.jpg", "photo22.jpg", "photo23.jpg", "photo24.jpg",
+            "photo25.jpg", "photo26.jpg", "photo27.jpg", "photo28.jpg",
+            "photo29.jpg", "photo30.jpg", "photo31.jpg", "photo32.jpg",
+            "photo33.jpg", "photo34.jpg"
+        ];
+        let currentImageIndex = 0;
+        let isSingleImageMode = false;
+
+        function openLightbox(index) {
+            isSingleImageMode = false;
+            currentImageIndex = index;
+            const modal = document.getElementById('lightboxModal');
+            const img = document.getElementById('lightboxImg');
+            
+            document.querySelectorAll('.lightbox-nav').forEach(btn => btn.style.display = 'block');
+
+            if (modal && img) {
+                img.src = galleryImages[currentImageIndex];
+                modal.classList.add('active');
+            }
+        }
+
+        function openSingleLightbox(imageSrc) {
+            isSingleImageMode = true;
+            const modal = document.getElementById('lightboxModal');
+            const img = document.getElementById('lightboxImg');
+            
+            document.querySelectorAll('.lightbox-nav').forEach(btn => btn.style.display = 'none');
+
+            if (modal && img) {
+                img.src = imageSrc;
+                modal.classList.add('active');
+            }
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightboxModal');
+            if (modal) {
+                modal.classList.remove('active');
+            }
+        }
+
+        function changeLightboxImage(direction) {
+            const img = document.getElementById('lightboxImg');
+            if (!img) return;
+
+            img.classList.add('animating');
+
+            setTimeout(() => {
+                currentImageIndex += direction;
+                if (currentImageIndex < 0) {
+                    currentImageIndex = galleryImages.length - 1;
+                } else if (currentImageIndex >= galleryImages.length) {
+                    currentImageIndex = 0;
+                }
+                img.src = galleryImages[currentImageIndex];
+                img.classList.remove('animating');
+            }, 200);
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // អានតម្លៃឈ្មោះភ្ញៀវពី URL យ៉ាងមានប្រសិទ្ធភាពខ្ពស់ (គាំទ្រទាំង %20 និងសញ្ញាចន្លោះ)
+            const currentUrl = window.location.href;
+            const toParamIndex = currentUrl.indexOf('?to=');
+
+            if (toParamIndex !== -1) {
+                let rawName = currentUrl.substring(toParamIndex + 4);
+                // កាត់យកត្រឹមសញ្ញា # បើមានភ្ជាប់ Hash
+                if (rawName.includes('#')) {
+                    rawName = rawName.substring(0, rawName.indexOf('#'));
+                }
+                try {
+                    let decodedName = decodeURIComponent(rawName.replace(/\+/g, ' '));
+                    const guestDisplay = document.getElementById('guestNameDisplay');
+                    if (guestDisplay) {
+                        guestDisplay.innerText = decodedName;
+                    }
+                } catch (e) {
+                    console.log("Error decoding name:", e);
+                }
+            }
+
+            showPage(1);
+
+            const nextBtn = document.getElementById('nextBtn');
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (currentPage < totalPages) showPage(currentPage + 1);
+                });
+            }
+
+            const prevBtn = document.getElementById('prevBtn');
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (currentPage > 1) showPage(currentPage - 1);
+                });
+            }
+
+            const observerOptions = {
+                root: document.getElementById('page2'),
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active-reveal');
+                    }
+                });
+            }, observerOptions);
+
+            const revealItems = document.querySelectorAll('#page2 .reveal-item');
+            revealItems.forEach(item => observer.observe(item));
+
+            const totalImgs = galleryImages.length;
+            if (totalImgs > 4) {
+                const overlay = document.getElementById('moreOverlay');
+                if (overlay) overlay.innerText = "+" + (totalImgs - 4);
+            }
+
+            const modal = document.getElementById('lightboxModal');
+            let startX = 0;
+            let endX = 0;
+            let isDragging = false;
+
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) closeLightbox();
+            });
+
+            modal.addEventListener('touchstart', function(e) {
+                startX = e.touches[0].clientX;
+            }, { passive: true });
+
+            modal.addEventListener('touchend', function(e) {
+                endX = e.changedTouches[0].clientX;
+                handleSwipe();
+            }, { passive: true });
+
+            modal.addEventListener('mousedown', function(e) {
+                isDragging = true;
+                startX = e.clientX;
+            });
+
+            modal.addEventListener('mouseup', function(e) {
+                if (!isDragging) return;
+                isDragging = false;
+                endX = e.clientX;
+                handleSwipe();
+            });
+
+            modal.addEventListener('mouseleave', function() {
+                isDragging = false;
+            });
+
+            function handleSwipe() {
+                if (isSingleImageMode) return;
+
+                const diffX = endX - startX;
+                const threshold = 30;
+                if (Math.abs(diffX) > threshold) {
+                    if (diffX < 0) {
+                        changeLightboxImage(1);
+                    } else {
+                        changeLightboxImage(-1);
+                    }
+                }
+            }
+
+            document.addEventListener('keydown', function(e) {
+                if (modal.classList.contains('active')) {
+                    if (!isSingleImageMode) {
+                        if (e.key === 'ArrowRight') changeLightboxImage(1);
+                        else if (e.key === 'ArrowLeft') changeLightboxImage(-1);
+                    }
+                    if (e.key === 'Escape') closeLightbox();
+                }
+            });
+        });
+
+        (function initSVGButterflies() {
+            const bfContainer = document.createElement('div');
+            bfContainer.className = 'butterfly-container';
+            document.body.appendChild(bfContainer);
+
+            const colorPalettes = [
+                { id: 'grad_orange_red', stops: ['#ff4500', '#ff8c00', '#ffd700', '#8b0000'], glow: 'rgba(255,140,0,0.8)' },
+                { id: 'grad_blue_purple', stops: ['#00bfff', '#1e90ff', '#8a2be2', '#4b0082'], glow: 'rgba(30,144,255,0.8)' },
+                { id: 'grad_green_gold', stops: ['#00ff7f', '#3cb371', '#ffd700', '#006400'], glow: 'rgba(50,205,50,0.8)' },
+                { id: 'grad_pink_violet', stops: ['#ff1493', '#ff69b4', '#da70d6', '#800080'], glow: 'rgba(255,105,180,0.8)' },
+                { id: 'grad_golden_amber', stops: ['#ffe57f', '#ffc107', '#ff8f00', '#b71c1c'], glow: 'rgba(255,193,7,0.8)' }
+            ];
+
+            function getRandomPalette() {
+                return colorPalettes[Math.floor(Math.random() * colorPalettes.length)];
+            }
+
+            const butterflyCount = 2;
+            const butterflies = [];
+
+            for (let i = 0; i < butterflyCount; i++) {
+                const div = document.createElement('div');
+                div.className = 'butterfly';
+                bfContainer.appendChild(div);
+
+                let bfObj = {
+                    element: div,
+                    x: Math.random() * (window.innerWidth - 60),
+                    y: Math.random() * (window.innerHeight - 60),
+                    vx: (Math.random() - 0.5) * 1.5,
+                    vy: (Math.random() - 0.5) * 1.5,
+                    angle: 0,
+                    isExploding: false,
+                    palette: getRandomPalette(),
+                    idNum: i + '_' + Date.now()
+                };
+
+                updateButterflySVG(bfObj);
+
+                function handleTouch(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (bfObj.isExploding) return;
+                    bfObj.isExploding = true;
+
+                    const popSound = document.getElementById('popSound');
+                    if (popSound) {
+                        popSound.currentTime = 0;
+                        popSound.play().catch(err => console.log("Sound play error:", err));
+                    }
+
+                    const centerX = bfObj.x + 25;
+                    const centerY = bfObj.y + 25;
+                    const startAngle = bfObj.angle;
+
+                    let spinDegree = 0;
+                    const totalSpin = 1080;
+                    const spinStartTime = performance.now();
+                    const spinDuration = 500;
+
+                    function spinPhase(currentTime) {
+                        const elapsed = currentTime - spinStartTime;
+                        const progress = Math.min(elapsed / spinDuration, 1);
+
+                        spinDegree = progress * totalSpin;
+                        div.style.transform = `translate3d(${centerX - 25}px, ${centerY - 25}px, 0) rotate(${startAngle + spinDegree}deg) scale(1)`;
+
+                        if (progress < 1) {
+                            requestAnimationFrame(spinPhase);
+                        } else {
+                            div.style.opacity = '0';
+                            startHeartExplosion(centerX, centerY);
+                        }
+                    }
+
+                    function startHeartExplosion(currentX, currentY) {
+                        const activeGradId = `bfGrad_${bfObj.idNum}`;
+                        const particleCount = 70;
+                        const particles = [];
+
+                        for (let p = 0; p < particleCount; p++) {
+                            const particle = document.createElement('div');
+                            particle.className = 'particle';
+                            particle.style.opacity = '0.15';
+                            particle.innerHTML = `<svg viewBox="0 0 24 24" style="width:100%; height:100%; fill:url(#${activeGradId}); filter: drop-shadow(0 0 3px ${bfObj.palette.stops[1]});">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>`;
+                            particle.style.left = (currentX - 35) + 'px';
+                            particle.style.top = (currentY - 35) + 'px';
+                            bfContainer.appendChild(particle);
+
+                            const t = (p / particleCount) * Math.PI * 2;
+                            const hx = 22 * Math.pow(Math.sin(t), 3);
+                            const hy = -(16 * Math.cos(t) - 6 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+                            
+                            const scaleFactor = 0.7 + Math.random() * 0.3;
+                            particles.push({
+                                element: particle,
+                                vx: hx * scaleFactor,
+                                vy: hy * scaleFactor,
+                                x: currentX - 35,
+                                y: currentY - 35
+                            });
+                        }
+
+                        let heartFrame = 0;
+                        const heartDuration = 90;
+
+                        function heartFadeAnimation() {
+                            heartFrame++;
+                            let heartProgress = heartFrame / heartDuration;
+                            let currentAlpha = 0.15 * (1 - heartProgress);
+
+                            particles.forEach(pt => {
+                                pt.x += pt.vx * 0.04;
+                                pt.y += pt.vy * 0.04;
+                                pt.element.style.left = pt.x + 'px';
+                                pt.element.style.top = pt.y + 'px';
+                                pt.element.style.opacity = Math.max(currentAlpha, 0);
+                                pt.vx *= 0.96;
+                                pt.vy *= 0.96;
+                            });
+
+                            if (heartFrame < heartDuration) {
+                                requestAnimationFrame(heartFadeAnimation);
+                            } else {
+                                particles.forEach(pt => pt.element.remove());
+                                startNewButterflyAppearance();
+                            }
+                        }
+
+                        requestAnimationFrame(heartFadeAnimation);
+                    }
+
+                    function startNewButterflyAppearance() {
+                        bfObj.x = Math.random() * (window.innerWidth - 60);
+                        bfObj.y = Math.random() * (window.innerHeight - 60);
+                        bfObj.vx = (Math.random() - 0.5) * 1.5;
+                        bfObj.vy = (Math.random() - 0.5) * 1.5;
+
+                        bfObj.palette = getRandomPalette();
+                        bfObj.idNum = i + '_' + Date.now();
+                        updateButterflySVG(bfObj);
+
+                        let appearFrame = 0;
+                        const appearDuration = 50;
+
+                        function appearAnimation() {
+                            appearFrame++;
+                            let progress = appearFrame / appearDuration;
+
+                            div.style.opacity = progress;
+                            div.style.transform = `translate3d(${bfObj.x}px, ${bfObj.y}px, 0) scale(${progress})`;
+
+                            if (appearFrame < appearDuration) {
+                                requestAnimationFrame(appearAnimation);
+                            } else {
+                                bfObj.isExploding = false;
+                            }
+                        }
+
+                        requestAnimationFrame(appearAnimation);
+                    }
+
+                    requestAnimationFrame(spinPhase);
+                }
+
+                div.addEventListener('click', handleTouch);
+                div.addEventListener('touchstart', handleTouch, { passive: false });
+
+                butterflies.push(bfObj);
+            }
+
+            function updateButterflySVG(bf) {
+                const gradId = `bfGrad_${bf.idNum}`;
+                const p = bf.palette;
+
+                bf.element.innerHTML = `<svg viewBox="0 0 60 60">
+                    <defs>
+                        <linearGradient id="${gradId}" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="${p.stops[0]}" />
+                            <stop offset="40%" stop-color="${p.stops[1]}" />
+                            <stop offset="70%" stop-color="${p.stops[2]}" />
+                            <stop offset="100%" stop-color="${p.stops[3]}" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M30 30 C15 5 0 10 5 30 C0 45 15 55 30 40 Z" fill="url(#${gradId})" stroke="#111" stroke-width="1.5"/>
+                    <path d="M30 32 C18 15 8 18 10 32 C6 42 18 48 30 38 Z" fill="#222" opacity="0.75"/>
+                    <circle cx="15" cy="25" r="2.5" fill="#fff"/>
+                    <circle cx="12" cy="35" r="2" fill="#ffdf73"/>
+                    <path d="M30 30 C45 5 60 10 55 30 C60 45 45 55 30 40 Z" fill="url(#${gradId})" stroke="#111" stroke-width="1.5"/>
+                    <path d="M30 32 C42 15 52 18 50 32 C54 42 42 48 30 38 Z" fill="#222" opacity="0.75"/>
+                    <circle cx="45" cy="25" r="2.5" fill="#fff"/>
+                    <circle cx="48" cy="35" r="2" fill="#ffdf73"/>
+                    <ellipse cx="30" cy="32" rx="2" ry="10" fill="#1f1100"/>
+                    <circle cx="30" cy="20" r="2.5" fill="#1f1100"/>
+                    <path d="M30 18 Q 24 10 20 12" fill="none" stroke="#1f1100" stroke-width="1.2"/>
+                    <path d="M30 18 Q 36 10 40 12" fill="none" stroke="#1f1100" stroke-width="1.2"/>
+                </svg>`;
+                bf.element.style.filter = `drop-shadow(0 0 6px ${p.glow})`;
+            }
+
+            function animate() {
+                const w = window.innerWidth;
+                const h = window.innerHeight;
+
+                butterflies.forEach(bf => {
+                    if (bf.isExploding) return;
+
+                    bf.vx += (Math.random() - 0.5) * 0.2;
+                    bf.vy += (Math.random() - 0.5) * 0.2;
+
+                    const maxSpeed = 1.5;
+                    bf.vx = Math.max(-maxSpeed, Math.min(maxSpeed, bf.vx));
+                    bf.vy = Math.max(-maxSpeed, Math.min(maxSpeed, bf.vy));
+
+                    bf.x += bf.vx;
+                    bf.y += bf.vy;
+
+                    if (bf.x < -30) { bf.x = -30; bf.vx *= -1; }
+                    if (bf.x > w - 20) { bf.x = w - 20; bf.vx *= -1; }
+                    if (bf.y < -30) { bf.y = -30; bf.vy *= -1; }
+                    if (bf.y > h - 20) { bf.y = h - 20; bf.vy *= -1; }
+
+                    const targetAngle = Math.atan2(bf.vy, bf.vx) * (180 / Math.PI) + 90;
+                    bf.angle += (targetAngle - bf.angle) * 0.1;
+
+                    bf.element.style.transform = `translate3d(${bf.x}px, ${bf.y}px, 0) rotate(${bf.angle}deg)`;
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        })();
+    </script>
+</body>
+</html>
