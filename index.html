@@ -58,7 +58,7 @@
             font-family: 'Moul', cursive;
         }
 
-        /* Lightbox សម្រាប់ពេលចុចមើលរូបធំ (គ្មានប៊ូតុង និងគាំទ្រ Zoom) */
+        /* Lightbox សម្រាប់ពេលចុចមើលរូបធំ */
         .lightbox-modal {
             display: none;
             position: fixed;
@@ -71,7 +71,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            touch-action: none; /* បិទ browser default zoom ដើម្បីគ្រប់គ្រងការ Zoom ដោយផ្ទាល់ */
+            touch-action: none;
         }
 
         .lightbox-modal.active {
@@ -97,6 +97,32 @@
         .lightbox-content.animating {
             opacity: 0;
             transform: scale(0.9);
+        }
+
+        /* ប៊ូតុងខ្វែងសម្រាប់បិទ Lightbox */
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            color: #ffffff;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1000000;
+            line-height: 1;
+            user-select: none;
+            background: rgba(0, 0, 0, 0.5);
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(212, 175, 55, 0.8);
         }
 
         :root {
@@ -163,7 +189,7 @@
             }
         }
 
-        /* ទ្វារ */
+        /* ទ្វារ (រុញបើកចូលខាងក្នុង 3D Push-in) */
         .door-wrapper {
             display: flex;
             width: 100%;
@@ -177,7 +203,7 @@
             background: #0d0d0d;
             pointer-events: auto;
             perspective: 1200px;
-            transition: visibility 8.5s ease, opacity 8.5s ease;
+            transition: visibility 1.5s ease, opacity 1.5s ease;
         }
 
         .door {
@@ -186,7 +212,7 @@
             border: 4px solid #d4af37;
             box-shadow: inset 0 0 25px rgba(0,0,0,0.9);
             position: relative;
-            transition: transform 8.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 8.5s ease;
+            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.5s ease;
             background-size: cover !important;
             background-repeat: no-repeat !important;
             background-color: #1a0c05;
@@ -205,9 +231,20 @@
             transform-origin: right center;
         }
 
-        .door-wrapper.opened .door-left { transform: rotateY(120deg); opacity: 0.3; }
-        .door-wrapper.opened .door-right { transform: rotateY(-120deg); opacity: 0.3; }
-        .door-wrapper.opened { pointer-events: none; visibility: hidden; opacity: 0; }
+        .door-wrapper.opened .door-left { 
+            transform: translateX(-100%) scale(1.2); 
+            opacity: 0; 
+        }
+        .door-wrapper.opened .door-right { 
+            transform: translateX(100%) scale(1.2); 
+            opacity: 0; 
+        }
+        .door-wrapper.opened { 
+            pointer-events: none; 
+            visibility: hidden; 
+            opacity: 0; 
+            transition: visibility 0s 1.5s, opacity 1.5s ease;
+        }
 
         .content {
             width: 100%;
@@ -635,7 +672,6 @@
             100% { transform: scaleX(0.2); }
         }
 
-        /* Particles រាងបេះដូងទំហំធំស្អាត និងកម្រិត opacity 0.15 */
         .particle {
             position: absolute;
             width: 70px;
@@ -647,8 +683,9 @@
     </style>
 </head>
 
-<!-- Lightbox Modal (គ្មានប៊ូតុង គ្រាន់តែចុចផ្ទៃខ្មៅដើម្បីបិទ) -->
+<!-- Lightbox Modal (មានប៊ូតុងខ្វែង & គាំទ្រ Zoom / Swipe) -->
 <div class="lightbox-modal" id="lightboxModal">
+    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
     <img class="lightbox-content" id="lightboxImg" src="" alt="Zoomed Photo" draggable="false">
 </div>
 
@@ -659,7 +696,7 @@
         <!-- ស៊ុមផ្ការៀបចំជា Absolute ជាប់លើ Mobile Card មិនរត់តាមការ Scroll ឡើយ -->
         <img src="fram.png" alt="Flower Frame" class="page2-fixed-overlay" id="page2FrameOverlay">
        
-        <!-- ទ្វារឈើប្រណីត -->
+        <!-- ទ្វារឈើប្រណីត (ចុចលើទ្វារណាក៏បានដើម្បីបើក) -->
         <div class="door-wrapper" id="doorWrapper" onclick="openInvitation()">
             <div class="door door-left"></div>
             <div class="door door-right"></div>
@@ -877,7 +914,7 @@
                     <button type="button" class="wishes-submit-btn" onclick="submitWish()">ផ្ញើសារជូនពរ</button>
 
                     <div class="wishes-list-container" id="wishesList">
-                        <!-- សារនឹងត្រូវបង្ហាញនៅទីนี่ -->
+                        <!-- សារនឹងត្រូវបង្ហាញនៅទីនេះ -->
                     </div>
                 </div>
             </div>
@@ -1054,7 +1091,7 @@
             }
         }, 1000);
 
-        // ================= គ្រប់គ្រង LIGHTBOX (Swipe, Pinch Zoom & Drag) =================
+        // ================= គ្រប់គ្រង LIGHTBOX (Swipe, Pinch Zoom, Pan & Close Button) =================
         const galleryImages = [
             "photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg",
             "photo5.jpg", "photo6.jpg", "photo7.jpg", "photo8.jpg",
@@ -1109,7 +1146,7 @@
             }, 150);
         }
 
-        // ការគ្រប់គ្រង Zoom និង Panning
+        // ការគ្រប់គ្រង Zoom, Panning និង Swipe
         let scale = 1;
         let panning = false;
         let pointX = 0;
@@ -1136,7 +1173,7 @@
             }
         });
 
-        // Touch Events (Pinch Zoom & Swipe)
+        // Touch Events (Pinch Zoom, Pan & Swipe)
         lightboxModal.addEventListener('touchstart', function(e) {
             if (e.touches.length === 2) {
                 initialDistance = Math.hypot(
@@ -1165,10 +1202,12 @@
                     initialDistance = currentDistance;
                     updateTransform();
                 }
-            } else if (e.touches.length === 1 && scale > 1) {
-                pointX = e.touches[0].clientX - startX;
-                pointY = e.touches[0].clientY - startY;
-                updateTransform();
+            } else if (e.touches.length === 1) {
+                if (scale > 1) {
+                    pointX = e.touches[0].clientX - startX;
+                    pointY = e.touches[0].clientY - startY;
+                    updateTransform();
+                }
             }
         }, { passive: true });
 
@@ -1186,7 +1225,7 @@
             }
         });
 
-        // Mouse Events (Drag & Wheel Zoom)
+        // Mouse Events (Drag Zoom Pan & Wheel Zoom)
         lightboxModal.addEventListener('mousedown', function(e) {
             if (e.target === lightboxImg && scale > 1) {
                 startX = e.clientX - pointX;
