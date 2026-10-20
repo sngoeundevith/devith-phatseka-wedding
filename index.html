@@ -58,7 +58,7 @@
             font-family: 'Moul', cursive;
         }
 
-        /* Lightbox សម្រាប់ពេលចុចមើលរូបធំ */
+        /* Lightbox សម្រាប់ពេលចុចមើលរូបធំ (គ្មានប៊ូតុង និងគាំទ្រ Zoom) */
         .lightbox-modal {
             display: none;
             position: fixed;
@@ -66,12 +66,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             z-index: 999999;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            user-select: none;
+            overflow: hidden;
+            touch-action: none; /* បិទ browser default zoom ដើម្បីគ្រប់គ្រងការ Zoom ដោយផ្ទាល់ */
         }
 
         .lightbox-modal.active {
@@ -80,61 +80,25 @@
 
         .lightbox-content {
             max-width: 95%;
-            max-height: 85vh;
+            max-height: 90vh;
             object-fit: contain;
             border-radius: 8px;
             border: 2px solid var(--primary-gold);
             cursor: grab;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            opacity: 1;
-            transform: scale(1);
-            touch-action: manipulation;
-        }
-
-        .lightbox-content.animating {
-            opacity: 0;
-            transform: scale(0.92);
+            transition: transform 0.1s ease-out, opacity 0.2s ease;
+            transform-origin: center center;
+            user-select: none;
         }
 
         .lightbox-content:active {
             cursor: grabbing;
         }
-        /* ស្ទីលបន្ថែមសម្រាប់ Lightbox និងប៊ូតុង */
-        .lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            color: #ffffff;
-            font-size: 35px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 1000000;
-            line-height: 1;
-            user-select: none;
+
+        .lightbox-content.animating {
+            opacity: 0;
+            transform: scale(0.9);
         }
 
-        .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(212, 175, 55, 0.4);
-            color: white;
-            border: none;
-            font-size: 24px;
-            padding: 12px 16px;
-            cursor: pointer;
-            border-radius: 50%;
-            z-index: 1000000;
-            transition: background 0.3s ease;
-            user-select: none;
-        }
-
-        .lightbox-nav:hover {
-            background: rgba(212, 175, 55, 0.9);
-        }
-
-        .lightbox-prev { left: 15px; }
-        .lightbox-next { right: 15px; }
         :root {
             --primary-gold: #d4af37;
             --dark-gold: #aa7c11;
@@ -683,15 +647,9 @@
     </style>
 </head>
 
-<!-- Lightbox Modal -->
+<!-- Lightbox Modal (គ្មានប៊ូតុង គ្រាន់តែចុចផ្ទៃខ្មៅដើម្បីបិទ) -->
 <div class="lightbox-modal" id="lightboxModal">
-    <!-- ប៊ូតុងចុចបិទ ✖ -->
-    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-    
-    <!-- ប៊ូតុងព្រួញផ្លាស់ប្តូររូប ◄ និង ► -->
-    <button class="lightbox-nav lightbox-prev" onclick="changeLightboxImage(-1)">&#10094;</button>
     <img class="lightbox-content" id="lightboxImg" src="" alt="Zoomed Photo" draggable="false">
-    <button class="lightbox-nav lightbox-next" onclick="changeLightboxImage(1)">&#10095;</button>
 </div>
 
 <body>
@@ -822,7 +780,7 @@
                         <div class="fb-gallery-item" onclick="openLightbox(2)"><img src="photo3.jpg" alt="Photo 3"></div>
                         <div class="fb-gallery-item" onclick="openLightbox(3)" id="lastVisibleItem">
                             <img src="photo4.jpg" alt="Photo 4">
-                            <div class="fb-more-overlay" id="moreOverlay">+30</div>
+                            <div class="fb-more-overlay" id="moreOverlay">+31</div>
                         </div>
                         <div class="fb-gallery-item hidden-img" onclick="openLightbox(4)"><img src="photo5.jpg" alt="Photo 5"></div>
                         <div class="fb-gallery-item hidden-img" onclick="openLightbox(5)"><img src="photo6.jpg" alt="Photo 6"></div>
@@ -854,6 +812,7 @@
                         <div class="fb-gallery-item hidden-img" onclick="openLightbox(31)"><img src="photo32.jpg" alt="Photo 32"></div>
                         <div class="fb-gallery-item hidden-img" onclick="openLightbox(32)"><img src="photo33.jpg" alt="Photo 33"></div>
                         <div class="fb-gallery-item hidden-img" onclick="openLightbox(33)"><img src="photo34.jpg" alt="Photo 34"></div>
+                        <div class="fb-gallery-item hidden-img" onclick="openLightbox(34)"><img src="photo35.jpg" alt="Photo 35"></div>
                     </div>
                 </div>
 
@@ -918,7 +877,7 @@
                     <button type="button" class="wishes-submit-btn" onclick="submitWish()">ផ្ញើសារជូនពរ</button>
 
                     <div class="wishes-list-container" id="wishesList">
-                        <!-- សារនឹងត្រូវបង្ហាញនៅទីនេះ -->
+                        <!-- សារនឹងត្រូវបង្ហាញនៅទីนี่ -->
                     </div>
                 </div>
             </div>
@@ -1095,7 +1054,7 @@
             }
         }, 1000);
 
-        // ================= គ្រប់គ្រង LIGHTBOX =================
+        // ================= គ្រប់គ្រង LIGHTBOX (Swipe, Pinch Zoom & Drag) =================
         const galleryImages = [
             "photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg",
             "photo5.jpg", "photo6.jpg", "photo7.jpg", "photo8.jpg",
@@ -1105,64 +1064,38 @@
             "photo21.jpg", "photo22.jpg", "photo23.jpg", "photo24.jpg",
             "photo25.jpg", "photo26.jpg", "photo27.jpg", "photo28.jpg",
             "photo29.jpg", "photo30.jpg", "photo31.jpg", "photo32.jpg",
-            "photo33.jpg", "photo34.jpg"
+            "photo33.jpg", "photo34.jpg", "photo35.jpg"
         ];
+        
         let currentImageIndex = 0;
+        let isSingleImageMode = false;
+        
+        const lightboxModal = document.getElementById('lightboxModal');
+        const lightboxImg = document.getElementById('lightboxImg');
 
         function openLightbox(index) {
             isSingleImageMode = false;
             currentImageIndex = index;
-            const modal = document.getElementById('lightboxModal');
-            const img = document.getElementById('lightboxImg');
-            
-            // បង្ហាញប៊ូតុងព្រួញឆ្វេង-ស្តាំ ពេលមើលរូបក្នុងអាល់ប៊ុម
-            document.querySelectorAll('.lightbox-nav').forEach(btn => btn.style.display = 'block');
-
-            if (modal && img) {
-                img.src = galleryImages[currentImageIndex];
-                modal.classList.add('active');
-            }
+            lightboxImg.src = galleryImages[currentImageIndex];
+            resetZoom();
+            lightboxModal.classList.add('active');
         }
 
         function openSingleLightbox(imageSrc) {
             isSingleImageMode = true;
-            const modal = document.getElementById('lightboxModal');
-            const img = document.getElementById('lightboxImg');
-            
-            // លាក់ប៊ូតុងព្រួញ ពេលបើកមើលរូបទោល (ផែនទី ឬ QR Code)
-            document.querySelectorAll('.lightbox-nav').forEach(btn => btn.style.display = 'none');
-
-            if (modal && img) {
-                img.src = imageSrc;
-                modal.classList.add('active');
-            }
+            lightboxImg.src = imageSrc;
+            resetZoom();
+            lightboxModal.classList.add('active');
         }
 
         function closeLightbox() {
-            const modal = document.getElementById('lightboxModal');
-            if (modal) {
-                modal.classList.remove('active');
-            }
+            lightboxModal.classList.remove('active');
+            resetZoom();
         }
 
-        // ================= គ្រប់គ្រង LIGHTBOX សម្រាប់រូបភាពទោល (ផែនទី & QR Code) =================
-        let isSingleImageMode = false; // សម្គាល់ថាតើកំពុងបើករូបទោល ឬរូបក្នុងអាល់ប៊ុម
-
-        function openSingleLightbox(imageSrc) {
-            isSingleImageMode = true; // បើករូបភាពទោល (មិនបាច់មាន Swipe ដូរកែប្រែ)
-            const modal = document.getElementById('lightboxModal');
-            const img = document.getElementById('lightboxImg');
-            if (modal && img) {
-                img.src = imageSrc;
-                modal.classList.add('active');
-            }
-        }
         function changeLightboxImage(direction) {
-            const img = document.getElementById('lightboxImg');
-            if (!img) return;
-
-            img.classList.add('animating');
-
+            if (isSingleImageMode) return;
+            lightboxImg.classList.add('animating');
             setTimeout(() => {
                 currentImageIndex += direction;
                 if (currentImageIndex < 0) {
@@ -1170,10 +1103,131 @@
                 } else if (currentImageIndex >= galleryImages.length) {
                     currentImageIndex = 0;
                 }
-                img.src = galleryImages[currentImageIndex];
-                img.classList.remove('animating');
-            }, 200);
+                lightboxImg.src = galleryImages[currentImageIndex];
+                resetZoom();
+                lightboxImg.classList.remove('animating');
+            }, 150);
         }
+
+        // ការគ្រប់គ្រង Zoom និង Panning
+        let scale = 1;
+        let panning = false;
+        let pointX = 0;
+        let pointY = 0;
+        let startX = 0;
+        let startY = 0;
+        let initialDistance = 0;
+
+        function resetZoom() {
+            scale = 1;
+            pointX = 0;
+            pointY = 0;
+            updateTransform();
+        }
+
+        function updateTransform() {
+            lightboxImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+        }
+
+        // ចុចលើផ្ទៃខ្មៅដើម្បីបិទ
+        lightboxModal.addEventListener('click', function(e) {
+            if (e.target === lightboxModal) {
+                closeLightbox();
+            }
+        });
+
+        // Touch Events (Pinch Zoom & Swipe)
+        lightboxModal.addEventListener('touchstart', function(e) {
+            if (e.touches.length === 2) {
+                initialDistance = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+            } else if (e.touches.length === 1) {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                if (scale > 1) {
+                    panning = true;
+                    pointX = startX - pointX;
+                    pointY = startY - pointY;
+                }
+            }
+        }, { passive: true });
+
+        lightboxModal.addEventListener('touchmove', function(e) {
+            if (e.touches.length === 2) {
+                const currentDistance = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+                if (initialDistance > 0) {
+                    scale = Math.max(1, Math.min(4, scale * (currentDistance / initialDistance)));
+                    initialDistance = currentDistance;
+                    updateTransform();
+                }
+            } else if (e.touches.length === 1 && scale > 1) {
+                pointX = e.touches[0].clientX - startX;
+                pointY = e.touches[0].clientY - startY;
+                updateTransform();
+            }
+        }, { passive: true });
+
+        lightboxModal.addEventListener('touchend', function(e) {
+            if (e.touches.length === 0) {
+                if (scale === 1 && !isSingleImageMode) {
+                    const endX = e.changedTouches[0].clientX;
+                    const diff = endX - startX;
+                    if (Math.abs(diff) > 40) {
+                        if (diff < 0) changeLightboxImage(1);
+                        else changeLightboxImage(-1);
+                    }
+                }
+                panning = false;
+            }
+        });
+
+        // Mouse Events (Drag & Wheel Zoom)
+        lightboxModal.addEventListener('mousedown', function(e) {
+            if (e.target === lightboxImg && scale > 1) {
+                startX = e.clientX - pointX;
+                startY = e.clientY - pointY;
+                panning = true;
+            }
+        });
+
+        window.addEventListener('mousemove', function(e) {
+            if (!panning || scale === 1) return;
+            pointX = e.clientX - startX;
+            pointY = e.clientY - startY;
+            updateTransform();
+        });
+
+        window.addEventListener('mouseup', function() {
+            panning = false;
+        });
+
+        lightboxModal.addEventListener('wheel', function(e) {
+            e.preventDefault();
+            const zoomIntensity = 0.1;
+            if (e.deltaY < 0) {
+                scale = Math.min(scale + zoomIntensity, 4);
+            } else {
+                scale = Math.max(scale - zoomIntensity, 1);
+                if (scale === 1) resetZoom();
+            }
+            updateTransform();
+        }, { passive: false });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (lightboxModal.classList.contains('active')) {
+                if (!isSingleImageMode) {
+                    if (e.key === 'ArrowRight') changeLightboxImage(1);
+                    else if (e.key === 'ArrowLeft') changeLightboxImage(-1);
+                }
+                if (e.key === 'Escape') closeLightbox();
+            }
+        });
 
         document.addEventListener("DOMContentLoaded", function() {
             showPage(1);
@@ -1216,65 +1270,6 @@
                 const overlay = document.getElementById('moreOverlay');
                 if (overlay) overlay.innerText = "+" + (totalImgs - 4);
             }
-
-            const modal = document.getElementById('lightboxModal');
-            let startX = 0;
-            let endX = 0;
-            let isDragging = false;
-
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) closeLightbox();
-            });
-
-            modal.addEventListener('touchstart', function(e) {
-                startX = e.touches[0].clientX;
-            }, { passive: true });
-
-            modal.addEventListener('touchend', function(e) {
-                endX = e.changedTouches[0].clientX;
-                handleSwipe();
-            }, { passive: true });
-
-            modal.addEventListener('mousedown', function(e) {
-                isDragging = true;
-                startX = e.clientX;
-            });
-
-            modal.addEventListener('mouseup', function(e) {
-                if (!isDragging) return;
-                isDragging = false;
-                endX = e.clientX;
-                handleSwipe();
-            });
-
-            modal.addEventListener('mouseleave', function() {
-                isDragging = false;
-            });
-
-            function handleSwipe() {
-            // ប្រសិនបើកំពុងបើករូបភាពទោល (ផែនទី ឬ QR Code) មិនបាច់ធ្វើការដូរកែប្រែឡើយ
-            if (isSingleImageMode) return;
-
-            const diffX = endX - startX;
-            const threshold = 30;
-            if (Math.abs(diffX) > threshold) {
-                if (diffX < 0) {
-                    changeLightboxImage(1);
-                } else {
-                    changeLightboxImage(-1);
-                }
-            }
-        }
-
-            document.addEventListener('keydown', function(e) {
-                if (modal.classList.contains('active')) {
-                    if (!isSingleImageMode) {
-                        if (e.key === 'ArrowRight') changeLightboxImage(1);
-                        else if (e.key === 'ArrowLeft') changeLightboxImage(-1);
-                    }
-                    if (e.key === 'Escape') closeLightbox();
-                }
-            });
         });
 
         // ================= មេអំបៅវិលចប់ ផ្ទុះបេះដូងភ្លាមៗចំកន្លែងពិតប្រាកដ និងគ្មានការឈប់សម្រាក (No Pause) =================
@@ -1329,7 +1324,6 @@
                         popSound.play().catch(err => console.log("Sound play error:", err));
                     }
 
-                    // កំណត់ទីតាំងកណ្តាលពិតប្រាកដរបស់មេអំបៅ (ទំហំកាត 50x50 ដូច្នេះកណ្តាលគឺ +25)
                     const centerX = bfObj.x + 25;
                     const centerY = bfObj.y + 25;
                     const startAngle = bfObj.angle;
@@ -1344,14 +1338,11 @@
                         const progress = Math.min(elapsed / spinDuration, 1);
 
                         spinDegree = progress * totalSpin;
-                        
-                        // ពេលវិលត្រូវធានាថាកូអរដោនេកណ្តាលស្របគ្នាបេះបិទ
                         div.style.transform = `translate3d(${centerX - 25}px, ${centerY - 25}px, 0) rotate(${startAngle + spinDegree}deg) scale(1)`;
 
                         if (progress < 1) {
                             requestAnimationFrame(spinPhase);
                         } else {
-                            // វិលចប់ភ្លាម លាក់មេអំបៅ ហើយបញ្ចេញរូបបេះដូងផ្ទុះភ្លាមៗនៅចំកន្លែងកណ្តាលនោះ (No Pause)
                             div.style.opacity = '0';
                             startHeartExplosion(centerX, centerY);
                         }
@@ -1369,7 +1360,6 @@
                             particle.innerHTML = `<svg viewBox="0 0 24 24" style="width:100%; height:100%; fill:url(#${activeGradId}); filter: drop-shadow(0 0 3px ${bfObj.palette.stops[1]});">
                                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                             </svg>`;
-                            // particle ត្រូវដកចេញពាក់កណ្តាលទំហំខ្លួនឯង (70px / 2 = 35px) ដើម្បីឱ្យចេញចំកណ្តាលពិតប្រាកដ
                             particle.style.left = (currentX - 35) + 'px';
                             particle.style.top = (currentY - 35) + 'px';
                             bfContainer.appendChild(particle);
@@ -1418,7 +1408,6 @@
                     }
 
                     function startNewButterflyAppearance() {
-                        // កំណត់ទីតាំងថ្មីដោយស្ងៀមស្ងាត់នៅកន្លែងផ្សេង
                         bfObj.x = Math.random() * (window.innerWidth - 60);
                         bfObj.y = Math.random() * (window.innerHeight - 60);
                         bfObj.vx = (Math.random() - 0.5) * 1.5;
@@ -1470,23 +1459,16 @@
                             <stop offset="100%" stop-color="${p.stops[3]}" />
                         </linearGradient>
                     </defs>
-
-                    <!-- ស្លាបឆ្វេង -->
                     <path d="M30 30 C15 5 0 10 5 30 C0 45 15 55 30 40 Z" fill="url(#${gradId})" stroke="#111" stroke-width="1.5"/>
                     <path d="M30 32 C18 15 8 18 10 32 C6 42 18 48 30 38 Z" fill="#222" opacity="0.75"/>
                     <circle cx="15" cy="25" r="2.5" fill="#fff"/>
                     <circle cx="12" cy="35" r="2" fill="#ffdf73"/>
-                    
-                    <!-- ស្លាបស្តាំ -->
                     <path d="M30 30 C45 5 60 10 55 30 C60 45 45 55 30 40 Z" fill="url(#${gradId})" stroke="#111" stroke-width="1.5"/>
                     <path d="M30 32 C42 15 52 18 50 32 C54 42 42 48 30 38 Z" fill="#222" opacity="0.75"/>
                     <circle cx="45" cy="25" r="2.5" fill="#fff"/>
                     <circle cx="48" cy="35" r="2" fill="#ffdf73"/>
-
-                    <!--ដងខ្លួន និងក្បាលមេអំបៅ-->
                     <ellipse cx="30" cy="32" rx="2" ry="10" fill="#1f1100"/>
                     <circle cx="30" cy="20" r="2.5" fill="#1f1100"/>
-                    <!-- ការនេញ (Antennae) -->
                     <path d="M30 18 Q 24 10 20 12" fill="none" stroke="#1f1100" stroke-width="1.2"/>
                     <path d="M30 18 Q 36 10 40 12" fill="none" stroke="#1f1100" stroke-width="1.2"/>
                 </svg>`;
