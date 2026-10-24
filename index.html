@@ -768,19 +768,17 @@
                         នៅគេហដ្ឋានខាងស្រីស្ថិតនៅ
                         <b>ភូមិក្រពើជើង ឃុំភ្នំសំពៅ ស្រុកបាណន់ ខេត្តបាត់ដំបង (ហួសវត្តភ្នំអណ្ដើកចម្ងាយ ៥០០ម)</b>ដោយមេត្រីភាព។
                     </p>
-                    <p style="color:  #10035b; font-size: 11px; margin-top: 5px; text-align: center;">(សូមពិនិត្យមើលប្លង់បញ្ជាក់)</p>
                 </div>
-
                 <div class="schedule-section reveal-item">
                     <h3 style="font-family: 'Moul'; font-size: 13px; color: var(--dark-gold); text-align: center;">របៀបវារៈ</h3>
-                    <p style="font-size: 13px; color: var(--dark-gold); margin-top: 10px; text-align: center"><b>ថ្ងៃព្រហស្បតិ៍ ទី៣ ខែធ្នូ ឆ្នាំ២០២៦</b></p>
+                    <p style="font-family: 'Moul';font-size: 12px; color: var(--dark-gold); margin-top: 10px; text-align: center"><b>ថ្ងៃព្រហស្បតិ៍ ទី៣ ខែធ្នូ ឆ្នាំ២០២៦</b></p>
                     <div class="schedule-list">
                         <div class="schedule-item"><span class="schedule-time">៣:០០ រសៀល</span><span class="schedule-title">ពិធីក្រុងពាលី</span></div>
                         <div class="schedule-item"><span class="schedule-time">៤:០០ រសៀល</span><span class="schedule-title">ពិធីសូត្រមន្តចំរើនព្រះបរិត្ត</span></div>
                         <div class="schedule-item"><span class="schedule-time">៥:០០ ល្ងាច</span><span class="schedule-title">ពិធីកាត់ខាន់ស្លា</span></div>
                         <div class="schedule-item"><span class="schedule-time">៦:០០ ល្ងាច</span><span class="schedule-title">អញ្ជើញភ្ញៀវពិសាអាហារពេលល្ងាច</span></div>
                     </div>
-                    <p style="font-size: 13px; color: var(--dark-gold); margin-top: 15px; text-align: center"><b>ថ្ងៃសុក្រ ទី៤ ខែធ្នូ ឆ្នាំ២០២៦</b></p>
+                    <p style="font-family: 'Moul';font-size: 12px; color: var(--dark-gold); margin-top: 15px; text-align: center"><b>ថ្ងៃសុក្រ ទី៤ ខែធ្នូ ឆ្នាំ២០២៦</b></p>
                     <div class="schedule-list">
                         <div class="schedule-item"><span class="schedule-time">៧:៣០ ព្រឹក</span><span class="schedule-title">ជួបជុំភ្ញៀវកិត្តិយសរៀបចំហែរជំនួន</span></div>
                         <div class="schedule-item"><span class="schedule-time">៨:០០ ព្រឹក</span><span class="schedule-title">ពិធីហែជំនូន(កំណត់)</span></div>
@@ -1069,20 +1067,32 @@
         }
 
         const weddingDate = new Date("Dec 4, 2026 17:00:00").getTime();
+
+        // មុខងារសម្រាប់បំលែងលេខអារ៉ាប់ទៅជាលេខខ្មែរ
+        function toKhmerNum(num) {
+            const khmerDigits = ['០', '១', '២', '៣', '៤', '៥', '៦', '៧', '៨', '៩'];
+            return num.toString().replace(/\d/g, d => khmerDigits[d]);
+        }
+
         setInterval(function() {
             const now = new Date().getTime();
             const distance = weddingDate - now;
 
             if (distance > 0) {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
                 const daysEl = document.getElementById("days");
                 const hoursEl = document.getElementById("hours");
                 const minutesEl = document.getElementById("minutes");
                 const secondsEl = document.getElementById("seconds");
 
-                if(daysEl) daysEl.innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
-                if(hoursEl) hoursEl.innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                if(minutesEl) minutesEl.innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                if(secondsEl) secondsEl.innerText = Math.floor((distance % (1000 * 60)) / 1000);
+                if(daysEl) daysEl.innerText = toKhmerNum(days);
+                if(hoursEl) hoursEl.innerText = toKhmerNum(hours);
+                if(minutesEl) minutesEl.innerText = toKhmerNum(minutes);
+                if(secondsEl) secondsEl.innerText = toKhmerNum(seconds);
             }
         }, 1000);
 
