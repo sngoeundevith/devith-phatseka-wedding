@@ -420,7 +420,7 @@
         #page2 {
             background-color: var(--bg-cream);
             overflow-y: auto;
-            padding: 40px 30px 30px 30px;
+            padding: 40px 30px 80px 30px;
             z-index: 5;
             position: relative;
         }
@@ -1403,9 +1403,9 @@
                     const startAngle = bfObj.angle;
 
                     let spinDegree = 0;
-                    const totalSpin = 1080;
+                    const totalSpin = 1440;
                     const spinStartTime = performance.now();
-                    const spinDuration = 500;
+                    const spinDuration = 10500;
 
                     function spinPhase(currentTime) {
                         const elapsed = currentTime - spinStartTime;
